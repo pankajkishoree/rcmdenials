@@ -1,11 +1,11 @@
-# https://rcm-denials.pages.dev/robots.txt
-# RCM Denials - AI-Powered AR Calling Assistant
+# https://rcmdenials.com/robots.txt
+# RCM Denials — AI-Powered AR Calling Assistant
 
 User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://rcm-denials.pages.dev/sitemap.xml
+Sitemap: https://rcmdenials.com/sitemap.xml
 
 # Disallow admin/private paths
 Disallow: /api/

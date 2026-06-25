@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="hsl(222,28%,10%)"/>
+      <stop offset="100%" stop-color="hsl(222,28%,7%)"/>
+    </linearGradient>
+    <linearGradient id="teal" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="hsl(174,85%,55%)"/>
+      <stop offset="100%" stop-color="hsl(174,95%,38%)"/>
+    </linearGradient>
+  </defs>
+  <!-- Background rounded square -->
+  <rect width="32" height="32" rx="7" fill="url(#bg)"/>
+  <!-- Shield shape -->
+  <path d="M16 4 L24 7.5 L24 16 C24 20.5 20.5 24.2 16 26 C11.5 24.2 8 20.5 8 16 L8 7.5 Z" fill="url(#teal)" opacity="0.18"/>
+  <path d="M16 5.5 L23 8.5 L23 16 C23 19.8 20 23.2 16 24.8 C12 23.2 9 19.8 9 16 L9 8.5 Z" stroke="url(#teal)" stroke-width="1.2" fill="none"/>
+  <!-- Checkmark -->
+  <polyline points="12,16 15,19 20,13" stroke="url(#teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>
