@@ -492,6 +492,7 @@ body {
 .module-tabs {
   display: flex;
   align-items: center;
+  flex-wrap: nowrap;
   gap: 2px;
   padding: 12px 20px 0;
   border-bottom: 1px solid var(--border-subtle);
@@ -500,6 +501,12 @@ body {
   top: 0;
   z-index: 50;
   flex-shrink: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.module-tabs::-webkit-scrollbar {
+  display: none;
 }
 
 .tab-btn {
@@ -2506,6 +2513,9 @@ button:focus-visible,
   .module-tabs::-webkit-scrollbar {
     display: none;
   }
+  .header-nav {
+    display: none !important;
+  }
   .header-search {
     max-width: 200px;
   }
@@ -2522,6 +2532,9 @@ button:focus-visible,
     width: 34px;
     height: 34px;
     font-size: 16px;
+  }
+  #btnAnalytics, #btnHelp {
+    display: none;
   }
   .welcome-icon {
     font-size: 44px;
@@ -2591,20 +2604,33 @@ button:focus-visible,
     font-size: 13px;
   }
   .logo-icon {
-    font-size: 18px;
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
   }
   .header-search {
-    max-width: 120px;
     flex: 1;
+    max-width: none;
   }
   .header-search input {
     height: 32px;
     font-size: 12px;
     padding: 0 8px 0 28px;
   }
-  .search-icon {
-    left: 6px;
+  .header-search .search-icon {
+    left: 8px;
     font-size: 12px;
+  }
+  .header-actions {
+    gap: 2px;
+  }
+  .btn-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 15px;
+  }
+  #btnNewCall {
+    display: none;
   }
   .module-tabs {
     padding: 6px 10px 0;
