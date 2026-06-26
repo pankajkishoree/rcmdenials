@@ -871,12 +871,13 @@
   totalCount.textContent = allCards.length;
   visibleCount.textContent = allCards.length;
 
+  const initialCounts = { all: allCards.length, co: coCards.length, pr: prCards.length, oa: oaCards.length };
   let activeFilter = 'all';
 
   function updateCounts() {
     let visible = 0;
     cards.forEach(function(card) {
-      if (card.style.display !== 'none') visible++;
+      if (card.parentElement) visible++;
     });
     visibleCount.textContent = visible;
     noResults.style.display = visible === 0 ? 'block' : 'none';
@@ -940,12 +941,9 @@
     // Hide/show sections based on filter
     sections.forEach(section => {
         const category = section.getAttribute('data-category');
-        const sectionCards = section.querySelectorAll('.denial-code-card');
-        let hasVisible = false;
-        sectionCards.forEach(c => {
-          // Check if the card is actually displayed (not hidden by search/filter)
-          if (c.style.display !== 'none') hasVisible = true;
-        });
+        const grid = section.querySelector('.denial-codes-grid');
+        const sectionCards = grid ? grid.querySelectorAll('.denial-code-card') : [];
+        const hasVisible = sectionCards.length > 0;
         section.style.display = (activeFilter === 'all' || activeFilter === category) && hasVisible ? 'block' : 'none';
     });
 

@@ -4133,6 +4133,21 @@ function initAISidebar() {
   });
 }
 
+function showTypingIndicator() {
+  const container = document.getElementById('aiMessages');
+  const div = document.createElement('div');
+  div.className = 'ai-msg ai-msg-assistant';
+  div.id = 'typingIndicator';
+  div.innerHTML = '<div class="ai-typing-indicator"><span></span><span></span><span></span></div>';
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+  return div;
+}
+
+function removeTypingIndicator(el) {
+  if (el && el.parentNode) el.remove();
+}
+
 function sendAIMessage() {
   const input = document.getElementById('aiInput');
   const text = input.value.trim();
@@ -4142,20 +4157,46 @@ function sendAIMessage() {
   input.value = '';
   input.style.height = 'auto';
 
-  setTimeout(() => {
-    const response = getAIResponse(text);
-    addAIMessage('assistant', response);
+  const typingEl = showTypingIndicator();
 
-    // Auto-trigger decision tree if scenario matches
-    const textLower = text.toLowerCase();
-    const matched = DECISION_TREE.find(s => s.keywords.some(k => textLower.includes(k)));
-    if (matched && selectedScenario !== matched.id) {
-      addChips([`View ${matched.name} in Decision Tree →`], () => {
-        switchTab('decision');
-        selectScenario(matched.id);
-      });
+  setTimeout(() => {
+    removeTypingIndicator(typingEl);
+    try {
+      const response = getAIResponse(text);
+      if (typeof response === 'object' && response.html) {
+        addAIMessage('assistant', response.html);
+        const followUpRaw = response.followUp;
+        const chips = Array.isArray(followUpRaw) ? [...followUpRaw] : (followUpRaw ? [followUpRaw] : []);
+        if (response.link) {
+          chips.push(`Open page →`);
+        }
+        if (chips.length) {
+          addChips(chips, (label) => {
+            if (response.link && label.includes('page →')) {
+              window.location.href = response.link;
+              return;
+            }
+            document.getElementById('aiInput').value = label;
+            sendAIMessage();
+          });
+        }
+      } else {
+        addAIMessage('assistant', response);
+      }
+
+      const textLower = text.toLowerCase();
+      const matched = DECISION_TREE.find(s => s.keywords.some(k => textLower.includes(k)));
+      if (matched && selectedScenario !== matched.id) {
+        addChips([`View ${matched.name} in Decision Tree →`], () => {
+          switchTab('decision');
+          selectScenario(matched.id);
+        });
+      }
+    } catch (err) {
+      console.error('AI Error:', err);
+      addAIMessage('assistant', `<div class="ai-card ai-card-response"><div class="ai-card-header">🤖 <strong>AI Guidance</strong></div><div class="ai-card-body"><div class="ai-step">→ Document exactly what the rep said</div><div class="ai-step">→ Use the Decision Tree for scenario-specific guidance</div><div class="ai-step">→ Ask for rep name + reference number before proceeding</div></div></div>`);
     }
-  }, 600);
+  }, 800);
 }
 
 function sendQuickPrompt(text) {
@@ -4163,31 +4204,526 @@ function sendQuickPrompt(text) {
   sendAIMessage();
 }
 
+const SENTIMENT_FRUSTRATION = [
+  'frustrated', 'angry', 'ridiculous', 'unacceptable', 'terrible', 'worst',
+  'absolutely not', 'this is absurd', 'you have got to be kidding', 'waste of time',
+  'incompetent', 'furious', 'disgusted', 'outraged', 'infuriated', 'livid',
+  'fed up', 'sick of this', 'had it', 'done with this'
+];
+
+const SENTIMENT_URGENCY = [
+  'urgent', 'emergency', 'asap', 'immediately', 'right now', 'critical',
+  'deadline today', 'due today', 'expedite', 'rush', 'time sensitive',
+  'past deadline', 'overdue', 'late', 'expiring', 'last chance', 'final notice'
+];
+
+const CPT_LOOKUP = {
+  '99213': { desc: 'Office visit, established patient, low complexity', rvu: 1.3, specialty: 'Primary Care' },
+  '99214': { desc: 'Office visit, established patient, moderate complexity', rvu: 2.0, specialty: 'Primary Care' },
+  '99215': { desc: 'Office visit, established patient, high complexity', rvu: 2.8, specialty: 'Primary Care' },
+  '99203': { desc: 'Office visit, new patient, low complexity', rvu: 1.6, specialty: 'Primary Care' },
+  '99204': { desc: 'Office visit, new patient, moderate complexity', rvu: 2.4, specialty: 'Primary Care' },
+  '99205': { desc: 'Office visit, new patient, high complexity', rvu: 3.2, specialty: 'Primary Care' },
+  '93000': { desc: 'Electrocardiogram, 12-lead, with interpretation', rvu: 0.6, specialty: 'Cardiology' },
+  '93306': { desc: 'Transthoracic echocardiography, complete', rvu: 2.9, specialty: 'Cardiology' },
+  '70553': { desc: 'MRI brain, without and with contrast', rvu: 3.0, specialty: 'Radiology' },
+  '73721': { desc: 'MRI lower extremity joint, without contrast', rvu: 1.8, specialty: 'Radiology' },
+  '27447': { desc: 'Total knee arthroplasty', rvu: 15.0, specialty: 'Orthopedics' },
+  '29881': { desc: 'Knee arthroscopy, meniscectomy', rvu: 5.0, specialty: 'Orthopedics' },
+  '43239': { desc: 'Upper GI endoscopy, biopsy', rvu: 4.5, specialty: 'Gastroenterology' },
+  '45378': { desc: 'Colonoscopy, diagnostic', rvu: 4.5, specialty: 'Gastroenterology' },
+  '90834': { desc: 'Psychotherapy, 45 minutes', rvu: 2.0, specialty: 'Psychiatry' },
+  '90837': { desc: 'Psychotherapy, 60 minutes', rvu: 2.8, specialty: 'Psychiatry' },
+  '97110': { desc: 'Therapeutic exercises, each 15 min', rvu: 0.7, specialty: 'Physical Therapy' },
+  '97530': { desc: 'Therapeutic activities, each 15 min', rvu: 0.9, specialty: 'Physical Therapy' },
+  '90471': { desc: 'Immunization administration, first vaccine', rvu: 0.5, specialty: 'Primary Care' },
+  '90715': { desc: 'Tdap vaccine, intramuscular', rvu: 1.0, specialty: 'Primary Care' },
+};
+
+const PAYER_TIPS = {
+  medicare: {
+    timelyFiling: '1 year from date of service',
+    appealDeadline: '120 days from Medicare Summary Notice',
+    topDenials: ['CO-50', 'CO-57', 'CO-97', 'CO-253'],
+    tip: 'Medicare claims follow strict LCD/NCD guidelines. Always reference the specific coverage policy when appealing.',
+  },
+  medicaid: {
+    timelyFiling: '90 days to 1 year (varies by state)',
+    appealDeadline: '30-60 days (varies by state)',
+    topDenials: ['CO-50', 'CO-167', 'CO-349'],
+    tip: 'Medicaid rules vary significantly by state. Always check your state-specific Medicaid provider manual.',
+  },
+  unitedhealthcare: {
+    timelyFiling: '365 days initial, 180 days appeal',
+    appealDeadline: '180 days from denial',
+    topDenials: ['CO-50', 'CO-197', 'CO-4', 'CO-29'],
+    tip: 'UHC uses advanced claim editing. Review their claim editing guidelines before calling.',
+  },
+  aetna: {
+    timelyFiling: '365 days initial, 180 days appeal',
+    appealDeadline: '180 days from denial',
+    topDenials: ['CO-50', 'CO-197', 'CO-4', 'CO-11'],
+    tip: 'Aetna has specific clinical policies by procedure. Check their clinical guidelines portal.',
+  },
+  cigna: {
+    timelyFiling: '365 days initial, 180 days appeal',
+    appealDeadline: '180 days from denial',
+    topDenials: ['CO-50', 'CO-197', 'CO-4', 'CO-29'],
+    tip: 'Cigna uses Evernorth for pharmacy claims. Medical claims follow separate editorial policies.',
+  },
+  anthem: {
+    timelyFiling: '365 days initial, 180 days appeal',
+    appealDeadline: '180 days from denial',
+    topDenials: ['CO-50', 'CO-197', 'CO-4', 'CO-29'],
+    tip: 'Anthem state-specific rules apply. Verify which Anthem entity covers the member.',
+  },
+  bluecross: {
+    timelyFiling: '365 days initial, 180 days appeal',
+    appealDeadline: '180 days from denial',
+    topDenials: ['CO-50', 'CO-197', 'CO-4', 'CO-29'],
+    tip: 'BCBS plans are independently operated. Always identify the specific BCBS entity.',
+  },
+  humana: {
+    timelyFiling: '365 days initial, 180 days appeal',
+    appealDeadline: '180 days from denial',
+    topDenials: ['CO-50', 'CO-197', 'CO-4', 'CO-29'],
+    tip: 'Humana Medicare Advantage plans follow CMS guidelines. Commercial plans have separate policies.',
+  },
+  tricare: {
+    timelyFiling: '1 year from date of service',
+    appealDeadline: '90 days from initial determination',
+    topDenials: ['CO-50', 'CO-4', 'CO-11'],
+    tip: 'TRICARE claims go through the Managed Care Support Contractor. Peer-to-peer reviews are available for medical necessity.',
+  },
+  default: {
+    timelyFiling: 'Check payer contract for specific timely filing limits',
+    appealDeadline: 'Typically 180 days from denial',
+    topDenials: [],
+    tip: 'Always verify the specific payer contract for filing limits and appeal deadlines.',
+  },
+};
+
+const APPEAL_TEMPLATES = [
+  {
+    id: 'first-level',
+    name: 'First-Level Appeal Letter',
+    icon: '📝',
+    generate: (session) => `
+Date: ${new Date().toLocaleDateString()}
+
+RE: First-Level Appeal — Claim #${session.claim || 'TBD'}
+Payer: ${session.payerName}
+Member ID: ${session.memberId || 'TBD'}
+Date of Service: ${session.dos}
+Denial Code: ${session.denial}
+Amount Billed: ${session.billed}
+
+Dear Appeals Department:
+
+I am writing to formally appeal the denial of the above-referenced claim. The denial code ${session.denial} (${session.denialDesc}) does not accurately reflect the clinical and billing circumstances of this claim.
+
+Clinical Justification:
+The services rendered met all criteria for coverage under the patient's benefit plan. The diagnosis codes support the medical necessity of the procedure performed, and all billing guidelines were followed.
+
+Supporting Documentation:
+- Medical records supporting medical necessity
+- Relevant clinical guidelines and policies
+- Proof of timely filing (if applicable)
+
+We respectfully request that this claim be reconsidered and paid in full. Please process this appeal within the required timeframe and provide written notification of your decision.
+
+Sincerely,
+[Provider Name]
+NPI: [NPI Number]
+Tax ID: [Tax ID]
+Reference: ${session.claim || 'TBD'}-APPEAL-1
+    `.trim(),
+  },
+  {
+    id: 'second-level',
+    name: 'Second-Level / IMR Appeal',
+    icon: '⚖️',
+    generate: (session) => `
+Date: ${new Date().toLocaleDateString()}
+
+RE: Second-Level Appeal / Independent Medical Review Request — Claim #${session.claim || 'TBD'}
+Payer: ${session.payerName}
+Member ID: ${session.memberId || 'TBD'}
+
+Dear Appeals Department:
+
+This letter constitutes a second-level appeal of the denial referenced above. The first-level appeal was denied on [DATE], and we believe this determination was made in error.
+
+Basis for Appeal:
+1. The denial is inconsistent with accepted medical necessity guidelines
+2. The clinical documentation supports the appropriateness of the services rendered
+3. The denial code ${session.denial} (${session.denialDesc}) is not applicable to the services provided
+
+Independent Medical Review:
+We additionally request that this matter be referred to an Independent Medical Review Organization (IRO) as permitted under [State] insurance regulations.
+
+Please process this second-level appeal and provide the IRO referral information.
+
+Sincerely,
+[Provider Name]
+NPI: [NPI Number]
+Tax ID: [Tax ID]
+Reference: ${session.claim || 'TBD'}-APPEAL-2
+    `.trim(),
+  },
+  {
+    id: 'fax-cover',
+    name: 'Fax Cover Sheet',
+    icon: '📠',
+    generate: (session) => `
+═══════════════════════════════════════
+FAX COVER SHEET
+═══════════════════════════════════════
+Date: ${new Date().toLocaleDateString()}
+To: ${session.payerName} — Appeals/Fax Department
+From: [Provider Name]
+Fax: [Your Fax Number]
+Pages: [Include page count]
+
+Re: Claim Appeal — Claim #${session.claim || 'TBD'}
+Member ID: ${session.memberId || 'TBD'}
+Date of Service: ${session.dos}
+Denial Code: ${session.denial}
+Amount: ${session.billed}
+
+═══════════════════════════════════════
+CONFIDENTIAL MEDICAL INFORMATION
+═══════════════════════════════════════
+This fax contains confidential medical information protected under HIPAA. If you are not the intended recipient, please notify us immediately and destroy all copies.
+
+Please confirm receipt of this fax within 2 business days.
+    `.trim(),
+  },
+];
+
+function getSpecialtyFromInput(input) {
+  const lower = input.toLowerCase();
+  try {
+    for (const sp of SPECIALTY_PAGES) {
+      if (sp.keywords.toLowerCase().includes(lower) || sp.name.toLowerCase().includes(lower)) {
+        return sp;
+      }
+    }
+  } catch (e) {}
+  return null;
+}
+
+function getSpecialtyResponse(sp) {
+  return {
+    html: `<div class="ai-card"><div class="ai-card-info">🏥 <strong>${sp.name} CPT Codes</strong><br>View the complete ${sp.name} billing guide with common CPT codes, denial patterns, and payer-specific tips.</div><div class="ai-card-response">→ <a href="specialties/${sp.slug}.html" class="ai-link">Open ${sp.name} CPT Codes Guide</a></div></div>`,
+    followUp: 'Would you like to see specific CPT codes for a procedure?',
+    link: `specialties/${sp.slug}.html`,
+  };
+}
+
+function getScenarioResponse(scenario) {
+  return {
+    html: `<div class="ai-card"><div class="ai-card-info">${scenario.icon} <strong>${scenario.name}</strong><br>${scenario.desc}</div><div class="ai-card-response">→ Recommended actions: ${scenario.actions.join(', ')}</div><div class="ai-card-warning">⏱ Timeline: ${scenario.timeline}</div></div>`,
+    followUp: scenario.ask ? `Key question to ask: "${scenario.ask[0]}"` : null,
+    link: null,
+  };
+}
+
+function detectSentiment(input) {
+  const lower = input.toLowerCase();
+  try {
+    if (SENTIMENT_FRUSTRATION.some(s => lower.includes(s))) return 'frustration';
+    if (SENTIMENT_URGENCY.some(s => lower.includes(s))) return 'urgency';
+  } catch (e) {}
+  return null;
+}
+
+function getSentimentResponse(sentiment) {
+  if (sentiment === 'frustration') {
+    return {
+      html: `<div class="ai-card"><div class="ai-card-warning">😤 <strong>Frustration Detected</strong><br>Take a breath — you're on the right track. Let's stay focused and methodical.</div><div class="ai-card-response">→ Stay calm and professional on the call<br>→ Ask for a supervisor if needed<br>→ Document everything — you're building a case</div></div>`,
+      followUp: 'Remember: staying professional strengthens your position.',
+      link: null,
+    };
+  }
+  if (sentiment === 'urgency') {
+    return {
+      html: `<div class="ai-card"><div class="ai-card-warning">⚡ <strong>Urgency Detected</strong><br>Let's prioritize the most critical actions right now.</div><div class="ai-card-response">→ Focus on deadlines and escalation triggers<br>→ Request expedited processing if applicable<br>→ Document the urgency for regulatory purposes</div></div>`,
+      followUp: 'What is the specific deadline you are facing?',
+      link: null,
+    };
+  }
+  return null;
+}
+
+function detectDenialCode(input) {
+  const upper = input.toUpperCase();
+  try {
+    for (const d of DENIAL_CODES) {
+      if (upper.includes(d.code)) return d;
+    }
+  } catch (e) {}
+  return null;
+}
+
+function getDenialCodeResponse(code, input) {
+  return {
+    html: `<div class="ai-card"><div class="ai-card-info">📋 <strong>Denial Code ${code.code}</strong><br>${code.desc}</div><div class="ai-card-response">→ Verify the denial reason in the payer system<br>→ Check if supporting documentation can overturn this<br>→ Confirm appeal deadline</div></div>`,
+    followUp: `Do you have the appeal deadline and address for ${code.code}?`,
+    link: null,
+  };
+}
+
+function detectCPTCode(input) {
+  const match = input.match(/\b(9[0-9]{4}|2[0-9]{4}|4[0-9]{4}|7[0-9]{4})\b/);
+  if (match) {
+    try {
+      if (CPT_LOOKUP[match[0]]) return match[0];
+    } catch (e) {}
+  }
+  return null;
+}
+
+function getCPTResponse(code) {
+  try {
+    const info = CPT_LOOKUP[code];
+    if (!info) return null;
+    return {
+      html: `<div class="ai-card"><div class="ai-card-info">🔢 <strong>CPT ${code}</strong> — ${info.desc}<br>RVU: ${info.rvu} · Specialty: ${info.specialty}</div><div class="ai-card-response">→ Verify this code matches the documentation<br>→ Check for required modifiers<br>→ Confirm payer-specific editing rules</div></div>`,
+      followUp: 'Is this code being denied, or do you need modifier guidance?',
+      link: null,
+    };
+  } catch (e) {
+    return null;
+  }
+}
+
+function detectICDCode(input) {
+  const match = input.match(/\b[A-Z][0-9]{2}(?:\.[0-9]{1,4})?\b/);
+  if (match) {
+    const code = match[0];
+    if (/^[A-TV-Z][0-9]{2}/.test(code)) return code;
+  }
+  return null;
+}
+
+function getICDResponse(code) {
+  return {
+    html: `<div class="ai-card"><div class="ai-card-info">🔬 <strong>ICD-10 Code Detected: ${code}</strong><br>Verify this diagnosis code supports the procedure billed.</div><div class="ai-card-response">→ Confirm the code is active for the DOS<br>→ Check LCD/NCD coverage policies<br>→ Verify diagnosis pointer on the claim</div></div>`,
+    followUp: `Does the payer's policy cover diagnosis ${code} for the procedure billed?`,
+    link: null,
+  };
+}
+
+function getEscalationAdvice() {
+  return {
+    html: `<div class="ai-card"><div class="ai-card-warning">🔺 <strong>Escalation Protocol</strong><br>When requesting escalation:</div><div class="ai-card-response">→ State clearly: "I need to speak with a supervisor"<br>→ Get supervisor name + direct extension<br>→ Ask for a case/reference number<br>→ Document the reason for escalation<br>→ Request written confirmation of any decisions</div><div class="ai-card-tips">⚡ Escalation triggers: auth denials, medical necessity disputes, timely filing with proof, credentialing issues, contract disputes over $500</div></div>`,
+    followUp: 'What specific issue are you escalating?',
+    link: null,
+  };
+}
+
+function getPayerTip(payerName) {
+  if (!payerName) return PAYER_TIPS.default;
+  const lower = payerName.toLowerCase();
+  if (lower.includes('medicare') && !lower.includes('advantage')) return PAYER_TIPS.medicare;
+  if (lower.includes('medicaid')) return PAYER_TIPS.medicaid;
+  if (lower.includes('united') || lower.includes('uhc')) return PAYER_TIPS.unitedhealthcare;
+  if (lower.includes('aetna')) return PAYER_TIPS.aetna;
+  if (lower.includes('cigna')) return PAYER_TIPS.cigna;
+  if (lower.includes('anthem')) return PAYER_TIPS.anthem;
+  if (lower.includes('blue cross') || lower.includes('bcbs')) return PAYER_TIPS.bluecross;
+  if (lower.includes('humana')) return PAYER_TIPS.humana;
+  if (lower.includes('tricare')) return PAYER_TIPS.tricare;
+  return PAYER_TIPS.default;
+}
+
 function getAIResponse(input) {
   const lower = input.toLowerCase();
 
-  // Check AI response database
+  const sentiment = detectSentiment(input);
+  if (sentiment) {
+    const sResp = getSentimentResponse(sentiment);
+    if (sResp) return sResp;
+  }
+
+  const denialCode = detectDenialCode(input);
+  if (denialCode) {
+    return getDenialCodeResponse(denialCode, input);
+  }
+
+  const cptCode = detectCPTCode(input);
+  if (cptCode) {
+    const cptResp = getCPTResponse(cptCode);
+    if (cptResp) return cptResp;
+  }
+
+  const icdCode = detectICDCode(input);
+  if (icdCode) {
+    return getICDResponse(icdCode);
+  }
+
+  const specialty = getSpecialtyFromInput(input);
+  if (specialty) {
+    return getSpecialtyResponse(specialty);
+  }
+
   for (const r of AI_RESPONSES) {
     if (r.triggers.some(t => lower.includes(t))) {
-      return `<strong>${r.response.title}</strong><br><pre style="white-space:pre-wrap;font-size:11.5px;margin-top:6px;color:var(--text-secondary)">${r.response.body}</pre>`;
+      return {
+        html: `<div class="ai-card"><div class="ai-card-info"><strong>${r.response.title}</strong><br><pre style="white-space:pre-wrap;font-size:11.5px;margin-top:6px;color:var(--text-secondary)">${r.response.body}</pre></div></div>`,
+        followUp: 'Would you like more specific guidance for this situation?',
+        link: null,
+      };
     }
   }
 
-  // Generic fallback with helpful guidance
-  if (lower.includes('paid') || lower.includes('payment')) {
-    return `<strong>💰 Payment Received</strong><br>→ Verify payment amount matches contracted rate<br>→ Check for underpayment against fee schedule<br>→ Confirm ERA/EOB matches system posting`;
-  }
-  if (lower.includes('pending') || lower.includes('in process')) {
-    return `<strong>⏳ Claim Pending</strong><br>→ Ask for estimated adjudication date<br>→ Get reference number for follow-up<br>→ Note processing timeline for follow-up calendar`;
-  }
-  if (lower.includes('denied') || lower.includes('denial')) {
-    return `<strong>❌ Denial Confirmed</strong><br>→ Get the exact denial reason + remark codes<br>→ Confirm appeal deadline and address<br>→ Document rep name and reference number`;
-  }
-  if (lower.includes('hold') || lower.includes('wait')) {
-    return `<strong>⏸ On Hold</strong><br>→ Estimated hold: check payer IVR stats in Module 4<br>→ Use this time to review checklist questions<br>→ Prepare documentation needed for the call`;
+  const matchedScenario = DECISION_TREE.find(s => s.keywords.some(k => lower.includes(k)));
+  if (matchedScenario) {
+    return getScenarioResponse(matchedScenario);
   }
 
-  return `<strong>🤖 AI Guidance</strong><br>I heard: "${input}"<br><br>→ Document exactly what the rep said<br>→ Use the Decision Tree for scenario-specific guidance<br>→ Ask for rep name + reference number before proceeding`;
+  if (lower.includes('escalat') || lower.includes('supervisor') || lower.includes('manager')) {
+    return getEscalationAdvice();
+  }
+
+  if (lower.includes('template') || lower.includes('letter') || lower.includes('appeal letter') || lower.includes('fax')) {
+    if (callSession) {
+      const templateType = lower.includes('fax') ? 'fax-cover' : lower.includes('second') ? 'second-level' : 'first-level';
+      const template = APPEAL_TEMPLATES.find(t => t.id === templateType);
+      if (template) {
+        return {
+          html: `<div class="ai-card"><div class="ai-card-template">📝 <strong>${template.name}</strong><br><pre style="white-space:pre-wrap;font-size:11px;margin-top:8px;max-height:300px;overflow-y:auto;color:var(--text-secondary)">${template.generate(callSession)}</pre></div></div>`,
+          followUp: 'Would you like a different template version?',
+          link: null,
+        };
+      }
+    } else {
+      return {
+        html: `<div class="ai-card"><div class="ai-card-warning">📝 <strong>Template Available</strong><br>Start a call session first to generate a customized appeal letter template.</div></div>`,
+        followUp: 'Start a call session, then ask for a template.',
+        link: null,
+      };
+    }
+  }
+
+  if (callSession && callSession.payerName) {
+    if (lower.includes('tip') || lower.includes('advice') || lower.includes('help with')) {
+      const tip = getPayerTip(callSession.payerName);
+      return {
+        html: `<div class="ai-card"><div class="ai-card-tips">💡 <strong>Payer Tip: ${callSession.payerName}</strong><br>${tip.tip}<br><br>Timely Filing: ${tip.timelyFiling}<br>Appeal Deadline: ${tip.appealDeadline}</div></div>`,
+        followUp: 'Would you like me to look up specific denial codes for this payer?',
+        link: null,
+      };
+    }
+  }
+
+  if (lower.includes('paid') || lower.includes('payment')) {
+    return {
+      html: `<div class="ai-card"><div class="ai-card-info">💰 <strong>Payment Received</strong></div><div class="ai-card-response">→ Verify payment amount matches contracted rate<br>→ Check for underpayment against fee schedule<br>→ Confirm ERA/EOB matches system posting</div></div>`,
+      followUp: 'Do you suspect an underpayment?',
+      link: null,
+    };
+  }
+  if (lower.includes('pending') || lower.includes('in process')) {
+    return {
+      html: `<div class="ai-card"><div class="ai-card-info">⏳ <strong>Claim Pending</strong></div><div class="ai-card-response">→ Ask for estimated adjudication date<br>→ Get reference number for follow-up<br>→ Note processing timeline for follow-up calendar</div></div>`,
+      followUp: 'What is the estimated processing timeline?',
+      link: null,
+    };
+  }
+  if (lower.includes('denied') || lower.includes('denial')) {
+    return {
+      html: `<div class="ai-card"><div class="ai-card-info">❌ <strong>Denial Confirmed</strong></div><div class="ai-card-response">→ Get the exact denial reason + remark codes<br>→ Confirm appeal deadline and address<br>→ Document rep name and reference number</div></div>`,
+      followUp: 'Can you share the exact denial code?',
+      link: null,
+    };
+  }
+  if (lower.includes('hold') || lower.includes('wait')) {
+    return {
+      html: `<div class="ai-card"><div class="ai-card-info">⏸ <strong>On Hold</strong></div><div class="ai-card-response">→ Use this time to review checklist questions<br>→ Prepare documentation needed for the call<br>→ Review Decision Tree for your scenario</div></div>`,
+      followUp: 'What questions do you want to ask when the rep returns?',
+      link: null,
+    };
+  }
+
+  if (lower.includes('coding') || lower.includes('cpt') || lower.includes('icd')) {
+    return {
+      html: `<div class="ai-card"><div class="ai-card-info">🔢 <strong>Coding Guidance</strong></div><div class="ai-card-response">→ Verify all codes are active for the DOS<br>→ Check for required modifiers<br>→ Confirm diagnosis pointers match line items<br>→ Validate NCCI/PCI edit compliance</div></div>`,
+      followUp: 'What specific code are you asking about?',
+      link: null,
+    };
+  }
+  if (lower.includes('modifier')) {
+    return {
+      html: `<div class="ai-card"><div class="ai-card-info">🏷️ <strong>Modifier Guidance</strong></div><div class="ai-card-response">→ Common modifiers: 25, 59, XS, XU, 76, 77<br>→ Modifier 25: Separate E/M on same day as procedure<br>→ Modifier 59: Distinct procedural service<br>→ Always document why the modifier applies</div></div>`,
+      followUp: 'Which modifier do you need help with?',
+      link: null,
+    };
+  }
+  if (lower.includes('place of service') || lower.includes('pos')) {
+    return {
+      html: `<div class="ai-card"><div class="ai-card-info">📍 <strong>Place of Service</strong></div><div class="ai-card-response">→ POS 11: Office<br>→ POS 22: Outpatient Hospital<br>→ POS 23: Emergency Room<br>→ POS 31: Skilled Nursing Facility<br>→ Verify POS matches the actual service location</div></div>`,
+      followUp: 'Which place of service code is in question?',
+      link: null,
+    };
+  }
+  if (lower.includes('appeal')) {
+    return {
+      html: `<div class="ai-card"><div class="ai-card-info">📝 <strong>Appeal Guidance</strong></div><div class="ai-card-response">→ Request exact appeal deadline and address<br>→ Gather all supporting documentation<br>→ Reference specific clinical guidelines<br>→ Send via certified mail or documented fax<br>→ Keep copies of everything submitted</div></div>`,
+      followUp: 'Would you like me to generate an appeal letter template?',
+      link: null,
+    };
+  }
+  if (lower.includes('network') || lower.includes('in-network') || lower.includes('out of network')) {
+    return {
+      html: `<div class="ai-card"><div class="ai-card-info">🌐 <strong>Network Status</strong></div><div class="ai-card-response">→ Verify provider network status for the DOS<br>→ Check if single case agreement is available<br>→ Review No Surprises Act applicability<br>→ Document patient notification of OON status</div></div>`,
+      followUp: 'Is this an in-network or out-of-network dispute?',
+      link: null,
+    };
+  }
+  if (lower.includes('claim status') || lower.includes('check claim')) {
+    return {
+      html: `<div class="ai-card"><div class="ai-card-info">📊 <strong>Claim Status Check</strong></div><div class="ai-card-response">→ Ask for the exact claim status in the system<br>→ Request the last processing date<br>→ Get the reference number for follow-up<br>→ Confirm if additional info is needed</div></div>`,
+      followUp: 'What is the current status the rep is reporting?',
+      link: null,
+    };
+  }
+  if (lower.includes('credential') || lower.includes('enrollment') || lower.includes('enrolled')) {
+    return {
+      html: `<div class="ai-card"><div class="ai-card-info">🏥 <strong>Credentialing Guidance</strong></div><div class="ai-card-response">→ Verify enrollment effective date<br>→ Check for credentialing gaps<br>→ Request retroactive enrollment if applicable<br>→ Contact provider relations for expedited review</div></div>`,
+      followUp: 'What is the enrollment effective date?',
+      link: null,
+    };
+  }
+  if (lower.includes('balance bill') || lower.includes('balance billing') || lower.includes('patient balance')) {
+    return {
+      html: `<div class="ai-card"><div class="ai-card-info">💵 <strong>Balance Billing</strong></div><div class="ai-card-response">→ Check No Surprises Act applicability<br>→ Verify patient consent for OON services<br>→ Review state balance billing protections<br>→ If protected, balance billing may be prohibited</div></div>`,
+      followUp: 'Is this a surprise out-of-network situation?',
+      link: null,
+    };
+  }
+  if (lower.includes('referral')) {
+    return {
+      html: `<div class="ai-card"><div class="ai-card-info">📋 <strong>Referral Required</strong></div><div class="ai-card-response">→ Check if referral was obtained and on file<br>→ Verify referral validity period<br>→ Request retroactive referral if possible<br>→ Document PCP name and referral number</div></div>`,
+      followUp: 'Was the referral obtained before the date of service?',
+      link: null,
+    };
+  }
+  if (lower.includes('help') || lower.includes('what should i') || lower.includes('guide')) {
+    return {
+      html: `<div class="ai-card"><div class="ai-card-info">🤖 <strong>AI Assistant</strong><br>I can help with:</div><div class="ai-card-response">→ Denial code lookups and guidance<br>→ CPT/ICD code verification<br>→ Payer-specific tips and contact info<br>→ Appeal letter templates<br>→ Escalation protocols<br>→ Decision Tree scenarios<br>→ Specialty-specific billing guidance</div><div class="ai-card-tips">💡 Type what the rep says and I'll guide you in real time!</div></div>`,
+      followUp: 'What specific area do you need help with?',
+      link: null,
+    };
+  }
+
+  const suggestions = DECISION_TREE.slice(0, 5).map(s => `${s.icon} ${s.name}`).join(' · ');
+  return {
+    html: `<div class="ai-card"><div class="ai-card-info">🤖 <strong>AI Guidance</strong><br>I heard: "${input}"</div><div class="ai-card-response">→ Document exactly what the rep said<br>→ Use the Decision Tree for scenario-specific guidance<br>→ Ask for rep name + reference number before proceeding</div><div class="ai-card-tips">💡 Suggested scenarios: ${suggestions}</div></div>`,
+    followUp: 'Try typing the denial code or describing the specific issue.',
+    link: null,
+  };
 }
 
 function addAIMessage(role, html) {
