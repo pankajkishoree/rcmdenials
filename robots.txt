@@ -1,0 +1,15 @@
+# https://rcmdenials.com/robots.txt
+# RCM Denials — AI-Powered AR Calling Assistant
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://rcmdenials.com/sitemap.xml
+
+# Disallow admin/private paths
+Disallow: /api/
+Disallow: /.wrangler/
+
+# Crawl-delay for polite bots
+Crawl-delay: 1

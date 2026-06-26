@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Page Not Found | RCM Denials</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" href="/favicon.png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .page-404 { display:flex; align-items:center; justify-content:center; min-height:100vh; text-align:center; padding:24px; }
+    .page-404-inner { max-width:480px; width:100%; }
+    .page-404-icon { font-size:72px; margin-bottom:16px; animation: float 3s ease-in-out infinite; }
+    .page-404 h1 { font-size:48px; font-weight:800; margin-bottom:8px; color:var(--text-primary); }
+    .page-404 p { font-size:16px; color:var(--text-muted); margin-bottom:32px; }
+    .page-404-actions { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  </style>
+</head>
+<body class="page-404">
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <div class="page-404-inner" id="main-content">
+    <div class="page-404-icon">🔍</div>
+    <h1>404</h1>
+    <p>This page doesn't exist or has been moved.</p>
+    <div class="page-404-actions">
+      <a href="index.html" class="btn btn-primary">Go to App</a>
+      <a href="denial-codes/index.html" class="btn btn-secondary">📋 Denial Codes</a>
+      <a href="about.html" class="btn btn-ghost">About Us</a>
+      <a href="faq.html" class="btn btn-ghost">FAQ</a>
+    </div>
+  </div>
+</body>
+</html>

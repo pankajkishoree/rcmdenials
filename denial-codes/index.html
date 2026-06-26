@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6JRMMNNR40"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-6JRMMNNR40');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Denial Codes Directory | RCM Denials</title>
+  <meta name="description" content="Complete directory of medical billing denial codes including CO, PR, OA, and PI codes. Find detailed resolution guides for each denial code with step-by-step instructions, appeal templates, and prevention strategies." />
+  <meta name="keywords" content="denial codes, CO codes, PR codes, OA codes, medical billing, claim denials, RCM denials, denial management" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://rcmdenials.com/denial-codes/" />
+  <meta property="og:title" content="Denial Codes Directory | RCM Denials" />
+  <meta property="og:description" content="Complete directory of medical billing denial codes with resolution guides, appeal templates, and prevention strategies for AR callers." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rcmdenials.com/denial-codes/" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="../styles.css" />
+  <script src="../nav-enhancement.js" defer></script>
+  <style>
+    .filter-tabs { display:flex; gap:8px; margin-bottom:24px; flex-wrap:wrap; }
+    .filter-tab { padding:8px 20px; border-radius:20px; font-size:13px; font-weight:600; border:1px solid var(--border); background:transparent; color:var(--text-muted); cursor:pointer; transition:all .15s; }
+    .filter-tab:hover { border-color:var(--brand-400); color:var(--text-primary); }
+    .filter-tab.active { background:var(--brand-500); border-color:var(--brand-500); color:#fff; }
+    .result-count { font-size:13px; color:var(--text-muted); margin-bottom:16px; }
+    .no-results { text-align:center; padding:48px 24px; color:var(--text-muted); display:none; }
+    .no-results h3 { font-size:18px; margin-bottom:8px; color:var(--text-primary); }
+    .tag-co { background:rgba(0,212,184,.12); color:var(--brand-400); }
+    .tag-pr { background:rgba(245,158,11,.12); color:#f59e0b; }
+    .tag-oa { background:rgba(139,92,246,.12); color:#8b5cf6; }
+    /* Sorting styles */
+    .sort-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
+    .sort-dropdown { padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-base); color: var(--text-primary); font-size: 13px; }
+    .sort-dropdown:focus { outline: none; border-color: var(--brand-400); }
+  </style>
+</head>
+<body>
+
+<div class="static-page">
+  <header class="static-header">
+    <div class="static-header-content">
+      <a class="logo" href="../index.html">
+        <div class="logo-icon">🏥</div>
+        <span class="logo-text">RCM <span>Denials</span></span>
+      </a>
+      <nav class="static-nav">
+        <a href="../index.html">Home</a>
+        <a href="index.html" class="active">Denial Codes</a>
+        <a href="../about.html">About</a>
+        <a href="../faq.html">FAQ</a>
+        <a href="../contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="static-main">
+    <div class="breadcrumb">
+      <a href="../index.html">Home</a> / <span>Denial Codes</span>
+    </div>
+
+    <header style="margin-bottom: 24px;">
+      <h1 style="font-size:28px; margin-bottom:8px;">📋 Denial Codes Directory</h1>
+      <p style="font-size:14px; color:var(--text-muted);">Comprehensive guides for resolving medical billing denial codes</p>
+    </header>
+
+    <div class="sort-controls">
+      <div class="search-box search-icon-pos" style="flex-grow: 1; max-width: 400px; margin-bottom: 0;">
+        <input type="text" class="search-box" id="denialSearch" placeholder="Search codes by name, number, or category…" style="padding-left:40px;" />
+      </div>
+      <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+        <label for="sortOrder" style="font-size: 13px; color: var(--text-muted);">Sort by:</label>
+        <select id="sortOrder" class="sort-dropdown">
+          <option value="code-asc">Code (A-Z)</option>
+          <option value="code-desc">Code (Z-A)</option>
+          <option value="category-asc">Category (A-Z)</option>
+          <option value="category-desc">Category (Z-A)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="filter-tabs">
+      <button class="filter-tab active" data-filter="all">All Codes <span class="category-count" id="allCount">19</span></button>
+      <button class="filter-tab" data-filter="co">CO Codes <span class="category-count" id="coCount">12</span></button>
+      <button class="filter-tab" data-filter="pr">PR Codes <span class="category-count" id="prCount">7</span></button>
+      <button class="filter-tab" data-filter="oa">OA Codes <span class="category-count" id="oaCount">1</span></button>
+    </div>
+
+    <div class="result-count" id="resultCount">Showing <strong id="visibleCount">19</strong> of <strong id="totalCount">19</strong> codes</div>
+
+    <div id="codesContainer">
+
+      <!-- CO Codes -->
+      <section class="category-section" data-category="co">
+        <div class="category-header">
+          <span class="category-icon">📄</span>
+          <h2 class="category-title">CO Codes — Contractual Obligation</h2>
+          <span class="category-count">12 codes</span>
+        </div>
+        <div class="denial-codes-grid">
+
+          <a href="co-4-denial-code.html" class="denial-code-card" data-code="CO-4" data-category="CO">
+            <div class="denial-code-header">
+              <div class="denial-code-num">CO-4</div>
+              <div class="denial-code-category">Coding Error</div>
+            </div>
+            <div class="denial-code-desc">
+              Procedure code inconsistent with modifier used or a required modifier is missing.
+            </div>
+            <div class="denial-code-meta">
+              <span class="meta-item">⚡ High Priority</span>
+              <span class="meta-item">🔧 Correctable</span>
+            </div>
+          </a>
+
+          <a href="co-11-denial-code.html" class="denial-code-card" data-code="CO-11" data-category="CO">
+            <div class="denial-code-header">
+              <div class="denial-code-num">CO-11</div>
+              <div class="denial-code-category">Diagnosis</div>
+            </div>
+            <div class="denial-code-desc">
+              Diagnosis is missing, incomplete, or invalid for the services billed.
+            </div>
+            <div class="denial-code-meta">
+              <span class="meta-item">⚡ High Priority</span>
+              <span class="meta-item">🔧 Correctable</span>
+            </div>
+          </a>
+
+          <a href="co-16-denial-code.html" class="denial-code-card" data-code="CO-16" data-category="CO">
+            <div class="denial-code-header">
+              <div class="denial-code-num">CO-16</div>
+              <div class="denial-code-category">Missing Info</div>
+            </div>
+            <div class="denial-code-desc">
+              Claim lacks information or has submission/billing error(s) needed for adjudication.
+            </div>
+            <div class="denial-code-meta">
+              <span class="meta-item">⚡ High Priority</span>
+              <span class="meta-item">🔧 Correctable</span>
+            </div>
+          </a>
+
+          <a href="co-18-denial-code.html" class="denial-code-card" data-code="CO-18" data-category="CO">
+            <div class="denial-code-header">
+              <div class="denial-code-num">CO-18</div>
+              <div class="denial-code-category">Duplicate</div>
+            </div>
+            <div class="denial-code-desc">
+              Duplicate claim — the claim is an exact duplicate of a previously processed claim.
+            </div>
+            <div class="denial-code-meta">
+              <span class="meta-item">🔄 Resubmit</span>
+              <span class="meta-item">✅ Correctable</span>
+            </div>
+          </a>
+
+          <a href="co-22-denial-code.html" class="denial-code-card" data-code="CO-22" data-category="CO">
+            <div class="denial-code-header">
+              <div class="denial-code-num">CO-22</div>
+              <div class="denial-code-category">COB</div>
+            </div>
+            <div class="denial-code-desc">
+              This care may be covered by another payer per coordination of benefits.
+            </div>
+            <div class="denial-code-meta">
+              <span class="meta-item">📋 COB Required</span>
+              <span class="meta-item">🔄 Resubmit</span>
+            </div>
+          </a>
+
+          <a href="co-27-denial-code.html" class="denial-code-card" data-code="CO-27" data-category="CO">
+            <div class="denial-code-header">
+              <div class="denial-code-num">CO-27</div>
+              <div class="denial-code-category">Eligibility</div>
+            </div>
+            <div class="denial-code-desc">
+              Expenses incurred after coverage terminated.
+            </div>
+            <div class="denial-code-meta">
+              <span class="meta-item">⚠️ Eligibility Issue</span>
+              <span class="meta-item">📞 Verify Coverage</span>
+            </div>
+          </a>
+
+          <a href="co-29-denial-code.html" class="denial-code-card" data-code="CO-29" data-category="CO">
+            <div class="denial-code-header">
+              <div class="denial-code-num">CO-29</div>
+              <div class="denial-code-category">Timely Filing</div>
+            </div>
+            <div class="denial-code-desc">
+              The time limit for filing has expired.
+            </div>
+            <div class="denial-code-meta">
+              <span class="meta-item">⏱️ Time Sensitive</span>
+              <span class="meta-item">📝 Appeal Required</span>
+            </div>
+          </a>
+
+          <a href="co-45-denial-code.html" class="denial-code-card" data-code="CO-45" data-category="CO">
+            <div class="denial-code-header">
+              <div class="denial-code-num">CO-45</div>
+              <div class="denial-code-category">Contractual</div>
+            </div>
+            <div class="denial-code-desc">
+              Charges exceed fee schedule or contracted/legislated fee arrangement.
+            </div>
+            <div class="denial-code-meta">
+              <span class="meta-item">💰 Fee Schedule</span>
+              <span class="meta-item">✅ Normal Adjustment</span>
+            </div>
+          </a>
+
+          <a href="co-50-denial-code.html" class="denial-code-card" data-code="CO-50" data-category="CO">
+            <div class="denial-code-header">
+              <div class="denial-code-num">CO-50</div>
+              <div class="denial-code-category">Medical Necessity</div>
+            </div>
+            <div class="denial-code-desc">
+              Non-covered services — not deemed a medical necessity by the payer.
+            </div>
+            <div class="denial-code-meta">
+              <span class="meta-item">🩺 Clinical Review</span>
+              <span class="meta-item">📝 Appeal Required</span>
+            </div>
+          </a>
+          
+          <a href="co-90-denial-code.html" class="denial-code-card" data-code="CO-90" data-category="CO">
+            <div class="denial-code-header">
+              <div class="denial-code-num">CO-90</div>
+              <div class="denial-code-category">Laterality</div>
+            </div>
+            <div class="denial-code-desc">
+              Laterality mismatch (left/right/bilateral) on procedure or diagnosis.
+            </div>
+            <div class="denial-code-meta">
+              <span class="meta-item">↔️ Laterality Error</span>
+              <span class="meta-item">🔧 Correctable</span>
+            </div>
+          </a>
+
+          <a href="co-97-denial-code.html" class="denial-code-card" data-code="CO-97" data-category="CO">
+            <div class="denial-code-header">
+              <div class="denial-code-num">CO-97</div>
+              <div class="denial-code-category">Bundling</div>
+            </div>
+            <div class="denial-code-desc">
+              Payment adjusted because services are bundled per NCCI edits.
+            </div>
+            <div class="denial-code-meta">
+              <span class="meta-item">📦 Bundled Service</span>
+              <span class="meta-item">🔍 Review NCCI</span>
+            </div>
+          </a>
+
+          <a href="co-119-denial-code.html" class="denial-code-card" data-code="CO-119" data-category="CO">
+            <div class="denial-code-header">
+              <div class="denial-code-num">CO-119</div>
+              <div class="denial-code-category">Benefit Exclusion</div>
+            </div>
+            <div class="denial-code-desc">
+              Service is not a covered benefit under the patient's plan.
+            </div>
+            <div class="denial-code-meta">
+              <span class="meta-item">📋 Benefit Issue</span>
+              <span class="meta-item">📝 Appeal Required</span>
+            </div>
+          </a>
+
+          <a href="co-197-denial-code.html" class="denial-code-card" data-code="CO-197" data-category="CO">
+            <div class="denial-code-header">
+              <div class="denial-code-num">CO-197</div>
+              <div class="denial-code-category">Resubmission</div>
+            </div>
+            <div class="denial-code-desc">
+              Corrected claim resubmission issues — wrong frequency code or missing claim ID.
+            </div>
+            <div class="denial-code-meta">
+              <span class="meta-item">🔄 Resubmit</span>
+              <span class="meta-item">🔧 Correctable</span>
+            </div>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- PR Codes -->
+      <section class="category-section" data-category="pr">
+        <div class="category-header">
+          <span class="category-icon">👤</span>
+          <h2 class="category-title">PR Codes — Patient Responsibility</h2>
+          <span class="category-count">7 codes</span>
+        </div>
+        <div class="denial-codes-grid" id="pr-codes">
+
+          <a href="pr-1-denial-code.html" class="denial-code-card" data-code="PR-1" data-category="PR">
+            <div class="denial-code-header">
+              <div class="denial-code-num badge-pr">PR-1</div>
+              <div class="denial-code-category">Deductible</div>
+            </div>
+            <div class="denial-code-desc">
+              Deductible amount — patient is responsible for the annual deductible amount.
+            </div>
+            <div class="denial-code-meta">
+              <span class="meta-item">💵 Patient Balance</span>
+              <span class="meta-item">✅ Normal</span>
+            </div>
+          </a>
+
+          <a href="pr-2-denial-code.html" class="denial-code-card" data-code="PR-2" data-category="PR">
+            <div class="denial-code-header">
+              <div class="denial-code-num badge-pr">PR-2</div>
+              <div class="denial-code-category">Coinsurance</div>
+            </div>
+            <div class="denial-code-desc">
+              Coinsurance amount — patient's share after deductible is met.
+            </div>
+            <div class="denial-code-meta">
+              <span class="meta-item">💵 Patient Balance</span>
+              <span class="meta-item">✅ Normal</span>
+            </div>
+          </a>
+
+          <a href="pr-3-denial-code.html" class="denial-code-card" data-code="PR-3" data-category="PR">
+            <div class="denial-code-header">
+              <div class="denial-code-num badge-pr">PR-3</div>
+              <div class="denial-code-category">Copayment</div>
+            </div>
+            <div class="denial-code-desc">
+              Copayment amount — fixed patient copay per service or visit.
+            </div>
+            <div class="denial-code-meta">
+              <span class="meta-item">💵 Patient Balance</span>
+              <span class="meta-item">✅ Normal</span>
+            </div>
+          </a>
+          
+          <a href="pr-4-denial-code.html" class="denial-code-card" data-code="PR-4" data-category="PR">
+            <div class="denial-code-header">
+              <div class="denial-code-num badge-pr">PR-4</div>
+              <div class="denial-code-category">Copayment</div>
+            </div>
+            <div class="denial-code-desc">
+              Copayment amount — patient is responsible for a fixed copay per service or visit.
+            </div>
+            <div class="denial-code-meta">
+              <span class="meta-item">💵 Patient Balance</span>
+              <span class="meta-item">✅ Normal</span>
+            </div>
+          </a>
+
+          <a href="pr-5-denial-code.html" class="denial-code-card" data-code="PR-5" data-category="PR">
+            <div class="denial-code-header">
+              <div class="denial-code-num badge-pr">PR-5</div>
+              <div class="denial-code-category">Deductible</div>
+            </div>
+            <div class="denial-code-desc">
+              Deductible amount — patient is responsible for the annual deductible amount.
+            </div>
+            <div class="denial-code-meta">
+              <span class="meta-item">💵 Patient Balance</span>
+              <span class="meta-item">✅ Normal</span>
+            </div>
+          </a>
+
+          <a href="pr-6-denial-code.html" class="denial-code-card" data-code="PR-6" data-category="PR">
+            <div class="denial-code-header">
+              <div class="denial-code-num badge-pr">PR-6</div>
+              <div class="denial-code-category">Coinsurance</div>
+            </div>
+            <div class="denial-code-desc">
+              Coinsurance amount — patient's share of costs after deductible is met.
+            </div>
+            <div class="denial-code-meta">
+              <span class="meta-item">💵 Patient Balance</span>
+              <span class="meta-item">✅ Normal</span>
+            </div>
+          </a>
+
+          <a href="pr-7-denial-code.html" class="denial-code-card" data-code="PR-7" data-category="PR">
+            <div class="denial-code-header">
+              <div class="denial-code-num badge-pr">PR-7</div>
+              <div class="denial-code-category">Benefit Max</div>
+            </div>
+            <div class="denial-code-desc">
+              Benefit maximum used up — patient is responsible as plan limit is reached.
+            </div>
+            <div class="denial-code-meta">
+              <span class="meta-item">📊 Benefit Limit</span>
+              <span class="meta-item">✅ Normal</span>
+            </div>
+          </a>
+
+          <a href="pr-17-denial-code.html" class="denial-code-card" data-code="PR-17" data-category="PR">
+            <div class="denial-code-header">
+              <div class="denial-code-num badge-pr">PR-17</div>
+              <div class="denial-code-category">Other Provider</div>
+            </div>
+            <div class="denial-code-desc">
+              Amount applied to another provider's service; check COB or identifiers.
+            </div>
+            <div class="denial-code-meta">
+              <span class="meta-item">🔄 COB Issue</span>
+              <span class="meta-item">✅ Correctable</span>
+            </div>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- OA Codes -->
+      <section class="category-section" data-category="oa">
+        <div class="category-header">
+          <span class="category-icon">🔄</span>
+          <h2 class="category-title">OA Codes — Other Adjustment</h2>
+          <span class="category-count">1 code</span>
+        </div>
+        <div class="denial-codes-grid" id="oa-codes">
+
+          <a href="oa-18-denial-code.html" class="denial-code-card" data-code="OA-18" data-category="OA">
+            <div class="denial-code-header">
+              <div class="denial-code-num badge-oa">OA-18</div>
+              <div class="denial-code-category">COB Adjustment</div>
+            </div>
+            <div class="denial-code-desc">
+              Primary/secondary payment coordination — secondary payer adjustment after primary payment.
+            </div>
+            <div class="denial-code-meta">
+              <span class="meta-item">🔄 COB Adjustment</span>
+              <span class="meta-item">✅ Normal</span>
+            </div>
+          </a>
+
+        </div>
+      </section>
+
+    </div>
+
+    <div class="no-results" id="noResults">
+      <h3>🔍 No matching codes found</h3>
+      <p>Try a different search term or filter.</p>
+    </div>
+
+  </main>
+
+  <footer class="static-footer">
+    <div class="static-footer-content">
+      <div class="footer-links">
+        <a href="../about.html">About</a>
+        <a href="../faq.html">FAQ</a>
+        <a href="../privacy.html">Privacy Policy</a>
+        <a href="../terms.html">Terms of Service</a>
+        <a href="../contact.html">Contact</a>
+      </div>
+      <div class="footer-copyright">
+        &copy; 2026 RCM Denials. All rights reserved.
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function() {
+  const searchInput = document.getElementById('denialSearch');
+  const sortOrderSelect = document.getElementById('sortOrder');
+  const filterTabs = document.querySelectorAll('.filter-tab');
+  const cards = document.querySelectorAll('.denial-code-card'); // This should now find all 19 cards
+  const sections = document.querySelectorAll('.category-section');
+  const visibleCount = document.getElementById('visibleCount');
+  const totalCount = document.getElementById('totalCount');
+  const noResults = document.getElementById('noResults');
+
+  // Initialize counts accurately based on current DOM elements
+  const allCards = document.querySelectorAll('.denial-code-card');
+  const coCards = document.querySelectorAll('.denial-code-card[data-category="CO"]');
+  const prCards = document.querySelectorAll('.denial-code-card[data-category="PR"]');
+  const oaCards = document.querySelectorAll('.denial-code-card[data-category="OA"]');
+
+  document.getElementById('allCount').textContent = allCards.length;
+  document.getElementById('coCount').textContent = coCards.length;
+  document.getElementById('prCount').textContent = prCards.length;
+  document.getElementById('oaCount').textContent = oaCards.length;
+  totalCount.textContent = allCards.length;
+  visibleCount.textContent = allCards.length;
+
+  let activeFilter = 'all';
+
+  function updateCounts() {
+    let visible = 0;
+    cards.forEach(function(card) {
+      if (card.style.display !== 'none') visible++;
+    });
+    visibleCount.textContent = visible;
+    noResults.style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  function filterAndSortCards() {
+    const searchTerm = searchInput.value.toLowerCase().trim();
+    const [sortField, sortDirection] = sortOrderSelect.value.split('-');
+    const isAscending = sortDirection === 'asc';
+
+    const filteredCards = Array.from(cards).filter(card => {
+      const text = card.textContent.toLowerCase();
+      const matchesSearch = !searchTerm || text.includes(searchTerm);
+      const matchesFilter = activeFilter === 'all' || card.getAttribute('data-category').toLowerCase() === activeFilter;
+      return matchesSearch && matchesFilter;
+    });
+
+    filteredCards.sort((a, b) => {
+      let valA, valB;
+      if (sortField === 'code') {
+        valA = a.getAttribute('data-code').toLowerCase();
+        valB = b.getAttribute('data-code').toLowerCase();
+      } else if (sortField === 'category') {
+        valA = a.getAttribute('data-category').toLowerCase();
+        valB = b.getAttribute('data-category').toLowerCase();
+      }
+
+      if (valA < valB) return isAscending ? -1 : 1;
+      if (valA > valB) return isAscending ? 1 : -1;
+      return 0;
+    });
+
+    // Reorder DOM
+    const container = document.getElementById('codesContainer');
+    // Clear only the relevant grid content, not the whole container/sections
+    // This approach re-appends to the existing DOM structure, which is generally safer.
+
+    const renderedCategories = new Set();
+    filteredCards.forEach(card => {
+        const category = card.getAttribute('data-category');
+        if (!renderedCategories.has(category)) {
+            const section = document.querySelector(`.category-section[data-category="${category}"]`);
+            if (section) {
+                const grid = section.querySelector('.denial-codes-grid');
+                // Clear the grid for this category before adding sorted/filtered cards
+                grid.innerHTML = ''; 
+                renderedCategories.add(category);
+            }
+        }
+    });
+    
+    filteredCards.forEach(card => {
+        const category = card.getAttribute('data-category');
+        const section = document.querySelector(`.category-section[data-category="${category}"]`);
+        if (section) {
+            const grid = section.querySelector('.denial-codes-grid');
+            grid.appendChild(card); // Append to the correct grid
+        }
+    });
+
+    // Hide/show sections based on filter
+    sections.forEach(section => {
+        const category = section.getAttribute('data-category');
+        const sectionCards = section.querySelectorAll('.denial-code-card');
+        let hasVisible = false;
+        sectionCards.forEach(c => {
+          // Check if the card is actually displayed (not hidden by search/filter)
+          if (c.style.display !== 'none') hasVisible = true;
+        });
+        section.style.display = (activeFilter === 'all' || activeFilter === category) && hasVisible ? 'block' : 'none';
+    });
+
+    updateCounts();
+  }
+
+  searchInput.addEventListener('input', filterAndSortCards);
+  sortOrderSelect.addEventListener('change', filterAndSortCards);
+
+  filterTabs.forEach(tab => {
+    tab.addEventListener('click', function() {
+      filterTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      activeFilter = tab.getAttribute('data-filter');
+      searchInput.value = ''; // Clear search when filtering
+      filterAndSortCards();
+    });
+  });
+
+  // Initial setup
+  filterAndSortCards(); // Ensure initial display is correct after DOM loads
+})();
+</script>
+
+</body>
+</html>
