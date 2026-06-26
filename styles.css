@@ -2794,8 +2794,15 @@ button:focus-visible,
     min-height: 0;
   }
   .scenario-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
   }
+  .scenario-card {
+    padding: 8px 10px;
+  }
+  .scenario-card-icon { font-size: 18px; margin-bottom: 4px; }
+  .scenario-card-name { font-size: 11px; }
+  .scenario-card-desc { font-size: 9.5px; }
   .deadline-grid {
     grid-template-columns: 1fr;
   }
