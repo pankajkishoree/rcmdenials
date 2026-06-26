@@ -117,6 +117,7 @@
 
     <nav class="header-nav" aria-label="Pages">
       <a href="denial-codes/index.html" class="nav-link nav-link-denial-codes">📋 Denial Codes</a>
+      <a href="specialties/index.html" class="nav-link">🩺 Specialties</a>
       <a href="about.html" class="nav-link">About</a>
       <a href="faq.html" class="nav-link">FAQ</a>
       <a href="contact.html" class="nav-link">Contact</a>
@@ -124,7 +125,7 @@
 
     <div class="header-actions">
       <!-- Hamburger (mobile) -->
-      <button class="mobile-hamburger" id="btnMobileHamburger" onclick="toggleMobileNav()" aria-label="Open menu">☰</button>
+      <button class="mobile-hamburger" id="btnMobileHamburger" aria-label="Open menu">☰</button>
 
       <!-- Live Call Ticker -->
       <div class="call-ticker" id="callTicker" role="status" aria-live="polite">
@@ -177,14 +178,14 @@
     <div class="nav-section">
       <div class="nav-section-label">Modules</div>
 
-      <button class="nav-item active" id="nav-checklist" onclick="switchTab('checklist')" aria-current="page">
-        <span class="nav-item-icon">✅</span>
-        AI Denial Checklist
-      </button>
-
-      <button class="nav-item" id="nav-decision" onclick="switchTab('decision')">
+      <button class="nav-item active" id="nav-decision" onclick="switchTab('decision')" aria-current="page">
         <span class="nav-item-icon">🌳</span>
         Decision Tree Engine
+      </button>
+
+      <button class="nav-item" id="nav-checklist" onclick="switchTab('checklist')">
+        <span class="nav-item-icon">✅</span>
+        AI Denial Checklist
       </button>
 
       <button class="nav-item" id="nav-filing" onclick="switchTab('filing')">
@@ -237,11 +238,11 @@
 
     <!-- Module Tabs (desktop quick nav) -->
     <div class="module-tabs" role="tablist" aria-label="Module tabs">
-      <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="panel-checklist" onclick="switchTab('checklist')">
-        <span class="tab-icon">✅</span> Denial Checklist
-      </button>
-      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-decision" onclick="switchTab('decision')">
+      <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="panel-decision" onclick="switchTab('decision')">
         <span class="tab-icon">🌳</span> Decision Tree
+      </button>
+      <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-checklist" onclick="switchTab('checklist')">
+        <span class="tab-icon">✅</span> Denial Checklist
       </button>
       <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-filing" onclick="switchTab('filing')">
         <span class="tab-icon">⏱️</span> Timely Filing
@@ -261,117 +262,9 @@
     </div>
 
     <!-- ════════════════════════════════════════════════════
-         MODULE 1 — AI DENIAL CHECKLIST
+         MODULE 1 — DECISION TREE ENGINE
     ═══════════════════════════════════════════════════════ -->
-    <div class="module-panel active" id="panel-checklist" role="tabpanel" aria-labelledby="nav-checklist">
-
-      <!-- Welcome State -->
-      <div class="welcome-screen" id="checklistWelcome">
-        <div class="welcome-icon">📋</div>
-        <h2>AI Denial Checklist Generator</h2>
-        <p>Start a call session to generate a payer-specific and denial-specific checklist of questions to ask the representative.</p>
-        <button class="btn btn-primary" onclick="openCallSetup()">🚀 &nbsp;Start Call Session</button>
-      </div>
-
-      <!-- Checklist Content (shown after session start) -->
-      <div id="checklistContent" style="display:none">
-        <div class="section-header">
-          <div>
-            <div class="section-title">AI Denial Checklist</div>
-            <div class="section-sub" id="checklistSubtitle">Payer-specific questions for your denial</div>
-          </div>
-          <div class="flex gap-2">
-            <button class="btn btn-secondary btn-sm" onclick="expandAllCategories()">Expand All</button>
-            <button class="btn btn-secondary btn-sm" onclick="collapseAllCategories()">Collapse All</button>
-            <button class="btn btn-primary btn-sm" onclick="copyChecklist()">📋 Copy Answers</button>
-          </div>
-        </div>
-
-        <div class="checklist-grid">
-          <!-- Left: Questions -->
-          <div>
-            <!-- Power Questions -->
-            <div class="power-questions" id="powerQuestionsBox">
-              <h4>⚡ Power Questions — Expert Escalation</h4>
-              <div id="powerQuestionsList"></div>
-            </div>
-            <!-- Question Categories -->
-            <div id="questionCategories"></div>
-          </div>
-
-          <!-- Right: Call Documentation -->
-          <div>
-            <div class="call-doc-panel">
-              <h4>📝 Call Documentation Panel</h4>
-              <div class="call-doc-fields">
-                <div class="form-group">
-                  <label class="form-label" for="repName">Representative Name</label>
-                  <input class="form-input" id="repName" type="text" placeholder="e.g., Sarah Johnson" />
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="refNumber">Call Reference Number</label>
-                  <input class="form-input" id="refNumber" type="text" placeholder="e.g., REF-2024-789456" />
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="callbackNumber">Direct Callback Number</label>
-                  <input class="form-input" id="callbackNumber" type="tel" placeholder="e.g., (800) 555-1234 ext. 567" />
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="repDept">Department</label>
-                  <select class="form-select" id="repDept">
-                    <option value="">Select department…</option>
-                    <option>Claims Processing</option>
-                    <option>Appeals</option>
-                    <option>Authorization</option>
-                    <option>EDI Support</option>
-                    <option>Credentialing</option>
-                    <option>Medical Review</option>
-                    <option>COB</option>
-                    <option>Provider Relations</option>
-                    <option>Customer Service</option>
-                    <option>Supervisor</option>
-                  </select>
-                </div>
-                <div class="form-grid-2">
-                  <div class="form-group">
-                    <label class="form-label" for="callDate">Call Date</label>
-                    <input class="form-input" id="callDate" type="date" />
-                  </div>
-                  <div class="form-group">
-                    <label class="form-label" for="callTime">Call Time</label>
-                    <input class="form-input" id="callTime" type="time" />
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="form-label" for="callNotes">Additional Notes</label>
-                  <textarea class="form-textarea" id="callNotes" placeholder="Key information discussed during call…"></textarea>
-                </div>
-                <button class="btn btn-primary w-full" onclick="saveCallDoc()">💾 Save Documentation</button>
-              </div>
-            </div>
-
-            <!-- Progress Summary -->
-            <div class="card mt-3">
-              <div class="card-header">
-                <div class="card-icon">📈</div>
-                <div>
-                  <div class="card-title">Checklist Progress</div>
-                  <div class="card-subtitle">Questions answered</div>
-                </div>
-              </div>
-              <div class="card-body">
-                <div id="progressStats" style="display:flex; flex-direction:column; gap:10px;"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ════════════════════════════════════════════════════
-         MODULE 2 — DECISION TREE ENGINE
-    ═══════════════════════════════════════════════════════ -->
-    <div class="module-panel" id="panel-decision" role="tabpanel" aria-labelledby="nav-decision">
+    <div class="module-panel active" id="panel-decision" role="tabpanel" aria-labelledby="nav-decision">
       <div class="section-header">
         <div>
           <div class="section-title">AI Decision Tree Engine</div>
@@ -385,6 +278,44 @@
 
       <!-- Branch Detail -->
       <div class="decision-branch" id="decisionBranch" role="region" aria-label="Decision guidance"></div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════
+         MODULE 2 — AI DENIAL CHECKLIST
+    ═══════════════════════════════════════════════════════ -->
+    <div class="module-panel" id="panel-checklist" role="tabpanel" aria-labelledby="nav-checklist">
+
+      <!-- Welcome State -->
+      <div id="checklistWelcome" class="welcome-screen">
+        <div class="welcome-icon">✅</div>
+        <h2>AI Denial Checklist</h2>
+        <p>Start a call session to generate a smart checklist tailored to the denial code and payer.</p>
+        <button class="btn btn-primary" onclick="openCallSetup()">🚀 Start Call Session</button>
+      </div>
+
+      <!-- Active Checklist Content -->
+      <div id="checklistContent" style="display:none">
+        <div class="section-header">
+          <div>
+            <div class="section-title">AI Denial Checklist</div>
+            <div class="section-sub" id="checklistSubtitle"></div>
+          </div>
+          <div class="flex gap-2">
+            <button class="btn btn-secondary btn-sm" onclick="expandAllCategories()">Expand All</button>
+            <button class="btn btn-secondary btn-sm" onclick="collapseAllCategories()">Collapse All</button>
+            <button class="btn btn-secondary btn-sm" onclick="copyChecklist()">📋 Copy</button>
+          </div>
+        </div>
+
+        <!-- Progress Stats -->
+        <div class="card mb-3">
+          <div class="card-body" id="progressStats"></div>
+        </div>
+
+        <!-- Question Categories -->
+        <div id="questionCategories"></div>
+      </div>
+
     </div>
 
     <!-- ════════════════════════════════════════════════════
@@ -771,13 +702,13 @@
 <!-- Mobile Bottom Navigation -->
 <nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Mobile navigation">
   <div class="mobile-bottom-nav-inner">
-    <button class="mobile-nav-btn active" onclick="switchTab('checklist'); setActiveMobileNav(this)" data-tab="checklist">
-      <span class="mobile-nav-icon">✅</span>
-      Checklist
-    </button>
-    <button class="mobile-nav-btn" onclick="switchTab('decision'); setActiveMobileNav(this)" data-tab="decision">
+    <button class="mobile-nav-btn active" onclick="switchTab('decision'); setActiveMobileNav(this)" data-tab="decision">
       <span class="mobile-nav-icon">🌳</span>
       Decision
+    </button>
+    <button class="mobile-nav-btn" onclick="switchTab('checklist'); setActiveMobileNav(this)" data-tab="checklist">
+      <span class="mobile-nav-icon">✅</span>
+      Checklist
     </button>
     <button class="mobile-nav-btn" onclick="switchTab('filing'); setActiveMobileNav(this)" data-tab="filing">
       <span class="mobile-nav-icon">⏱️</span>
@@ -852,11 +783,11 @@
 
     <div class="mobile-nav-drawer-section">
       <div class="mobile-nav-drawer-section-label">Modules</div>
-      <button class="mobile-nav-drawer-item active" onclick="switchTab('checklist'); closeMobileNav()">
-        <span class="nav-item-icon">✅</span> AI Denial Checklist
-      </button>
-      <button class="mobile-nav-drawer-item" onclick="switchTab('decision'); closeMobileNav()">
+      <button class="mobile-nav-drawer-item active" onclick="switchTab('decision'); closeMobileNav()">
         <span class="nav-item-icon">🌳</span> Decision Tree
+      </button>
+      <button class="mobile-nav-drawer-item" onclick="switchTab('checklist'); closeMobileNav()">
+        <span class="nav-item-icon">✅</span> AI Denial Checklist
       </button>
       <button class="mobile-nav-drawer-item" onclick="switchTab('filing'); closeMobileNav()">
         <span class="nav-item-icon">⏱️</span> Timely Filing

@@ -4221,7 +4221,7 @@ function switchTab(id) {
   document.getElementById(`panel-${id}`)?.classList.add('active');
 
   // Tab buttons (desktop)
-  const tabMap = { checklist: 0, decision: 1, filing: 2, payer: 3, batch: 4, summary: 5, analytics: 6 };
+  const tabMap = { decision: 0, checklist: 1, filing: 2, payer: 3, batch: 4, summary: 5, analytics: 6 };
   document.querySelectorAll('.tab-btn').forEach((btn, i) => {
     btn.classList.toggle('active', i === tabMap[id]);
     btn.setAttribute('aria-selected', i === tabMap[id]);
@@ -4588,8 +4588,12 @@ function initSearch() {
 
     DENIAL_CODES.forEach(d => {
       if (d.code.toLowerCase().includes(q) || d.desc.toLowerCase().includes(q)) {
-        const slug = d.code.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-        results.push({ type: 'Denial Code', label: d.code, sub: d.desc, action: () => { window.location.href = `denial-codes/${slug}-denial-code.html`; } });
+        const prefix = d.code.split('-')[0].toUpperCase();
+        const hasPage = ['CO', 'OA', 'PR'].includes(prefix);
+        const url = hasPage
+          ? `denial-codes/${d.code.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-denial-code.html`
+          : 'denial-codes/index.html';
+        results.push({ type: 'Denial Code', label: d.code, sub: d.desc, action: () => { window.location.href = url; } });
       }
     });
 
@@ -4668,7 +4672,7 @@ function initKeyboardShortcuts() {
 
     if (e.ctrlKey && e.key === 'k') { e.preventDefault(); document.getElementById('globalSearch').focus(); return; }
 
-    const tabMap = { '1': 'checklist', '2': 'decision', '3': 'filing', '4': 'payer', '5': 'batch', '6': 'summary', '7': 'analytics' };
+    const tabMap = { '1': 'decision', '2': 'checklist', '3': 'filing', '4': 'payer', '5': 'batch', '6': 'summary', '7': 'analytics' };
     if (tabMap[e.key]) { switchTab(tabMap[e.key]); return; }
 
     if (e.key === 'n' || e.key === 'N') openCallSetup();

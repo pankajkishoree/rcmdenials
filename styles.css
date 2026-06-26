@@ -2502,8 +2502,14 @@ button:focus-visible,
     grid-template-areas:
       "header"
       "main";
-    overflow: auto;
-    padding-bottom: 60px;
+    overflow: hidden;
+    padding-bottom: 0;
+  }
+  .app-main {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    min-height: 0;
+    padding-bottom: 64px;
   }
   .app-nav {
     display: none;
@@ -2601,10 +2607,10 @@ button:focus-visible,
   .mobile-call-bar.active {
     display: flex;
   }
-  /* Mobile drawers */
-  .mobile-ai-drawer,
-  .mobile-nav-drawer {
-    display: block;
+  /* Mobile drawers - only show when open class is added */
+  .mobile-ai-drawer.open,
+  .mobile-nav-drawer.open {
+    display: block !important;
   }
   .app-footer {
     padding: 20px 16px 14px;
@@ -2623,6 +2629,10 @@ button:focus-visible,
 
 /* ── MOBILE ─────────────────────────────────────────────── */
 @media (max-width: 600px) {
+  .app-shell {
+    grid-template-rows: 56px 1fr;
+    overflow: hidden;
+  }
   .app-header {
     padding: 0 10px;
     gap: 6px;
@@ -2673,6 +2683,7 @@ button:focus-visible,
   }
   .module-panel {
     padding: 10px;
+    min-height: 0;
   }
   .scenario-grid {
     grid-template-columns: 1fr;
