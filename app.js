@@ -5132,6 +5132,7 @@ const SPECIALTY_PAGES = [
 const STATIC_PAGES = [
   { name: 'Denial Codes Directory', url: 'denial-codes/index.html', keywords: 'denial codes list co pr oa' },
   { name: 'Specialties Directory', url: 'specialties/index.html', keywords: 'specialty specialties cpt' },
+  { name: 'Modifier Validator', url: 'modifier-validator/index.html', keywords: 'modifier validator cpt modifier icd ncci denial prevention' },
   { name: 'About RCM Denials', url: 'about.html', keywords: 'about us team' },
   { name: 'FAQ', url: 'faq.html', keywords: 'frequently asked questions help' },
   { name: 'Contact Us', url: 'contact.html', keywords: 'contact support email phone' },
