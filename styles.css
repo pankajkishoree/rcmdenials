@@ -3100,7 +3100,7 @@ button:focus-visible,
 }
 @media (max-width: 900px) {
   .mobile-hamburger {
-    display: none;
+    display: flex;
   }
 }
 
