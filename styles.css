@@ -30,6 +30,9 @@
   --green-400: hsl(145, 65%, 55%);
   --green-500: hsl(145, 65%, 45%);
 
+  /* Indigo */
+  --indigo-400: hsl(239, 84%, 67%);
+
   /* Typography */
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
@@ -1418,6 +1421,17 @@ body {
   font-weight: 700;
   color: #a78bfa;
   margin-top: 8px;
+}
+
+.branch-response-block:hover {
+  border-color: rgba(99,102,241,0.3);
+}
+.branch-response-block.expanded {
+  border-color: rgba(99,102,241,0.4);
+  background: var(--bg-elevated);
+}
+.branch-response-block .branch-response-detail.open {
+  display: block !important;
 }
 
 /* ── MODULE 3: FILING CALCULATOR ────────────────────────── */

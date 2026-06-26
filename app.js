@@ -1757,6 +1757,486 @@ const DECISION_TREE = [
     timeline: 'Immediate notification, 30 days for dispute',
     color: 'warn',
   },
+  // ════════════════════════════════════════════════════════════
+  // ADVANCED DECISION TREE SCENARIOS
+  // ════════════════════════════════════════════════════════════
+  {
+    id: 'sequestration', icon: '🏛️', name: 'Sequestration (CO-253)', desc: 'Federal spending reduction applied',
+    denialCodes: ['CO-253'],
+    keywords: ['sequestration', 'sequester', 'federal spending', 'co-253', 'budget reduction', 'automatic cut'],
+    ask: [
+      'Can you confirm the sequestration percentage applied to this claim?',
+      'Is this reduction applied to the allowed amount or the payment amount?',
+      'Is this the correct sequestration rate for the date of service?',
+      'Can you provide the breakdown showing the sequestration line item?',
+    ],
+    escalation: [
+      'Verify the sequestration rate is correct for the current fiscal year',
+      'Escalate if sequestration was applied to a non-Medicare claim',
+      'Request written explanation if amount seems incorrect',
+    ],
+    gather: [
+      'Sequestration percentage applied',
+      'Pre-sequestration payment amount',
+      'Post-sequestration payment amount',
+      'Confirmation this is a federal mandate (not appealable)',
+    ],
+    actions: ['Accept — Not Appealable', 'Verify Correct Rate', 'Adjust Expected Payment'],
+    timeline: 'Immediate — federal mandate, cannot be appealed',
+    color: 'safe',
+    branches: [
+      { trigger: 'Rep confirms 2% sequestration', response: 'Correct — this is the standard Medicare sequestration rate. Verify the math is correct on your EOB.', nextAction: 'Accept adjustment' },
+      { trigger: 'Rep says sequestration applied to non-Medicare claim', response: 'ALERT: Sequestration ONLY applies to Medicare/Medicaid claims. Challenge this immediately — commercial plans cannot apply sequestration.', nextAction: 'File dispute immediately' },
+      { trigger: 'Rep says amount is different from 2%', response: 'Request the exact calculation methodology. Sequestration applies to the payment amount, not the allowed amount. Verify the math.', nextAction: 'Request calculation breakdown' },
+    ],
+  },
+  {
+    id: 'sequestration-challenge', icon: '🏛️', name: 'Sequestration Challenge', desc: 'Challenge incorrect sequestration',
+    denialCodes: ['CO-253'],
+    keywords: ['sequestration wrong', 'sequestration commercial', 'sequestration not medicare', 'challenge sequestration'],
+    ask: [
+      'What payer type is this claim — Medicare, Medicaid, or commercial?',
+      'Is the sequestration line item clearly shown on the ERA?',
+      'What is the pre-sequestration payment amount?',
+      'Can you remove the sequestration if this is a commercial claim?',
+    ],
+    escalation: [
+      'Escalate immediately — sequestration on commercial claims is an error',
+      'Request supervisor authorization to reverse sequestration',
+      'Document the error for regulatory reporting',
+    ],
+    gather: [
+      'Payer type confirmation (Medicare/Medicaid/commercial)',
+      'ERA showing sequestration line item',
+      'Contract reference for sequestration applicability',
+      'Supervisor contact for reversal authorization',
+    ],
+    actions: ['File Dispute', 'Regulatory Complaint', 'Contract Review'],
+    timeline: '15-30 days for sequestration dispute resolution',
+    color: 'danger',
+  },
+  {
+    id: 'capitation', icon: '📋', name: 'Capitation Contract (CO-130)', desc: 'Service under capitation arrangement',
+    denialCodes: ['CO-130', 'CO-349', 'CO-351'],
+    keywords: ['capitation', 'capitated', 'co-130', 'per member per month', 'pmpm', 'capitation contract', 'global cap'],
+    ask: [
+      'Is this patient under a capitation arrangement with our practice?',
+      'Which specific services are included in the capitation contract?',
+      'Is there a carve-out process for this service type?',
+      'What is the effective date range of the capitation contract?',
+      'Are there any excluded services under the capitation?',
+    ],
+    escalation: [
+      'Request capitation contract review if service should not be capitated',
+      'Escalate to managed care contracting for carve-out requests',
+      'Contact finance department for capitation payment reconciliation',
+    ],
+    gather: [
+      'Capitation contract terms and effective dates',
+      'List of included vs excluded services',
+      'Carve-out submission process and deadlines',
+      'Capitation payment history for this patient',
+    ],
+    actions: ['Carve-Out Request', 'Contract Review', 'Appeal if Not Capitated', 'Patient Billing'],
+    timeline: '30-60 days for capitation dispute resolution',
+    color: 'warn',
+    branches: [
+      { trigger: 'Rep confirms service IS capitated', response: 'Check if this service qualifies for carve-out payment. Many capitation contracts allow separate billing for specific high-cost services.', nextAction: 'Submit carve-out claim' },
+      { trigger: 'Rep says patient is NOT under capitation', response: 'Request written confirmation and reprocess the claim. If the patient is not capitated, the claim should be adjudicated under standard fee-for-service.', nextAction: 'Submit corrected claim' },
+      { trigger: 'Rep is unsure about capitation status', response: 'Request escalation to managed care contracting. Do NOT accept "I\'m not sure" — get a definitive answer from someone who can verify.', nextAction: 'Escalate to managed care' },
+    ],
+  },
+  {
+    id: 'diagnosis-not-covered', icon: '🔬', name: 'Diagnosis Not Covered (CO-167)', desc: 'ICD code not covered by plan',
+    denialCodes: ['CO-167', 'CO-109', 'CO-340', 'CO-349'],
+    keywords: ['diagnosis not covered', 'icd not covered', 'co-167', 'diagnosis excluded', 'diagnosis not a benefit', 'icd excluded'],
+    ask: [
+      'Which specific diagnosis code was flagged as not covered?',
+      'Is this a permanent exclusion or a temporary coverage gap?',
+      'Does the patient have any supplemental coverage that might cover this?',
+      'Is there a covered alternative diagnosis that accurately describes the condition?',
+      'What is the payer\'s policy on this diagnosis code?',
+    ],
+    escalation: [
+      'Request medical necessity review if diagnosis is clinically required',
+      'Escalate to appeals for benefit exception',
+      'Contact coding specialist for diagnosis re-evaluation',
+    ],
+    gather: [
+      'Exact diagnosis code flagged (ICD-10)',
+      'Payer policy reference for exclusion',
+      'Alternative covered diagnosis codes',
+      'Medical necessity documentation',
+      'Supplemental payer information',
+    ],
+    actions: ['Diagnosis Correction', 'Medical Necessity Appeal', 'Benefit Exception', 'Patient Notification'],
+    timeline: '15-30 days for diagnosis-related appeals',
+    color: 'danger',
+    branches: [
+      { trigger: 'Rep says diagnosis is permanently excluded', response: 'Check if an alternative covered diagnosis exists. Also verify if the patient has supplemental coverage. If no alternative, discuss patient financial responsibility.', nextAction: 'Check for alternatives + patient notification' },
+      { trigger: 'Rep says diagnosis requires prior auth', response: 'This is actually an authorization issue, not a diagnosis coverage issue. Escalate to authorization team and request retro-auth if possible.', nextAction: 'Submit retro-authorization request' },
+      { trigger: 'Rep says diagnosis is experimental/investigational', response: 'Request the specific criteria document used to determine this. Many payers use InterQual, MCG, or proprietary criteria. Challenge with clinical literature if appropriate.', nextAction: 'Request criteria document + clinical appeal' },
+    ],
+  },
+  {
+    id: 'service-diagnosis-mismatch', icon: '🩺', name: 'Service Not Supported by Dx (CO-204)', desc: 'Diagnosis doesn\'t support the service',
+    denialCodes: ['CO-204', 'CO-50', 'CO-11', 'CO-16'],
+    keywords: ['not supported by diagnosis', 'diagnosis does not support', 'co-204', 'medical necessity', 'dx mismatch', 'diagnosis procedure mismatch'],
+    ask: [
+      'What specific diagnosis-procedure combination was flagged?',
+      'What diagnosis does the payer require for this procedure?',
+      'Are there LCD/NCD coverage policies that apply to this code pair?',
+      'Does the medical record contain documentation supporting medical necessity?',
+      'Is the diagnosis pointer correct on the claim?',
+    ],
+    escalation: [
+      'Request peer-to-peer review with medical director',
+      'Escalate to coding specialist for diagnosis re-evaluation',
+      'Contact payer medical policy department for clarification',
+    ],
+    gather: [
+      'Flagged diagnosis-procedure combination',
+      'Payer medical policy for this procedure',
+      'LCD/NCD coverage requirements',
+      'Corrected diagnosis code (if available)',
+      'Clinical documentation supporting medical necessity',
+    ],
+    actions: ['Corrected Claim', 'Clinical Appeal', 'Peer-to-Peer Review', 'LCD/NCD Review'],
+    timeline: '10-20 days for medical necessity appeals',
+    color: 'danger',
+    branches: [
+      { trigger: 'Rep says diagnosis pointer is wrong', response: 'This is a simple fix — correct the diagnosis pointer on the claim and resubmit. Verify which diagnosis should be linked to which line item.', nextAction: 'Submit corrected claim with correct pointers' },
+      { trigger: 'Rep says diagnosis doesn\'t support procedure', response: 'Review the LCD/NCD policy for this procedure. If the diagnosis is clinically appropriate, request peer-to-peer review. The provider may need to document medical necessity more clearly.', nextAction: 'Peer-to-peer review + clinical documentation' },
+      { trigger: 'Rep says payer requires specific diagnosis range', response: 'Get the exact diagnosis code range the payer requires. If your diagnosis is clinically appropriate but not in their range, this may be a medical policy dispute.', nextAction: 'Request medical policy review' },
+    ],
+  },
+  {
+    id: 'provider-type-restriction', icon: '👤', name: 'Provider Type Restriction (CO-170)', desc: 'Provider type not eligible',
+    denialCodes: ['CO-170', 'CO-343', 'CO-242', 'CO-357'],
+    keywords: ['provider type', 'co-170', 'provider not eligible', 'type of provider', 'specialty restriction', 'provider restriction'],
+    ask: [
+      'Which specific provider type restriction applies to this service?',
+      'What provider types does the payer allow to bill for this service?',
+      'Can the service be reassigned or rebilled under a qualifying provider?',
+      'Is there a network exception for this provider type?',
+      'What is the payer\'s policy on this provider type restriction?',
+    ],
+    escalation: [
+      'Escalate to provider relations for network exception request',
+      'Request policy documentation for the provider type restriction',
+      'Contact credentialing if provider should qualify',
+    ],
+    gather: [
+      'Provider type restriction details',
+      'Qualifying provider types',
+      'Network exception process',
+      'Policy reference for restriction',
+    ],
+    actions: ['Rebill Under Qualifying Provider', 'Network Exception Request', 'Appeal with Policy Review'],
+    timeline: '15-30 days for provider type disputes',
+    color: 'warn',
+  },
+  {
+    id: 'attachment-required', icon: '📎', name: 'Attachment Required (CO-252)', desc: 'Missing documentation',
+    denialCodes: ['CO-252', 'CO-16', 'CO-182'],
+    keywords: ['attachment', 'co-252', 'documents required', 'records needed', 'additional documentation', 'adr', 'medical records'],
+    ask: [
+      'What specific attachment or documentation is required?',
+      'What is the exact deadline to submit the attachment?',
+      'Can I submit electronically through your portal, or is fax/mail required?',
+      'Will the claim be held pending receipt, or denied and requiring resubmission?',
+      'What is the reference number for this documentation request?',
+    ],
+    escalation: [
+      'Request extension if deadline is less than 7 days',
+      'Escalate if documentation requirements are unclear',
+      'Contact medical records department for expedited gathering',
+    ],
+    gather: [
+      'Exact documentation list required',
+      'Submission deadline (exact date)',
+      'Submission method (portal, fax, mail)',
+      'Portal login or fax number',
+      'Reference number for tracking',
+    ],
+    actions: ['Submit Documentation', 'Request Extension', 'Appeal if Wrongly Denied'],
+    timeline: '5-10 days after document submission',
+    color: 'warn',
+    branches: [
+      { trigger: 'Rep says claim will be denied if not received by deadline', response: 'URGENT: Prioritize documentation gathering. Request extension if needed. Submit via fastest method available (portal > fax > mail).', nextAction: 'Expedited document submission' },
+      { trigger: 'Rep says claim is held pending', response: 'Good — claim is not denied yet. Submit documentation and confirm receipt. Get a confirmation number for your records.', nextAction: 'Submit + confirm receipt' },
+      { trigger: 'Rep cannot specify what documentation is needed', response: 'Escalate immediately. Request written documentation requirements. Do not hang up without a clear list and deadline.', nextAction: 'Escalate for written requirements' },
+    ],
+  },
+  {
+    id: 'interest-penalty', icon: '💰', name: 'Interest Penalty (CO-23/OA-23)', desc: 'Late payment or submission penalty',
+    denialCodes: ['CO-23', 'OA-23'],
+    keywords: ['interest penalty', 'co-23', 'oa-23', 'late payment', 'interest charge', 'penalty', 'late processing'],
+    ask: [
+      'What triggered the interest penalty — late submission or late processing?',
+      'What is the interest rate being applied?',
+      'What is the calculation period for the interest?',
+      'Is this per state regulation or per contract terms?',
+      'Can you provide the breakdown showing the interest line item?',
+    ],
+    escalation: [
+      'Escalate if interest was applied due to payer processing delay',
+      'Request contract review for applicable interest rates',
+      'Contact state insurance department if state-mandated rates apply',
+    ],
+    gather: [
+      'Interest rate applied',
+      'Calculation period (start/end dates)',
+      'Base amount before interest',
+      'Interest amount',
+      'Applicable regulation or contract clause',
+    ],
+    actions: ['Accept if Correct', 'Dispute if Incorrect', 'State Complaint', 'Contract Review'],
+    timeline: '15-30 days for interest penalty disputes',
+    color: 'warn',
+    branches: [
+      { trigger: 'Rep says penalty is due to late CLAIM submission', response: 'Verify the original submission date. If you have proof of timely filing, this penalty should be reversed. Gather clearinghouse reports.', nextAction: 'Appeal with proof of timely filing' },
+      { trigger: 'Rep says penalty is due to late PAYER processing', response: 'This is the payer\'s error. Request immediate reversal with written confirmation. Many states mandate interest on late payer processing.', nextAction: 'Demand reversal + state complaint' },
+      { trigger: 'Rep says interest rate seems high', response: 'Request the exact contract clause or state regulation reference. Verify the rate matches what was agreed upon or legislated.', nextAction: 'Request rate verification' },
+    ],
+  },
+  {
+    id: 'patient-identification', icon: '🆔', name: 'Patient Not Identified (CO-31)', desc: 'Member ID or name mismatch',
+    denialCodes: ['CO-31', 'N30', 'N33', 'N35', 'PR-99'],
+    keywords: ['patient not identified', 'co-31', 'member not found', 'wrong member id', 'name mismatch', 'cannot identify patient', 'eligibility not found'],
+    ask: [
+      'Can you confirm the exact member ID and name in your system?',
+      'Was the patient eligible on the exact date of service?',
+      'Has there been any recent change to the patient\'s coverage or plan?',
+      'Is the date of birth and gender correct in your records?',
+      'Is there a different insurance ID this patient might be covered under?',
+    ],
+    escalation: [
+      'Escalate to eligibility department for real-time verification',
+      'Contact employer/group if group coverage may have changed',
+      'Request written eligibility confirmation',
+    ],
+    gather: [
+      'Correct member ID from payer system',
+      'Patient name as registered with payer',
+      'Coverage effective and termination dates',
+      'Group number and plan type',
+      'Secondary coverage information',
+    ],
+    actions: ['Corrected Claim', 'Eligibility Verification', 'COB Investigation', 'Patient Callback'],
+    timeline: '3-7 days for eligibility correction',
+    color: 'warn',
+    branches: [
+      { trigger: 'Rep says member ID is wrong', response: 'Get the CORRECT member ID from the payer. Verify with the patient. Resubmit with corrected ID. This is a common data entry error.', nextAction: 'Corrected claim with right member ID' },
+      { trigger: 'Rep says patient is not in their system', response: 'Verify the patient has active coverage. Check if they recently changed plans. Ask if they can search by SSN or name + DOB.', nextAction: 'Eligibility verification' },
+      { trigger: 'Rep says coverage terminated before DOS', response: 'This is an eligibility issue, not an identification issue. Determine the termination date and whether the patient had other coverage. May need to bill secondary.', nextAction: 'COB investigation' },
+    ],
+  },
+  {
+    id: 'hospice-facility', icon: '🏥', name: 'Hospice/SNF/LTC Denial', desc: 'Patient in facility status',
+    denialCodes: ['CO-362', 'CO-365', 'CO-367', 'CO-360'],
+    keywords: ['hospice', 'snf', 'skilled nursing', 'long term care', 'ltc', 'custodial care', 'co-362', 'co-365', 'co-367', 'co-360', 'facility status'],
+    ask: [
+      'Is the patient currently in hospice, SNF, or LTC status?',
+      'What is the facility admission date?',
+      'Does the hospice/facility coverage include this service type?',
+      'Is there a coordination issue between facility and professional billing?',
+      'What is the patient\'s discharge date from the facility?',
+    ],
+    escalation: [
+      'Escalate to facility billing coordinator',
+      'Contact hospice/LTC agency for coordination',
+      'Verify Medicare hospice election status',
+    ],
+    gather: [
+      'Facility type (hospice, SNF, LTC)',
+      'Facility admission date',
+      'Facility discharge date (if applicable)',
+      'Hospice election status',
+      'Facility billing contact',
+    ],
+    actions: ['Facility Coordination', 'Hospice Election Review', 'Corrected Claim', 'Patient Notification'],
+    timeline: '10-20 days for facility-related disputes',
+    color: 'danger',
+    branches: [
+      { trigger: 'Rep confirms patient is in hospice', response: 'Hospice patients have specific billing rules. Most services are covered by hospice. Check if this service falls under the hospice election or requires separate billing.', nextAction: 'Hospice election review' },
+      { trigger: 'Rep confirms patient is in SNF/LTC', response: 'SNF/LTC patients have limited professional billing. Verify if the service is covered under the facility stay or requires separate authorization.', nextAction: 'Facility coordination' },
+      { trigger: 'Rep is unsure about facility status', response: 'Request real-time eligibility verification. Facility status changes frequently. Do not proceed without confirmation.', nextAction: 'Real-time eligibility check' },
+    ],
+  },
+  {
+    id: 'clinical-trials', icon: '🧪', name: 'Clinical Trial Adjustment (CO-151)', desc: 'Service related to clinical trial',
+    denialCodes: ['CO-151', 'CO-150'],
+    keywords: ['clinical trial', 'research', 'co-151', 'investigational', 'trial protocol', 'study related'],
+    ask: [
+      'Is this patient enrolled in an approved clinical trial?',
+      'What is the clinical trial protocol number?',
+      'Is the service routine care or research-related?',
+      'Does the payer cover routine costs in clinical trials?',
+      'What documentation is needed to support the claim?',
+    ],
+    escalation: [
+      'Escalate to clinical research coordinator',
+      'Contact payer clinical trials department',
+      'Request medical policy review for trial coverage',
+    ],
+    gather: [
+      'Clinical trial protocol number',
+      'Trial enrollment documentation',
+      'Routine vs research cost breakdown',
+      'Payer clinical trial coverage policy',
+      'IRB approval documentation',
+    ],
+    actions: ['Clinical Trial Claim', 'Routine Care Separation', 'Appeal with Trial Documentation'],
+    timeline: '30-60 days for clinical trial claims',
+    color: 'warn',
+  },
+  {
+    id: 'balance-billing', icon: '💵', name: 'Balance Billing Dispute', desc: 'Patient balance after OON',
+    denialCodes: ['CO-150', 'CO-242', 'CO-341', 'PR-96', 'PR-98'],
+    keywords: ['balance bill', 'balance billing', 'patient balance', 'surprise bill', 'nsa', 'no surprises act', 'surprise billing'],
+    ask: [
+      'Was this a surprise out-of-network situation?',
+      'Did the patient provide informed consent for OON services?',
+      'Is this claim subject to the No Surprises Act?',
+      'What is the patient notification documentation on file?',
+      'Was this an emergency or scheduled service?',
+    ],
+    escalation: [
+      'Escalate if No Surprises Act applies — balance billing may be prohibited',
+      'Contact patient financial services for payment plan options',
+      'Request independent dispute resolution (IDR) if applicable',
+    ],
+    gather: [
+      'No Surprises Act applicability',
+      'Patient consent documentation',
+      'Emergency vs scheduled service status',
+      'IDR process information',
+      'Patient notification records',
+    ],
+    actions: ['No Surprises Act Protection', 'IDR Process', 'Patient Payment Plan', 'Write-Off if Protected'],
+    timeline: '30-90 days for IDR resolution',
+    color: 'danger',
+    branches: [
+      { trigger: 'Rep says No Surprises Act applies', response: 'EXCELLENT — if NSA applies, balance billing is likely prohibited. The patient cannot be billed beyond in-network cost-sharing. Document this thoroughly.', nextAction: 'Apply NSA protection' },
+      { trigger: 'Rep says patient signed OON consent', response: 'Request copy of the signed consent. If consent was proper, balance billing may be allowed. If consent was deficient, challenge it.', nextAction: 'Request consent documentation' },
+      { trigger: 'Rep says this is NOT a surprise bill', response: 'Verify whether the patient was properly notified of OON status before the service. If not notified, this may qualify as a surprise bill under NSA.', nextAction: 'Verify notification documentation' },
+    ],
+  },
+  {
+    id: 'sequestration-medicare', icon: '🏛️', name: 'Medicare Sequestration', desc: 'Medicare-specific federal reduction',
+    denialCodes: ['CO-253'],
+    keywords: ['medicare sequestration', 'sequestration medicare', 'federal spending reduction', 'budget control act', 'co-253 medicare'],
+    ask: [
+      'Is this claim definitely under Medicare (not Medicare Advantage)?',
+      'What is the exact sequestration rate for this payment period?',
+      'Can you confirm the pre-sequestration and post-sequestration amounts?',
+      'Is this rate consistent with the current fiscal year rate?',
+    ],
+    escalation: [
+      'Verify the sequestration rate matches the current fiscal year',
+      'Escalate if rate seems inconsistent with known sequestration percentages',
+    ],
+    gather: [
+      'Medicare claim type (FFS, Part A, Part B)',
+      'Sequestration rate applied',
+      'Payment period',
+      'Pre and post-sequestration amounts',
+    ],
+    actions: ['Accept — Federal Mandate', 'Verify Rate Accuracy', 'Adjust Financial Projections'],
+    timeline: 'Immediate — cannot be appealed',
+    color: 'safe',
+  },
+  {
+    id: 'wrong-payer', icon: '🔄', name: 'Wrong Payer / COB Error', desc: 'Claim sent to wrong payer',
+    denialCodes: ['CO-22', 'CO-58', 'CO-109', 'OA-18'],
+    keywords: ['wrong payer', 'bill wrong payer', 'primary secondary', 'should have billed', 'other payer', 'cob error', 'coordination error'],
+    ask: [
+      'Which payer should have been billed as primary?',
+      'Was the primary EOB received and applied correctly?',
+      'Is the COB order correct in the payer system?',
+      'Was there a change in coverage that affected the COB order?',
+      'Do we need to rebill to the correct payer?',
+    ],
+    escalation: [
+      'Escalate if COB order is incorrect in payer system',
+      'Contact all payers for coordinated payment resolution',
+      'Request COB review if methodology was applied incorrectly',
+    ],
+    gather: [
+      'Correct payer order',
+      'Primary payer EOB details',
+      'Secondary payer submission requirements',
+      'COB methodology (birthday rule, gender, etc.)',
+    ],
+    actions: ['Rebill to Correct Payer', 'COB Review', 'Resubmit with Correct Order'],
+    timeline: '10-20 days after rebilling',
+    color: 'warn',
+  },
+  {
+    id: 'retroactive-termination', icon: '⚠️', name: 'Retroactive Termination', desc: 'Coverage terminated retroactively',
+    denialCodes: ['CO-27', 'CO-31', 'N41', 'N42'],
+    keywords: ['retroactive termination', 'coverage terminated', 'retro termination', 'co-27', 'coverage ended', 'dropped coverage', 'lapsed'],
+    ask: [
+      'What is the exact termination date in the payer system?',
+      'What was the reason for the retroactive termination?',
+      'Was the patient or provider notified of the termination?',
+      'Is there an appeal process for retroactive termination?',
+      'Can the termination be reinstated for this date of service?',
+    ],
+    escalation: [
+      'Escalate to member services for retro-termination investigation',
+      'Request written termination notice',
+      'Contact employer/group if group coverage was terminated',
+      'File state insurance complaint if proper notice was not given',
+    ],
+    gather: [
+      'Termination date',
+      'Termination reason',
+      'Notification date (if any)',
+      'Appeal process and deadline',
+      'Employer/group contact (if applicable)',
+    ],
+    actions: ['Appeal Termination', 'Reinstatement Request', 'Patient Responsibility', 'State Complaint'],
+    timeline: '30-60 days for retro-termination appeals',
+    color: 'danger',
+    branches: [
+      { trigger: 'Rep says patient voluntarily terminated', response: 'Verify the patient was properly notified. If the patient did not receive proper notice, this termination may be appealable. Request termination notice copy.', nextAction: 'Request termination notice + appeal' },
+      { trigger: 'Rep says employer terminated group coverage', response: 'Contact the employer HR department. If the termination was due to employment change, the patient may have COBRA rights or other coverage options.', nextAction: 'Contact employer + COBRA notification' },
+      { trigger: 'Rep says termination was due to eligibility error', response: 'This is a payer error. Request immediate reinstatement and reprocessing. Document the error for potential complaint.', nextAction: 'Demand reinstatement + reprocessing' },
+    ],
+  },
+  {
+    id: 'modifier-25', icon: '🏷️', name: 'Modifier 25 Issue', desc: 'E/M modifier dispute',
+    denialCodes: ['CO-4', 'CO-16', 'CO-24'],
+    keywords: ['modifier 25', 'modifier twenty five', 'separate e/m', 'significant separately identifiable', 'e/m with procedure'],
+    ask: [
+      'Was the E/M service significant and separately identifiable?',
+      'Does the documentation clearly support a separate E/M diagnosis?',
+      'What is the payer\'s specific policy on modifier 25?',
+      'Is the E/M level supported by the documentation?',
+      'Was the E/M performed on the same day as the procedure?',
+    ],
+    escalation: [
+      'Request medical review if documentation supports separate E/M',
+      'Escalate to coding specialist for modifier 25 audit',
+      'Contact payer medical policy for modifier 25 guidelines',
+    ],
+    gather: [
+      'Modifier 25 documentation requirements',
+      'E/M documentation supporting separate service',
+      'Payer-specific modifier 25 policy',
+      'E/M level validation',
+    ],
+    actions: ['Corrected Claim with Modifier 25', 'Documentation Enhancement', 'Appeal with Clinical Notes'],
+    timeline: '10-20 days for modifier 25 disputes',
+    color: 'warn',
+    branches: [
+      { trigger: 'Rep says E/M documentation is insufficient', response: 'Review the E/M documentation with the provider. The documentation must clearly show a separately identifiable E/M service. Consider documentation improvement.', nextAction: 'Documentation improvement + resubmit' },
+      { trigger: 'Rep says modifier 25 was not submitted', response: 'This is a simple fix. Resubmit the claim with modifier 25 appended to the E/M code. Ensure the documentation supports it.', nextAction: 'Corrected claim with modifier 25' },
+      { trigger: 'Rep says payer automatically denies modifier 25', response: 'This is a systematic issue. File an appeal citing CMS guidelines that support modifier 25 use. Request peer-to-peer review.', nextAction: 'Formal appeal + peer-to-peer' },
+    ],
+  },
 ];
 
 // ════════════════════════════════════════════════════════════
@@ -2922,6 +3402,29 @@ function selectScenario(id) {
       <div class="action-btn-row">${s.actions.map(a => `<span class="action-pill">${a}</span>`).join('')}</div>
       <div class="timeline-badge" style="margin-top:12px">⏳ ${s.timeline}</div>
     </div>
+    ${s.branches && s.branches.length ? `
+    <div style="grid-column: 1/-1;">
+      <div style="padding:14px 16px;background:linear-gradient(135deg, rgba(99,102,241,0.08), rgba(139,92,246,0.08));border:1px solid rgba(99,102,241,0.2);border-radius:var(--r-lg);">
+        <div style="font-size:13px;font-weight:800;color:var(--indigo-400);margin-bottom:10px;display:flex;align-items:center;gap:6px">
+          🌳 RESPONSE BRANCHES — "If they say X, you say Y"
+        </div>
+        ${s.branches.map((b, i) => `
+        <div class="branch-response-block" style="margin-bottom:10px;padding:12px 14px;background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--r-md);cursor:pointer" onclick="this.querySelector('.branch-response-detail').classList.toggle('open'); this.classList.toggle('expanded')">
+          <div style="font-size:12px;font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:6px">
+            <span style="color:var(--indigo-400)">→</span> ${b.trigger}
+            <span style="margin-left:auto;font-size:10px;color:var(--text-muted)">click to expand</span>
+          </div>
+          <div class="branch-response-detail" style="display:none;margin-top:8px;padding-top:8px;border-top:1px solid var(--border-subtle)">
+            <div style="font-size:11px;font-weight:600;color:var(--amber-400);margin-bottom:4px">💬 YOUR RESPONSE:</div>
+            <div style="font-size:12px;color:var(--text-secondary);line-height:1.5;margin-bottom:8px">${b.response}</div>
+            <div style="font-size:11px;font-weight:600;color:var(--green-400);margin-bottom:2px">✅ NEXT ACTION:</div>
+            <div style="font-size:12px;color:var(--text-primary);font-weight:700">${b.nextAction}</div>
+          </div>
+        </div>
+        `).join('')}
+      </div>
+    </div>
+    ` : ''}
   `;
 
   branch.scrollIntoView({ behavior: 'smooth', block: 'start' });
