@@ -4085,7 +4085,8 @@ function initSearch() {
 
     DENIAL_CODES.forEach(d => {
       if (d.code.toLowerCase().includes(q) || d.desc.toLowerCase().includes(q)) {
-        results.push({ type: 'Denial Code', label: d.code, sub: d.desc, action: () => { document.getElementById('setupDenialCode').value = d.code; } });
+        const slug = d.code.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        results.push({ type: 'Denial Code', label: d.code, sub: d.desc, action: () => { window.location.href = `denial-codes/${slug}-denial-code.html`; } });
       }
     });
 
