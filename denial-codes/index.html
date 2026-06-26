@@ -877,7 +877,7 @@
   function updateCounts() {
     let visible = 0;
     cards.forEach(function(card) {
-      if (card.parentElement) visible++;
+      if (card.style.display !== 'none') visible++;
     });
     visibleCount.textContent = visible;
     noResults.style.display = visible === 0 ? 'block' : 'none';
@@ -910,41 +910,20 @@
       return 0;
     });
 
-    // Reorder DOM
-    const container = document.getElementById('codesContainer');
-    // Clear only the relevant grid content, not the whole container/sections
-    // This approach re-appends to the existing DOM structure, which is generally safer.
-
-    const renderedCategories = new Set();
-    filteredCards.forEach(card => {
-        const category = card.getAttribute('data-category');
-        if (!renderedCategories.has(category)) {
-            const section = document.querySelector(`.category-section[data-category="${category}"]`);
-            if (section) {
-                const grid = section.querySelector('.denial-codes-grid');
-                // Clear the grid for this category before adding sorted/filtered cards
-                grid.innerHTML = ''; 
-                renderedCategories.add(category);
-            }
-        }
-    });
-    
-    filteredCards.forEach(card => {
-        const category = card.getAttribute('data-category');
-        const section = document.querySelector(`.category-section[data-category="${category}"]`);
-        if (section) {
-            const grid = section.querySelector('.denial-codes-grid');
-            grid.appendChild(card); // Append to the correct grid
-        }
+    // Show/hide cards directly instead of DOM re-appending
+    cards.forEach(card => {
+      card.style.display = filteredCards.includes(card) ? '' : 'none';
     });
 
-    // Hide/show sections based on filter
+    // Show/hide sections based on whether they have visible cards
     sections.forEach(section => {
-        const category = section.getAttribute('data-category');
-        const grid = section.querySelector('.denial-codes-grid');
-        const sectionCards = grid ? grid.querySelectorAll('.denial-code-card') : [];
-        const hasVisible = sectionCards.length > 0;
-        section.style.display = (activeFilter === 'all' || activeFilter === category) && hasVisible ? 'block' : 'none';
+      const cat = section.getAttribute('data-category').toLowerCase();
+      const grid = section.querySelector('.denial-codes-grid');
+      const sectionCards = grid ? grid.querySelectorAll('.denial-code-card') : [];
+      let hasVisible = false;
+      sectionCards.forEach(c => { if (c.style.display !== 'none') hasVisible = true; });
+      const matchesFilter = activeFilter === 'all' || activeFilter === cat;
+      section.style.display = matchesFilter && hasVisible ? '' : 'none';
     });
 
     updateCounts();
