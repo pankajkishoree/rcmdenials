@@ -2612,10 +2612,9 @@ button:focus-visible,
   .mobile-nav-drawer.open {
     display: block !important;
   }
-  /* Footer: remove z-index on tablet so it scrolls with content */
+  /* Footer: hide on tablet+mobile, bottom nav handles navigation */
   .app-footer {
-    padding: 20px 16px 14px;
-    z-index: auto;
+    display: none;
   }
   .app-footer-links {
     gap: 10px 14px;
