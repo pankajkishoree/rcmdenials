@@ -2288,7 +2288,27 @@ document.addEventListener('DOMContentLoaded', () => {
   initSearch();
   setDefaultDates();
   initOnboarding();
+  initMobileNav();
 });
+
+function initMobileNav() {
+  const hamburger = document.getElementById('btnMobileHamburger');
+  if (hamburger) {
+    hamburger.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      toggleMobileNav();
+    });
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const drawer = document.getElementById('mobileNavDrawer');
+      if (drawer && drawer.classList.contains('open')) {
+        closeMobileNav();
+      }
+    }
+  });
+}
 
 // ── THEME ─────────────────────────────────────────────────
 function initTheme() {
@@ -4301,12 +4321,14 @@ function toggleMobileNav() {
     closeMobileNav();
   } else {
     drawer.classList.add('open');
+    document.body.style.overflow = 'hidden';
     updateMobileNavSession();
   }
 }
 function closeMobileNav() {
   const drawer = document.getElementById('mobileNavDrawer');
   if (drawer) drawer.classList.remove('open');
+  document.body.style.overflow = '';
 }
 function updateMobileNavSession() {
   const session = document.getElementById('mobileNavSession');

@@ -3067,17 +3067,23 @@ button:focus-visible,
 /* ── MOBILE HAMBURGER ───────────────────────────────────── */
 .mobile-hamburger {
   display: none;
-  width: 34px;
-  height: 34px;
-  border-radius: 8px;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
   border: 1px solid var(--border-base);
   background: var(--bg-elevated);
   color: var(--text-secondary);
-  font-size: 18px;
+  font-size: 20px;
   cursor: pointer;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.mobile-hamburger:active {
+  background: var(--bg-tertiary);
+  transform: scale(0.95);
 }
 @media (max-width: 900px) {
   .mobile-hamburger {
@@ -3090,10 +3096,11 @@ button:focus-visible,
   display: none;
   position: fixed;
   inset: 0;
-  z-index: 250;
+  z-index: 9999;
   pointer-events: none;
 }
 .mobile-nav-drawer.open {
+  display: block !important;
   pointer-events: auto;
 }
 .mobile-nav-drawer-backdrop {
