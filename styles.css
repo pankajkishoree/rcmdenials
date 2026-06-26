@@ -2592,6 +2592,19 @@ button:focus-visible,
   .mobile-nav-drawer {
     display: block;
   }
+  .app-footer {
+    padding: 20px 16px 14px;
+  }
+  .app-footer-links {
+    gap: 10px 14px;
+    margin-bottom: 8px;
+  }
+  .app-footer-links a {
+    font-size: 12px;
+  }
+  .app-footer-copyright {
+    font-size: 10.5px;
+  }
 }
 
 /* ── MOBILE ─────────────────────────────────────────────── */
@@ -3087,7 +3100,7 @@ button:focus-visible,
 }
 @media (max-width: 900px) {
   .mobile-hamburger {
-    display: flex;
+    display: none;
   }
 }
 
@@ -3699,16 +3712,18 @@ button:focus-visible,
 
 @media (max-width: 600px) {
   .app-footer {
-    padding: 24px 16px 16px;
+    padding: 14px 16px 10px;
   }
   .app-footer-links {
-    gap: 12px 16px;
+    gap: 8px 12px;
+    margin-bottom: 6px;
   }
   .app-footer-links a {
-    font-size: 12px;
+    font-size: 11px;
   }
   .app-footer-copyright {
-    font-size: 11px;
+    font-size: 10px;
+    opacity: 0.55;
   }
 }
 
