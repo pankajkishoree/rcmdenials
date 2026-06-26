@@ -4570,6 +4570,40 @@ function resetAnalytics() {
 // ════════════════════════════════════════════════════════════
 // SEARCH
 // ════════════════════════════════════════════════════════════
+const SPECIALTY_PAGES = [
+  { name: 'Cardiology', slug: 'cardiology-cpt-codes', keywords: 'heart cardiac cpt codes' },
+  { name: 'Dermatology', slug: 'dermatology-cpt-codes', keywords: 'skin dermatology cpt codes' },
+  { name: 'Emergency Medicine', slug: 'emergency-medicine-cpt-codes', keywords: 'emergency er cpt codes' },
+  { name: 'Family Medicine', slug: 'family-medicine-cpt-codes', keywords: 'family practice primary care cpt codes' },
+  { name: 'Gastroenterology', slug: 'gastroenterology-cpt-codes', keywords: 'gi gastro colonoscopy cpt codes' },
+  { name: 'General Surgery', slug: 'general-surgery-cpt-codes', keywords: 'surgery surgical cpt codes' },
+  { name: 'Internal Medicine', slug: 'internal-medicine-cpt-codes', keywords: 'internist im cpt codes' },
+  { name: 'Nephrology', slug: 'nephrology-cpt-codes', keywords: 'kidney dialysis cpt codes' },
+  { name: 'Neurology', slug: 'neurology-cpt-codes', keywords: 'brain neuro cpt codes' },
+  { name: 'OB/GYN', slug: 'ob-gyn-cpt-codes', keywords: 'obstetrics gynecology maternity cpt codes' },
+  { name: 'Oncology', slug: 'oncology-cpt-codes', keywords: 'cancer tumor cpt codes' },
+  { name: 'Ophthalmology', slug: 'ophthalmology-cpt-codes', keywords: 'eye vision cpt codes' },
+  { name: 'Orthopedics', slug: 'orthopedics-cpt-codes', keywords: 'bone joint ortho cpt codes' },
+  { name: 'Pain Management', slug: 'pain-management-cpt-codes', keywords: 'pain injection cpt codes' },
+  { name: 'Pediatrics', slug: 'pediatrics-cpt-codes', keywords: 'children pediatric cpt codes' },
+  { name: 'Physical Therapy', slug: 'physical-therapy-cpt-codes', keywords: 'pt rehab rehabilitation cpt codes' },
+  { name: 'Psychiatry', slug: 'psychiatry-cpt-codes', keywords: 'mental health psychiatric cpt codes' },
+  { name: 'Pulmonology', slug: 'pulmonology-cpt-codes', keywords: 'lung respiratory pulmonary cpt codes' },
+  { name: 'Radiology', slug: 'radiology-cpt-codes', keywords: 'xray mri ct imaging cpt codes' },
+  { name: 'Urology', slug: 'urology-cpt-codes', keywords: 'urinary urology cpt codes' },
+];
+
+const STATIC_PAGES = [
+  { name: 'Denial Codes Directory', url: 'denial-codes/index.html', keywords: 'denial codes list co pr oa' },
+  { name: 'Specialties Directory', url: 'specialties/index.html', keywords: 'specialty specialties cpt' },
+  { name: 'About RCM Denials', url: 'about.html', keywords: 'about us team' },
+  { name: 'FAQ', url: 'faq.html', keywords: 'frequently asked questions help' },
+  { name: 'Contact Us', url: 'contact.html', keywords: 'contact support email phone' },
+  { name: 'Privacy Policy', url: 'privacy.html', keywords: 'privacy data protection' },
+  { name: 'Terms of Service', url: 'terms.html', keywords: 'terms conditions legal' },
+  { name: 'Cookie Policy', url: 'cookies.html', keywords: 'cookies tracking' },
+];
+
 function initSearch() {
   const input = document.getElementById('globalSearch');
   const dropdown = document.getElementById('searchDropdown');
@@ -4603,10 +4637,22 @@ function initSearch() {
       }
     });
 
+    SPECIALTY_PAGES.forEach(sp => {
+      if (sp.name.toLowerCase().includes(q) || sp.keywords.includes(q)) {
+        results.push({ type: 'Specialty', label: sp.name, sub: 'CPT Codes & Billing Guide', action: () => { window.location.href = `specialties/${sp.slug}.html`; } });
+      }
+    });
+
+    STATIC_PAGES.forEach(pg => {
+      if (pg.name.toLowerCase().includes(q) || pg.keywords.includes(q)) {
+        results.push({ type: 'Page', label: pg.name, sub: pg.url, action: () => { window.location.href = pg.url; } });
+      }
+    });
+
     if (!results.length) {
       dropdown.innerHTML = `<div class="search-result-item"><span style="color:var(--text-muted);font-size:12px">No results for "${q}"</span></div>`;
     } else {
-      dropdown.innerHTML = results.slice(0, 8).map((r, i) => `
+      dropdown.innerHTML = results.slice(0, 10).map((r, i) => `
         <div class="search-result-item" data-idx="${i}" tabindex="0">
           <span class="search-result-type">${r.type}</span>
           <div>
