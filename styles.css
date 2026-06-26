@@ -59,7 +59,7 @@
 }
 
 /* ── DARK MODE (DEFAULT) ─────────────────────────────────── */
-[data-theme="dark"], :root {
+[data-theme="dark"] {
   --bg-base:      hsl(222, 28%, 7%);
   --bg-surface:   hsl(222, 24%, 10%);
   --bg-elevated:  hsl(222, 22%, 13%);
