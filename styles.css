@@ -4516,28 +4516,6 @@ button:focus-visible,
   text-align: center;
 }
 
-.faq-item {
-  border-bottom: 1px solid var(--border-subtle);
-  padding: 16px 0;
-}
-
-.faq-item:last-child {
-  border-bottom: none;
-}
-
-.faq-question {
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 8px;
-}
-
-.faq-answer {
-  font-size: 14px;
-  line-height: 1.7;
-  color: var(--text-secondary);
-}
-
 @media (max-width: 768px) {
   .seo-content, .faq-section {
     padding: 16px;
