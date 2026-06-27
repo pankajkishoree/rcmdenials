@@ -74,6 +74,9 @@
     .result-count { font-size:13px; color:var(--text-muted); margin-bottom:16px; }
     .no-results { text-align:center; padding:48px 24px; color:var(--text-muted); display:none; }
     .no-results h3 { font-size:18px; margin-bottom:8px; color:var(--text-primary); }
+    .search-suggestion { margin-top:12px; padding:12px 20px; background:var(--bg-elevated); border:1px solid var(--border); border-radius:8px; display:inline-block; font-size:13px; color:var(--text-muted); }
+    .search-suggestion strong { color:var(--text-primary); }
+    mark { background:#facc15; color:#000; border-radius:2px; padding:0 2px; }
     .sort-controls { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
     .sort-dropdown { padding: 8px 16px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg-elevated); color: var(--text-primary); font-size: 13px; }
     .sort-dropdown:focus { outline: none; border-color: var(--brand-400); }
@@ -146,13 +149,13 @@
     </div>
 
     <div class="filter-tabs">
-      <button class="filter-tab active" data-filter="all">All Codes <span class="category-count" id="allCount">127</span></button>
-      <button class="filter-tab" data-filter="co">CO Codes <span class="category-count" id="coCount">69</span></button>
+      <button class="filter-tab active" data-filter="all">All Codes <span class="category-count" id="allCount">109</span></button>
+      <button class="filter-tab" data-filter="co">CO Codes <span class="category-count" id="coCount">51</span></button>
       <button class="filter-tab" data-filter="pr">PR Codes <span class="category-count" id="prCount">38</span></button>
       <button class="filter-tab" data-filter="oa">OA Codes <span class="category-count" id="oaCount">20</span></button>
     </div>
 
-    <div class="result-count" id="resultCount">Showing <strong id="visibleCount">127</strong> of <strong id="totalCount">127</strong> codes</div>
+    <div class="result-count" id="resultCount">Showing <strong id="visibleCount">109</strong> of <strong id="totalCount">109</strong> codes</div>
 
     <div id="codesContainer">
 
@@ -161,7 +164,7 @@
         <div class="category-header">
           <span class="category-icon">📄</span>
           <h2 class="category-title">CO Codes — Contractual Obligation</h2>
-          <span class="category-count">69 codes</span>
+          <span class="category-count">51 codes</span>
         </div>
         <div class="denial-codes-grid">
 
@@ -767,19 +770,6 @@
               <span class="meta-item">✅ Correctable</span>
             </div>
           </a>
-          <a href="co-90-denial-code.html" class="denial-code-card" data-code="CO-90" data-category="CO">
-            <div class="denial-code-header">
-              <div class="denial-code-num">CO-90</div>
-              <div class="denial-code-category">Laterality</div>
-            </div>
-            <div class="denial-code-desc">
-              Laterality mismatch (left/right/bilateral) on procedure or diagnosis.
-            </div>
-            <div class="denial-code-meta">
-              <span class="meta-item">↔️ Laterality Error</span>
-              <span class="meta-item">🔧 Correctable</span>
-            </div>
-          </a>
           <a href="co-129-denial-code.html" class="denial-code-card" data-code="CO-129" data-category="CO">
             <div class="denial-code-header">
               <div class="denial-code-num">CO-129</div>
@@ -871,33 +861,6 @@
               <span class="meta-item">✅ Correctable</span>
             </div>
           </a>
-          <a href="co-341-denial-code.html" class="denial-code-card" data-code="CO-341" data-category="CO">
-            <div class="denial-code-header">
-              <div class="denial-code-num">CO-341</div>
-              <div class="denial-code-category">Network</div>
-            </div>
-            <div class="denial-code-desc">
-              Provider is not contracted or eligible under this patient's plan.
-            </div>
-            <div class="denial-code-meta">
-              <span class="meta-item">🌐 Network Issue</span>
-              <span class="meta-item">📝 Appeal Required</span>
-            </div>
-          </a>
-          <a href="co-343-denial-code.html" class="denial-code-card" data-code="CO-343" data-category="CO">
-            <div class="denial-code-header">
-              <div class="denial-code-num">CO-343</div>
-              <div class="denial-code-category">Authorization</div>
-            </div>
-            <div class="denial-code-desc">
-              Services not authorized by the managed care organization.
-            </div>
-            <div class="denial-code-meta">
-              <span class="meta-item">📋 Auth Required</span>
-              <span class="meta-item">📝 Appeal Required</span>
-            </div>
-          </a>
-
         </div>
       </section>
 
@@ -1700,7 +1663,8 @@
 
     <div class="no-results" id="noResults">
       <h3>🔍 No matching codes found</h3>
-      <p>Try a different search term or filter.</p>
+      <p>Try searching by code number (e.g. <strong>CO-96</strong>), keyword (e.g. <strong>deductible</strong>), or category (e.g. <strong>authorization</strong>).</p>
+      <div class="search-suggestion" id="searchSuggestion" style="display:none;"></div>
     </div>
 
   </main>
@@ -1723,20 +1687,19 @@
 
 <script>
 (function() {
-  const searchInput = document.getElementById('denialSearch');
-  const sortOrderSelect = document.getElementById('sortOrder');
-  const filterTabs = document.querySelectorAll('.filter-tab');
-  const cards = document.querySelectorAll('.denial-code-card'); // This should now find all 19 cards
-  const sections = document.querySelectorAll('.category-section');
-  const visibleCount = document.getElementById('visibleCount');
-  const totalCount = document.getElementById('totalCount');
-  const noResults = document.getElementById('noResults');
+  var searchInput = document.getElementById('denialSearch');
+  var sortOrderSelect = document.getElementById('sortOrder');
+  var filterTabs = document.querySelectorAll('.filter-tab');
+  var cards = document.querySelectorAll('.denial-code-card');
+  var sections = document.querySelectorAll('.category-section');
+  var visibleCount = document.getElementById('visibleCount');
+  var totalCount = document.getElementById('totalCount');
+  var noResults = document.getElementById('noResults');
 
-  // Initialize counts accurately based on current DOM elements
-  const allCards = document.querySelectorAll('.denial-code-card');
-  const coCards = document.querySelectorAll('.denial-code-card[data-category="CO"]');
-  const prCards = document.querySelectorAll('.denial-code-card[data-category="PR"]');
-  const oaCards = document.querySelectorAll('.denial-code-card[data-category="OA"]');
+  var allCards = document.querySelectorAll('.denial-code-card');
+  var coCards = document.querySelectorAll('.denial-code-card[data-category="CO"]');
+  var prCards = document.querySelectorAll('.denial-code-card[data-category="PR"]');
+  var oaCards = document.querySelectorAll('.denial-code-card[data-category="OA"]');
 
   document.getElementById('allCount').textContent = allCards.length;
   document.getElementById('coCount').textContent = coCards.length;
@@ -1745,11 +1708,232 @@
   totalCount.textContent = allCards.length;
   visibleCount.textContent = allCards.length;
 
-  const initialCounts = { all: allCards.length, co: coCards.length, pr: prCards.length, oa: oaCards.length };
-  let activeFilter = 'all';
+  var activeFilter = 'all';
+  var debounceTimer = null;
+
+  // Medical billing synonyms
+  var SYNONYMS = {
+    'cob': 'coordination of benefits', 'co-ordination': 'coordination of benefits',
+    'pa': 'prior authorization', 'precert': 'prior authorization', 'preauth': 'prior authorization',
+    'precertification': 'prior authorization', 'auth': 'authorization', 'pre-auth': 'authorization',
+    'denial': 'claim denial', 'denied': 'claim denial',
+    'ncci': 'national correct coding initiative', 'ncciedits': 'national correct coding initiative',
+    'clia': 'clinical laboratory improvement amendments',
+    'cpt': 'current procedural terminology', 'hcpcs': 'healthcare common procedure coding system',
+    'icd': 'international classification of diseases', 'icd10': 'international classification of diseases',
+    'modifier': 'billing modifier', 'modifiers': 'billing modifier',
+    'bundling': 'code bundling', 'unbundling': 'code unbundling',
+    'upcoding': 'billing upcoding', 'downcoding': 'billing downcoding',
+    'capitation': 'capitation payment', 'fee schedule': 'allowed amount',
+    'timely filing': 'claim filing deadline', 'filing deadline': 'timely filing',
+    'laterality': 'left right bilateral', 'left right': 'laterality',
+    'appeal': 'appeal claim', 'grievance': 'appeal process',
+    'deductible': 'patient deductible', 'copay': 'patient copayment',
+    'coinsurance': 'patient coinsurance', 'out of pocket': 'patient responsibility',
+    'credentialing': 'provider credentialing', 'enrollment': 'provider enrollment',
+    'network': 'provider network', 'out of network': 'non participating provider',
+    'non participating': 'out of network provider', 'oow': 'out of network',
+    'eligibility': 'patient eligibility', 'covered': 'coverage determination',
+    'benefit': 'plan benefit', 'excluded': 'service exclusion',
+    'medical necessity': 'medical necessity review', 'mn': 'medical necessity',
+    'clinical review': 'utilization review', 'ur': 'utilization review',
+    'sequestration': 'federal sequestration', 'cms': 'centers for medicare medicaid services',
+    'medicare': 'medicare', 'medicaid': 'medicaid',
+    'observation': 'observation status', 'inpatient': 'inpatient admission',
+    'outpatient': 'outpatient service', 'emergency': 'emergency service',
+    'lab': 'laboratory service', 'imaging': 'diagnostic imaging',
+    'surgery': 'surgical procedure', 'evaluation': 'evaluation management',
+    'telehealth': 'telehealth service', 'telemedicine': 'telehealth service',
+    'dme': 'durable medical equipment', 'prosthetic': 'prosthetic device',
+    'ambulance': 'ambulance service', 'home health': 'home health service',
+    'hospice': 'hospice care', 'snf': 'skilled nursing facility',
+    'rehabilitation': 'rehabilitation service', 'therapy': 'therapy service',
+    'mental health': 'behavioral health', 'substance abuse': 'substance abuse treatment',
+    'dental': 'dental service', 'vision': 'vision service', 'hearing': 'hearing service',
+    'maternity': 'maternity service', 'pediatric': 'pediatric service',
+    'preventive': 'preventive care', 'wellness': 'wellness visit',
+    'vaccine': 'immunization', 'immunization': 'vaccine',
+    'diagnosis': 'diagnosis code', 'procedure': 'procedure code',
+    'billing': 'medical billing', 'coding': 'medical coding',
+    'claim': 'medical claim', 'remittance': 'remittance advice',
+    'era': 'electronic remittance advice', 'eo': 'explanation of benefits',
+    'eob': 'explanation of benefits', '835': 'electronic remittance advice'
+  };
+
+  // Category full names for search
+  var CATEGORY_NAMES = {
+    'co': 'contractual obligation',
+    'pr': 'patient responsibility',
+    'oa': 'other adjustment'
+  };
+
+  function normalize(str) {
+    return str.toLowerCase()
+      .replace(/[\s\-_.\/\\]+/g, '')
+      .replace(/[^a-z0-9]/g, '');
+  }
+
+  function normalizeForDisplay(str) {
+    return str.toLowerCase()
+      .replace(/[\s\-_.\/\\]+/g, ' ')
+      .replace(/[^a-z0-9 ]/g, '')
+      .trim();
+  }
+
+  function expandSynonyms(query) {
+    var words = query.split(/\s+/);
+    var expanded = words.map(function(w) {
+      return SYNONYMS[w] || w;
+    });
+    return expanded.join(' ');
+  }
+
+  // Levenshtein distance
+  function levenshtein(a, b) {
+    if (a.length === 0) return b.length;
+    if (b.length === 0) return a.length;
+    var matrix = [];
+    for (var i = 0; i <= b.length; i++) matrix[i] = [i];
+    for (var j = 0; j <= a.length; j++) matrix[0][j] = j;
+    for (var i = 1; i <= b.length; i++) {
+      for (var j = 1; j <= a.length; j++) {
+        var cost = b.charAt(i - 1) === a.charAt(j - 1) ? 0 : 1;
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j] + 1,
+          matrix[i][j - 1] + 1,
+          matrix[i - 1][j - 1] + cost
+        );
+      }
+    }
+    return matrix[b.length][a.length];
+  }
+
+  function smartMatch(normalizedQuery, normalizedCode) {
+    if (normalizedQuery === normalizedCode) return { match: true, type: 'exact' };
+    if (normalizedCode.indexOf(normalizedQuery) === 0) return { match: true, type: 'prefix' };
+    if (normalizedCode.indexOf(normalizedQuery) !== -1) return { match: true, type: 'contains' };
+    // Allow prefix with partial number: "CO9" matches "CO-96" if CO9 is close enough
+    if (normalizedQuery.length >= 3) {
+      var prefixPart = normalizedQuery.replace(/[0-9]+$/, '');
+      var numPart = normalizedQuery.replace(/^[a-z]+/, '');
+      var codePrefix = normalizedCode.replace(/[0-9]+$/, '');
+      var codeNum = normalizedCode.replace(/^[a-z]+/, '');
+      if (prefixPart === codePrefix && codeNum.indexOf(numPart) === 0) {
+        return { match: true, type: 'prefix-variant' };
+      }
+    }
+    return { match: false };
+  }
+
+  function textContainsFuzzy(normalizedQuery, normalizedText, threshold) {
+    if (!threshold) threshold = 2;
+    if (normalizedText.indexOf(normalizedQuery) !== -1) return true;
+    var words = normalizedText.split(/\s+/);
+    for (var i = 0; i < words.length; i++) {
+      if (words[i].length > 0 && levenshtein(normalizedQuery, words[i]) <= threshold) {
+        return true;
+      }
+    }
+    // Check consecutive word groups (bigrams)
+    if (normalizedQuery.length >= 3) {
+      for (var i = 0; i < words.length - 1; i++) {
+        var bigram = words[i] + words[i + 1];
+        if (levenshtein(normalizedQuery, bigram) <= threshold + 1) return true;
+      }
+    }
+    return false;
+  }
+
+  function computeRelevance(card, normalizedQuery, rawQuery) {
+    var code = card.getAttribute('data-code') || '';
+    var category = (card.getAttribute('data-category') || '').toLowerCase();
+    var normCode = normalize(code);
+    var cardText = card.textContent.toLowerCase();
+    var normText = normalize(cardText);
+
+    // 1. Exact code match (highest)
+    if (normCode === normalizedQuery) return 1000;
+    if (normalize(code.replace('-', '')) === normalizedQuery) return 990;
+
+    // 2. Code starts with query
+    if (normCode.indexOf(normalizedQuery) === 0) return 900;
+
+    // 3. Code contains query
+    if (normCode.indexOf(normalizedQuery) !== -1) return 800;
+
+    // 4. Fuzzy code match
+    var dist = levenshtein(normalizedQuery, normCode);
+    if (dist <= 2) return 700 - dist * 50;
+
+    // 5. Category exact match
+    if (category === normalizedQuery) return 600;
+    var catFullName = CATEGORY_NAMES[category] || '';
+    if (catFullName && catFullName.indexOf(normalizedQuery) !== -1) return 550;
+
+    // 6. Synonym-expanded query matches text
+    var expanded = expandSynonyms(rawQuery.toLowerCase());
+    var normExpanded = normalize(expanded);
+    if (normText.indexOf(normExpanded) !== -1) return 500;
+
+    // 7. Description contains query (word-level)
+    var descEl = card.querySelector('.denial-code-desc');
+    var desc = descEl ? descEl.textContent.toLowerCase() : '';
+    var normDesc = normalize(desc);
+    if (normDesc.indexOf(normalizedQuery) !== -1) return 400;
+
+    // 8. Fuzzy word match in description
+    if (textContainsFuzzy(normalizedQuery, normDesc, 2)) return 300;
+
+    // 9. Fuzzy match anywhere
+    if (textContainsFuzzy(normalizedQuery, normText, 2)) return 200;
+
+    // 10. Partial word match
+    var words = rawQuery.toLowerCase().split(/\s+/);
+    for (var i = 0; i < words.length; i++) {
+      if (words[i].length >= 2 && normText.indexOf(normalize(words[i])) !== -1) {
+        return 100;
+      }
+    }
+
+    return 0;
+  }
+
+  function highlightText(element, query) {
+    if (!query || query.length < 2) return;
+    var expanded = expandSynonyms(query.toLowerCase());
+    var allTerms = [query.toLowerCase()];
+    expanded.split(/\s+/).forEach(function(t) {
+      if (t.length >= 2 && allTerms.indexOf(t) === -1) allTerms.push(t);
+    });
+    var pattern = allTerms.map(function(t) {
+      return t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }).join('|');
+    if (!pattern) return;
+    var regex = new RegExp('(' + pattern + ')', 'gi');
+
+    var targets = element.querySelectorAll('.denial-code-desc, .denial-code-category');
+    targets.forEach(function(el) {
+      var original = el.getAttribute('data-original-text');
+      if (!original) {
+        original = el.innerHTML;
+        el.setAttribute('data-original-text', original);
+      }
+      el.innerHTML = original.replace(regex, '<mark style="background:#facc15;color:#000;border-radius:2px;padding:0 2px;">$1</mark>');
+    });
+  }
+
+  function clearHighlights() {
+    cards.forEach(function(card) {
+      var targets = card.querySelectorAll('.denial-code-desc, .denial-code-category');
+      targets.forEach(function(el) {
+        var original = el.getAttribute('data-original-text');
+        if (original) el.innerHTML = original;
+      });
+    });
+  }
 
   function updateCounts() {
-    let visible = 0;
+    var visible = 0;
     cards.forEach(function(card) {
       if (card.style.display !== 'none') visible++;
     });
@@ -1758,66 +1942,112 @@
   }
 
   function filterAndSortCards() {
-    const searchTerm = searchInput.value.toLowerCase().trim();
-    const [sortField, sortDirection] = sortOrderSelect.value.split('-');
-    const isAscending = sortDirection === 'asc';
+    var rawQuery = searchInput.value.trim();
+    var normalizedQuery = normalize(rawQuery);
+    var [sortField, sortDirection] = sortOrderSelect.value.split('-');
+    var isAscending = sortDirection === 'asc';
 
-    const filteredCards = Array.from(cards).filter(card => {
-      const text = card.textContent.toLowerCase();
-      const matchesSearch = !searchTerm || text.includes(searchTerm);
-      const matchesFilter = activeFilter === 'all' || card.getAttribute('data-category').toLowerCase() === activeFilter;
-      return matchesSearch && matchesFilter;
+    // Compute relevance scores
+    var scored = [];
+    cards.forEach(function(card) {
+      var relevance = normalizedQuery ? computeRelevance(card, normalizedQuery, rawQuery) : -1;
+      scored.push({ card: card, relevance: relevance });
     });
 
-    filteredCards.sort((a, b) => {
-      let valA, valB;
-      if (sortField === 'code') {
-        valA = a.getAttribute('data-code').toLowerCase();
-        valB = b.getAttribute('data-code').toLowerCase();
-      } else if (sortField === 'category') {
-        valA = a.getAttribute('data-category').toLowerCase();
-        valB = b.getAttribute('data-category').toLowerCase();
-      }
+    // Filter by active category filter + search relevance
+    var filtered = scored.filter(function(item) {
+      var matchesFilter = activeFilter === 'all' || item.card.getAttribute('data-category').toLowerCase() === activeFilter;
+      var matchesSearch = !normalizedQuery || item.relevance > 0;
+      return matchesFilter && matchesSearch;
+    });
 
+    // Sort: relevance first (when searching), then by sort field
+    filtered.sort(function(a, b) {
+      if (normalizedQuery) {
+        if (a.relevance !== b.relevance) return b.relevance - a.relevance;
+      }
+      var valA, valB;
+      if (sortField === 'code') {
+        valA = a.card.getAttribute('data-code').toLowerCase();
+        valB = b.card.getAttribute('data-code').toLowerCase();
+      } else if (sortField === 'category') {
+        valA = a.card.getAttribute('data-category').toLowerCase();
+        valB = b.card.getAttribute('data-category').toLowerCase();
+      }
       if (valA < valB) return isAscending ? -1 : 1;
       if (valA > valB) return isAscending ? 1 : -1;
       return 0;
     });
 
-    // Show/hide cards directly instead of DOM re-appending
-    cards.forEach(card => {
-      card.style.display = filteredCards.includes(card) ? '' : 'none';
+    var filteredCards = filtered.map(function(f) { return f.card; });
+
+    // Show/hide cards
+    cards.forEach(function(card) {
+      card.style.display = filteredCards.indexOf(card) !== -1 ? '' : 'none';
     });
 
-    // Show/hide sections based on whether they have visible cards
-    sections.forEach(section => {
-      const cat = section.getAttribute('data-category').toLowerCase();
-      const grid = section.querySelector('.denial-codes-grid');
-      const sectionCards = grid ? grid.querySelectorAll('.denial-code-card') : [];
-      let hasVisible = false;
-      sectionCards.forEach(c => { if (c.style.display !== 'none') hasVisible = true; });
-      const matchesFilter = activeFilter === 'all' || activeFilter === cat;
+    // Show/hide sections
+    sections.forEach(function(section) {
+      var cat = section.getAttribute('data-category').toLowerCase();
+      var grid = section.querySelector('.denial-codes-grid');
+      var sectionCards = grid ? grid.querySelectorAll('.denial-code-card') : [];
+      var hasVisible = false;
+      sectionCards.forEach(function(c) { if (c.style.display !== 'none') hasVisible = true; });
+      var matchesFilter = activeFilter === 'all' || activeFilter === cat;
       section.style.display = matchesFilter && hasVisible ? '' : 'none';
     });
+
+    // Highlight matched text
+    clearHighlights();
+    if (normalizedQuery && rawQuery.length >= 2) {
+      filtered.forEach(function(item) {
+        if (item.relevance >= 300) highlightText(item.card, rawQuery);
+      });
+    }
+
+    // Show suggestion for close matches
+    var suggestionEl = document.getElementById('searchSuggestion');
+    if (suggestionEl) {
+      if (filtered.length === 0 && normalizedQuery.length >= 2) {
+        var bestMatch = null;
+        var bestDist = Infinity;
+        scored.forEach(function(item) {
+          var normCode = normalize(item.card.getAttribute('data-code') || '');
+          var d = levenshtein(normalizedQuery, normCode);
+          if (d < bestDist) { bestDist = d; bestMatch = item; }
+        });
+        if (bestMatch && bestDist <= 4) {
+          var matchCode = bestMatch.card.getAttribute('data-code');
+          suggestionEl.innerHTML = 'Did you mean <strong>' + matchCode + '</strong>?';
+          suggestionEl.style.display = 'inline-block';
+        } else {
+          suggestionEl.style.display = 'none';
+        }
+      } else {
+        suggestionEl.style.display = 'none';
+      }
+    }
 
     updateCounts();
   }
 
-  searchInput.addEventListener('input', filterAndSortCards);
+  searchInput.addEventListener('input', function() {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(filterAndSortCards, 80);
+  });
   sortOrderSelect.addEventListener('change', filterAndSortCards);
 
-  filterTabs.forEach(tab => {
+  filterTabs.forEach(function(tab) {
     tab.addEventListener('click', function() {
-      filterTabs.forEach(t => t.classList.remove('active'));
+      filterTabs.forEach(function(t) { t.classList.remove('active'); });
       tab.classList.add('active');
       activeFilter = tab.getAttribute('data-filter');
-      searchInput.value = ''; // Clear search when filtering
+      searchInput.value = '';
       filterAndSortCards();
     });
   });
 
-  // Initial setup
-  filterAndSortCards(); // Ensure initial display is correct after DOM loads
+  filterAndSortCards();
 })();
 </script>
 
