@@ -3,6 +3,9 @@
  * RCM Denials — Security & SEO Headers
  */
 
+/icd10/*.js
+  Cache-Control: no-cache, no-store, must-revalidate
+
 https://rcmdenials.com/*
   # ── Security Headers ──────────────────────────────────────
   # HSTS: force HTTPS for 1 year, include subdomains, preload-eligible

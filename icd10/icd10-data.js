@@ -1198,7 +1198,6 @@ var ICD10_DB = (function() {
   var categories = {};
   var k;
   for (k in categories0) { categories[k] = categories0[k]; }
-  for (k in categories1) { categories[k] = categories1[k]; }
   for (k in categories2) { categories[k] = categories2[k]; }
   for (k in categories3) { categories[k] = categories3[k]; }
   for (k in categories4) { categories[k] = categories4[k]; }
