@@ -569,5 +569,4 @@
   .mv-summary-grid { grid-template-columns: 1fr; }
   .mv-export-btns { flex-direction: column; }
   .mv-export-btns .mv-btn { width: 100%; }
-  .static-nav { display: none; }
 }
