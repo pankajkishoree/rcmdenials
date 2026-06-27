@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 <head>
   <script>(function(){var t=localStorage.getItem("rcm_theme");if(t)document.documentElement.setAttribute("data-theme",t);document.addEventListener("DOMContentLoaded",function(){var t2=localStorage.getItem("rcm_theme");if(t2)document.documentElement.setAttribute("data-theme",t2);});})();</script>
@@ -21,11 +21,11 @@
   <meta name="twitter:title" content="ICD-10 Code Search — Free ICD-10-CM Lookup | RCM Denials" />
   <meta name="twitter:description" content="Search 3,000+ ICD-10-CM codes with fuzzy search, synonyms, and coding guidance." />
   <meta name="twitter:image" content="https://rcmdenials.com/og-image.png" />
-  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
-  <link rel="icon" type="image/png" href="../favicon.png" sizes="32x32" />
-  <link rel="apple-touch-icon" href="../favicon.png" />
-  <link rel="stylesheet" href="../styles.css" />
-  <link rel="stylesheet" href="tool.css" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" type="image/png" href="favicon.png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="favicon.png" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="_icd10/tool.css" />
 
   <script type="application/ld+json">
   {
@@ -77,23 +77,23 @@
 <div class="static-page">
   <header class="static-header">
     <div class="static-header-content">
-      <a class="logo" href="../index.html"><div class="logo-icon">🏥</div><span class="logo-text">RCM <span>Denials</span></span></a>
+      <a class="logo" href="index.html"><div class="logo-icon">🏥</div><span class="logo-text">RCM <span>Denials</span></span></a>
       <nav class="static-nav">
-        <a href="../index.html">Home</a>
-        <a href="index.html" class="active">ICD-10 Search</a>
-        <a href="../coding-compliance-checker">Compliance Check</a>
-        <a href="../claim-risk-review">Risk Review</a>
-        <a href="../modifier-validator">Modifier Validator</a>
-        <a href="../timely-filing-calculator">Timely Filing</a>
-        <a href="../ai-decision-tree">Decision Tree</a>
-        <a href="../payer-directory">Payer Directory</a>
+        <a href="index.html">Home</a>
+        <a href="icd10.html" class="active">ICD-10 Search</a>
+        <a href="coding-compliance-checker.html">Compliance Check</a>
+        <a href="claim-risk-review.html">Risk Review</a>
+        <a href="modifier-validator.html">Modifier Validator</a>
+        <a href="timely-filing-calculator.html">Timely Filing</a>
+        <a href="ai-decision-tree.html">Decision Tree</a>
+        <a href="payer-directory.html">Payer Directory</a>
       </nav>
       <div class="static-header-actions"><button class="btn-icon" id="btnTheme" title="Toggle Theme">🌙</button></div>
     </div>
   </header>
 
   <main class="static-main" style="max-width:1100px">
-    <div class="breadcrumb"><a href="../index.html">Home</a> / <span>ICD-10 Code Search</span></div>
+    <div class="breadcrumb"><a href="index.html">Home</a> / <span>ICD-10 Code Search</span></div>
 
     <div class="tool-page-header" style="background:none;border:none;padding:0;margin-bottom:24px">
       <div class="tool-page-header-inner">
@@ -151,12 +151,12 @@
   <footer class="static-footer">
     <div class="static-footer-content">
       <div class="footer-links">
-        <a href="../index.html">Home</a>
-        <a href="../about.html">About</a>
-        <a href="../faq.html">FAQ</a>
-        <a href="../contact.html">Contact</a>
-        <a href="../privacy.html">Privacy</a>
-        <a href="../terms.html">Terms</a>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="faq.html">FAQ</a>
+        <a href="contact.html">Contact</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
       </div>
       <div class="footer-copyright">&copy; 2026 RCM Denials. All rights reserved.</div>
     </div>
@@ -168,9 +168,9 @@
   <div id="icdDetailPanel" class="icd-detail-panel"></div>
 </div>
 
-<script src="icd10-data.js?v=4"></script>
-<script src="search-engine.js?v=1"></script>
-<script src="tool.js?v=1"></script>
+<script src="_icd10/icd10-data.js?v=4"></script>
+<script src="_icd10/search-engine.js?v=1"></script>
+<script src="_icd10/tool.js?v=1"></script>
 <script>(function(){var b=document.getElementById('btnTheme');if(b){b.addEventListener('click',function(){var h=document.documentElement,c=h.getAttribute('data-theme'),n=c==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('rcm_theme',n);b.textContent=n==='dark'?'🌙':'☀️';});var c=document.documentElement.getAttribute('data-theme');b.textContent=c==='dark'?'🌙':'☀️';}})();</script>
 </body>
 </html>
