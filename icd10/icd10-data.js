@@ -25,7 +25,7 @@ var ICD10_DB = (function() {
     { code: "XXI", name: "Factors influencing health status and contact with health services", range: "Z00-Z99" }
   ];
 
-  var categories = {
+  var categories0 = {
     "A00": { code: "A00", description: "Cholera", chapter: "I", range: "A00-A00" },
     "A09": { code: "A09", description: "Infectious gastroenteritis and colitis, unspecified", chapter: "I", range: "A09-A09" },
     "B07": { code: "B07", description: "Viral warts", chapter: "I", range: "B07-B07" },
@@ -1197,6 +1197,7 @@ var ICD10_DB = (function() {
   };
   var categories = {};
   var k;
+  for (k in categories0) { categories[k] = categories0[k]; }
   for (k in categories1) { categories[k] = categories1[k]; }
   for (k in categories2) { categories[k] = categories2[k]; }
   for (k in categories3) { categories[k] = categories3[k]; }
