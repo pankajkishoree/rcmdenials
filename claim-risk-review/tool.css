@@ -1,0 +1,110 @@
+/* ── CLAIM RISK REVIEW TOOL CSS ──────────────────────────── */
+
+/* Step Indicator */
+.crr-steps { display:flex; gap:4px; margin-bottom:24px; overflow-x:auto; padding-bottom:4px }
+.crr-step { flex:1; min-width:80px; display:flex; align-items:center; gap:6px; padding:10px 12px; border-radius:var(--r-md); background:var(--bg-surface); border:1px solid var(--border-subtle); font-size:12px; font-weight:600; color:var(--text-muted); cursor:pointer; transition:all .2s; white-space:nowrap }
+.crr-step span { width:22px; height:22px; border-radius:50%; background:var(--bg-elevated); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; flex-shrink:0 }
+.crr-step.active { border-color:var(--brand-400); color:var(--brand-400); background:rgba(0,212,184,.05) }
+.crr-step.active span { background:var(--brand-400); color:#fff }
+.crr-step.done { border-color:var(--green-400); color:var(--green-400) }
+.crr-step.done span { background:var(--green-400); color:#fff }
+@media(max-width:768px) { .crr-step span { display:none } .crr-step { min-width:60px; justify-content:center } }
+
+/* Form Steps */
+.crr-form-step { display:none; animation:fadeIn .3s ease }
+.crr-form-step.active { display:block }
+@keyframes fadeIn { from { opacity:0; transform:translateY(8px) } to { opacity:1; transform:translateY(0) } }
+
+/* Card */
+.crr-card { background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:var(--r-lg); padding:24px; margin-bottom:16px }
+.crr-card-title { font-size:16px; font-weight:700; color:var(--text-primary); margin:0 0 16px }
+
+/* Grid layouts */
+.crr-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px }
+.crr-grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px }
+@media(max-width:768px) { .crr-grid-2, .crr-grid-3 { grid-template-columns:1fr } }
+
+/* Nav buttons */
+.crr-nav { display:flex; justify-content:space-between; align-items:center; margin-top:16px }
+
+/* Analyze button */
+.crr-analyze-btn { font-size:15px; padding:12px 32px }
+
+/* Results Header */
+.crr-results-header { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; margin-bottom:16px; padding:24px; background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:var(--r-lg) }
+.crr-results-actions { display:flex; gap:8px; flex-wrap:wrap }
+
+/* Risk Gauge */
+.crr-risk-gauge { display:flex; align-items:center; gap:16px }
+.crr-gauge-ring { position:relative; width:80px; height:80px; flex-shrink:0 }
+.crr-gauge-ring svg { width:100%; height:100% }
+.crr-gauge-score { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:22px; font-weight:800; color:var(--text-primary) }
+.crr-risk-label { font-size:18px; font-weight:700; color:var(--text-primary) }
+.crr-risk-sublabel { font-size:13px; color:var(--text-muted); margin-top:2px }
+
+/* Risk Colors */
+.crr-risk-low { color:var(--green-400) }
+.crr-risk-medium { color:var(--amber-400) }
+.crr-risk-high { color:var(--red-400) }
+.crr-risk-low .crr-gauge-ring svg circle:last-child { stroke:var(--green-400) }
+.crr-risk-medium .crr-gauge-ring svg circle:last-child { stroke:var(--amber-400) }
+.crr-risk-high .crr-gauge-ring svg circle:last-child { stroke:var(--red-400) }
+
+/* Category Score */
+.crr-cat-row { display:flex; align-items:center; gap:12px; padding:12px 0; border-bottom:1px solid var(--border-subtle) }
+.crr-cat-row:last-child { border-bottom:none }
+.crr-cat-name { font-size:13px; font-weight:600; color:var(--text-primary); min-width:140px }
+.crr-cat-bar-wrap { flex:1; height:8px; background:var(--bg-elevated); border-radius:4px; overflow:hidden }
+.crr-cat-bar { height:100%; border-radius:4px; transition:width .6s ease }
+.crr-cat-score { font-size:13px; font-weight:700; min-width:40px; text-align:right }
+.crr-cat-score.low { color:var(--green-400) }
+.crr-cat-score.medium { color:var(--amber-400) }
+.crr-cat-score.high { color:var(--red-400) }
+.crr-cat-explain { font-size:12px; color:var(--text-muted); margin-top:4px; padding-left:152px }
+
+/* Risk Factors */
+.crr-factor { display:flex; align-items:start; gap:10px; padding:10px 0; border-bottom:1px solid var(--border-subtle) }
+.crr-factor:last-child { border-bottom:none }
+.crr-factor-icon { font-size:16px; flex-shrink:0; margin-top:1px }
+.crr-factor-text { font-size:13px; color:var(--text-secondary); line-height:1.5 }
+.crr-factor-text strong { color:var(--text-primary) }
+
+/* Denial Categories Tags */
+.crr-denial-tags { display:flex; flex-wrap:wrap; gap:8px }
+.crr-denial-tag { padding:6px 14px; border-radius:var(--r-full); font-size:12px; font-weight:600; border:1px solid }
+.crr-denial-tag.high { background:rgba(239,68,68,.1); color:var(--red-400); border-color:rgba(239,68,68,.3) }
+.crr-denial-tag.medium { background:rgba(245,158,11,.1); color:var(--amber-400); border-color:rgba(245,158,11,.3) }
+.crr-denial-tag.low { background:rgba(34,197,94,.1); color:var(--green-400); border-color:rgba(34,197,94,.3) }
+
+/* Suggested Actions */
+.crr-action { display:flex; align-items:start; gap:10px; padding:10px 12px; margin-bottom:8px; background:var(--bg-elevated); border-radius:var(--r-md); border:1px solid var(--border-subtle) }
+.crr-action-num { width:24px; height:24px; border-radius:50%; background:var(--brand-400); color:#fff; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; flex-shrink:0 }
+.crr-action-text { font-size:13px; color:var(--text-secondary); line-height:1.5 }
+
+/* Rule Warnings */
+.crr-rule { display:flex; align-items:start; gap:10px; padding:10px 12px; margin-bottom:8px; border-radius:var(--r-md); border:1px solid }
+.crr-rule.error { background:rgba(239,68,68,.08); border-color:rgba(239,68,68,.2) }
+.crr-rule.warning { background:rgba(245,158,11,.08); border-color:rgba(245,158,11,.2) }
+.crr-rule.info { background:rgba(59,130,246,.08); border-color:rgba(59,130,246,.2) }
+.crr-rule-icon { font-size:14px; flex-shrink:0; margin-top:1px }
+.crr-rule-text { font-size:13px; color:var(--text-secondary); line-height:1.5 }
+.crr-rule-text strong { color:var(--text-primary) }
+
+/* Confidence */
+.crr-confidence { display:flex; align-items:center; gap:12px }
+.crr-confidence-bar { flex:1; height:8px; background:var(--bg-elevated); border-radius:4px; overflow:hidden; max-width:300px }
+.crr-confidence-fill { height:100%; border-radius:4px; background:var(--brand-400); transition:width .6s ease }
+.crr-confidence-label { font-size:13px; font-weight:600; color:var(--text-primary) }
+.crr-confidence-desc { font-size:12px; color:var(--text-muted); margin-top:4px }
+
+/* Disclaimer */
+.crr-disclaimer { background:var(--bg-elevated); border:1px solid var(--border-subtle); border-radius:var(--r-md); padding:12px 16px; font-size:12px; color:var(--text-muted); line-height:1.5; border-left:3px solid var(--amber-400) }
+
+/* Loading */
+.crr-loading { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,.6); z-index:999; justify-content:center; align-items:center; backdrop-filter:blur(4px) }
+.crr-loading.active { display:flex }
+.crr-loading-inner { background:var(--bg-surface); border:1px solid var(--border-subtle); border-radius:var(--r-lg); padding:32px 48px; text-align:center }
+.crr-spinner { width:40px; height:40px; border:3px solid var(--bg-elevated); border-top-color:var(--brand-400); border-radius:50%; animation:spin 1s linear infinite; margin:0 auto 16px }
+@keyframes spin { to { transform:rotate(360deg) } }
+.crr-loading-text { font-size:16px; font-weight:700; color:var(--text-primary) }
+.crr-loading-subtext { font-size:13px; color:var(--text-muted); margin-top:4px }

@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <script>(function(){var t=localStorage.getItem("rcm_theme");if(t)document.documentElement.setAttribute("data-theme",t);document.addEventListener("DOMContentLoaded",function(){var t2=localStorage.getItem("rcm_theme");if(t2)document.documentElement.setAttribute("data-theme",t2);});})();</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6JRMMNNR40"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-6JRMMNNR40');</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Payer Directory & IVR Navigator — RCM Denials</title>
+  <meta name="description" content="30+ payer contacts, IVR shortcuts, department phone numbers, and escalation steps. Reduce hold times instantly." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://rcmdenials.com/payer-directory/" />
+  <meta property="og:title" content="Payer Directory & IVR Navigator | RCM Denials" />
+  <meta property="og:description" content="30+ payer contacts, IVR shortcuts, and escalation steps." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rcmdenials.com/payer-directory/" />
+  <meta property="og:image" content="https://rcmdenials.com/og-image.png" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    .payer-search-row{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+    .payer-search-row input,.payer-search-row select{flex:1;min-width:200px}
+    .payer-list-wrap{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r-lg);overflow:hidden;max-height:600px;overflow-y:auto}
+    .payer-list-header{padding:12px 16px;font-size:12px;font-weight:600;color:var(--text-muted);border-bottom:1px solid var(--border-subtle);position:sticky;top:0;background:var(--bg-surface);z-index:1}
+    .payer-item{display:flex;align-items:center;gap:12px;padding:12px 16px;cursor:pointer;transition:background .15s;border-bottom:1px solid var(--border-subtle)}
+    .payer-item:hover{background:var(--bg-hover)}
+    .payer-item.active{background:rgba(0,212,184,.08);border-left:3px solid var(--brand-400)}
+    .payer-avatar{width:36px;height:36px;border-radius:var(--r-md);background:linear-gradient(135deg,var(--brand-400),var(--brand-600));display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+    .payer-item-name{font-size:13px;font-weight:600;color:var(--text-primary)}
+    .payer-item-meta{font-size:11px;color:var(--text-muted)}
+    .payer-detail{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r-lg);padding:24px}
+    .dept-tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:16px}
+    .dept-tab{padding:6px 12px;border-radius:var(--r-md);font-size:12px;font-weight:500;background:var(--bg-elevated);border:1px solid var(--border-subtle);cursor:pointer;transition:all .15s;color:var(--text-muted)}
+    .dept-tab:hover{border-color:var(--brand-400);color:var(--text-primary)}
+    .dept-tab.active{background:var(--brand-400);color:#fff;border-color:var(--brand-400)}
+    .ivr-step{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg-elevated);border-radius:var(--r-md);margin-bottom:6px}
+    .ivr-action{font-size:13px;font-weight:700;color:var(--brand-400);min-width:120px}
+    .ivr-detail{font-size:13px;color:var(--text-secondary)}
+    .payer-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:16px}
+    .payer-stat{padding:12px;background:var(--bg-elevated);border-radius:var(--r-md);text-align:center}
+    .payer-stat-label{font-size:11px;color:var(--text-muted);margin-bottom:4px}
+    .payer-stat-value{font-size:14px;font-weight:700;color:var(--text-primary)}
+    .contact-field{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:var(--bg-elevated);border-radius:var(--r-md);margin-bottom:6px}
+    .contact-label{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px}
+    .contact-value{font-size:13px;font-weight:600;color:var(--text-primary);font-family:var(--font-mono)}
+    .copy-btn{padding:4px 8px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--text-muted);font-size:11px;cursor:pointer;transition:all .15s}
+    .copy-btn:hover{border-color:var(--brand-400);color:var(--brand-400)}
+    .payer-grid-layout{display:grid;grid-template-columns:1fr 1.3fr;gap:20px;align-items:start}
+    @media(max-width:768px){.payer-grid-layout{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="static-page">
+  <header class="static-header">
+    <div class="static-header-content">
+      <a class="logo" href="../index.html"><div class="logo-icon">🏥</div><span class="logo-text">RCM <span>Denials</span></span></a>
+      <nav class="static-nav">
+      <a href="../index.html">Home</a>
+      <a href="../claim-risk-review/index.html">Risk Review</a>
+      <a href="../coding-compliance-checker/index.html">Compliance Check</a>
+      <a href="../timely-filing-calculator/index.html">Timely Filing</a>
+        <a href="../ai-decision-tree/index.html">Decision Tree</a>
+        <a href="../ai-denial-checklist/index.html">Checklist</a>
+        <a href="../payer-directory/index.html" class="active">Payer Directory</a>
+        <a href="../batch-claims-tracker/index.html">Batch Tracker</a>
+        <a href="../post-call-summary/index.html">Post-Call Summary</a>
+      </nav>
+      <div class="static-header-actions"><button class="btn-icon" id="btnTheme" title="Toggle Theme">🌙</button></div>
+    </div>
+  </header>
+
+  <main class="static-main" style="max-width:1100px">
+    <div class="breadcrumb"><a href="../index.html">Home</a> / <span>Payer Directory & IVR Navigator</span></div>
+
+    <div class="tool-page-header" style="background:none;border:none;padding:0;margin-bottom:24px">
+      <div class="tool-page-header-inner">
+        <div class="tool-page-badge">📞 30+ Payers</div>
+        <h1 class="tool-page-title">Payer Directory & IVR Navigator</h1>
+        <p class="tool-page-desc">Reduce hold times · Find the right department instantly</p>
+      </div>
+    </div>
+
+    <div class="payer-search-row">
+      <input class="tool-input" id="payerSearch" type="text" placeholder="Search by payer name, ID, or state…" oninput="filterPayers()" />
+      <select class="tool-select" id="payerTypeFilter" onchange="filterPayers()" style="max-width:180px">
+        <option value="">All Plan Types</option>
+        <option value="Commercial">Commercial</option>
+        <option value="Medicare">Medicare</option>
+        <option value="Medicaid">Medicaid</option>
+        <option value="Managed Care">Managed Care</option>
+        <option value="Tricare">Tricare</option>
+        <option value="Government">Government</option>
+        <option value="Workers Comp">Workers Comp</option>
+      </select>
+    </div>
+
+    <div class="payer-grid-layout">
+      <div class="payer-list-wrap">
+        <div class="payer-list-header">Payers (<span id="payerCount">0</span>) — click to view details</div>
+        <div id="payerListItems"></div>
+      </div>
+      <div class="payer-detail" id="payerDetail">
+        <div class="tool-results-placeholder"><div class="tool-results-placeholder-icon">📞</div>Select a payer from the list</div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="static-footer">
+    <div class="static-footer-content">
+      <div class="footer-links"><a href="../about.html">About</a><a href="../faq.html">FAQ</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a></div>
+      <div class="footer-copyright">&copy; 2026 RCM Denials. All rights reserved.</div>
+    </div>
+  </footer>
+</div>
+
+<script src="../data.js"></script>
+<script>
+(function(){var b=document.getElementById('btnTheme');if(b){b.addEventListener('click',function(){var h=document.documentElement,c=h.getAttribute('data-theme'),n=c==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('rcm_theme',n);b.textContent=n==='dark'?'🌙':'☀️';});var c=document.documentElement.getAttribute('data-theme');b.textContent=c==='dark'?'🌙':'☀️';}})();
+
+var selectedPayer=null;
+var currentDept='Claims';
+
+function renderPayerList(payers){
+  var html='';
+  document.getElementById('payerCount').textContent=payers.length;
+  payers.forEach(function(p){
+    html+='<div class="payer-item'+(selectedPayer&&selectedPayer.id===p.id?' active':'')+'" onclick="showPayerDetail(\''+p.id+'\')">';
+    html+='<div class="payer-avatar">'+p.abbr+'</div>';
+    html+='<div><div class="payer-item-name">'+p.name+'</div>';
+    html+='<div class="payer-item-meta">ID: '+p.payerId+' · '+p.type+'</div></div></div>';
+  });
+  document.getElementById('payerListItems').innerHTML=html;
+}
+
+function filterPayers(){
+  var search=document.getElementById('payerSearch').value.toLowerCase();
+  var type=document.getElementById('payerTypeFilter').value;
+  var filtered=PAYER_DB.filter(function(p){
+    var matchSearch=!search||p.name.toLowerCase().indexOf(search)>-1||p.payerId.indexOf(search)>-1||p.states.join(' ').toLowerCase().indexOf(search)>-1;
+    var matchType=!type||p.type===type;
+    return matchSearch&&matchType;
+  });
+  renderPayerList(filtered);
+}
+
+function showPayerDetail(id){
+  var p=PAYER_DB.find(function(x){return x.id===id;});
+  if(!p)return;
+  selectedPayer=p;
+  currentDept='Claims';
+  renderPayerList(getFilteredPayers());
+
+  var html='<div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">';
+  html+='<div class="payer-avatar" style="width:48px;height:48px;font-size:16px">'+p.abbr+'</div>';
+  html+='<div><h2 style="font-size:18px;font-weight:700;margin:0">'+p.name+'</h2>';
+  html+='<div style="font-size:12px;color:var(--text-muted)">Payer ID: '+p.payerId+' · '+p.type+'</div></div></div>';
+
+  html+='<div class="payer-stats">';
+  html+='<div class="payer-stat"><div class="payer-stat-label">Avg Hold Time</div><div class="payer-stat-value">'+p.holdTime+'</div></div>';
+  html+='<div class="payer-stat"><div class="payer-stat-label">Best Time to Call</div><div class="payer-stat-value">'+p.bestTime+'</div></div>';
+  html+='<div class="payer-stat"><div class="payer-stat-label">Callback Available</div><div class="payer-stat-value">'+p.callback+'</div></div>';
+  html+='<div class="payer-stat"><div class="payer-stat-label">Initial Filing</div><div class="payer-stat-value">'+p.timelyFiling.initial+' days</div></div>';
+  html+='</div>';
+
+  html+='<div class="dept-tabs" id="deptTabs">';
+  Object.keys(p.departments).forEach(function(d){
+    html+='<div class="dept-tab'+(d===currentDept?' active':'')+'" onclick="switchDept(\''+p.id+'\',\''+d+'\')">'+d+'</div>';
+  });
+  html+='</div>';
+  html+='<div id="deptContact"></div>';
+
+  html+='<h3 style="font-size:14px;font-weight:700;margin:20px 0 12px;color:var(--text-primary)">📞 IVR Navigator</h3>';
+  p.ivr.forEach(function(step){
+    html+='<div class="ivr-step"><span class="ivr-action">'+step.action+'</span><span class="ivr-detail">'+step.detail+'</span></div>';
+  });
+
+  document.getElementById('payerDetail').innerHTML=html;
+  renderDeptContact(p.id,currentDept);
+}
+
+function getFilteredPayers(){
+  var search=document.getElementById('payerSearch').value.toLowerCase();
+  var type=document.getElementById('payerTypeFilter').value;
+  return PAYER_DB.filter(function(p){
+    var matchSearch=!search||p.name.toLowerCase().indexOf(search)>-1||p.payerId.indexOf(search)>-1||p.states.join(' ').toLowerCase().indexOf(search)>-1;
+    var matchType=!type||p.type===type;
+    return matchSearch&&matchType;
+  });
+}
+
+function switchDept(payerId,dept){
+  currentDept=dept;
+  document.querySelectorAll('.dept-tab').forEach(function(t){t.classList.remove('active');});
+  event.currentTarget.classList.add('active');
+  renderDeptContact(payerId,dept);
+}
+
+function renderDeptContact(payerId,dept){
+  var p=PAYER_DB.find(function(x){return x.id===payerId;});
+  if(!p||!p.departments[dept])return;
+  var d=p.departments[dept];
+  var html='';
+  html+='<div class="contact-field"><div><div class="contact-label">Phone</div><div class="contact-value">'+d.phone+'</div></div><button class="copy-btn" onclick="copyVal(\''+d.phone.replace(/'/g,"\\'")+'\')">Copy</button></div>';
+  html+='<div class="contact-field"><div><div class="contact-label">Fax</div><div class="contact-value">'+d.fax+'</div></div><button class="copy-btn" onclick="copyVal(\''+d.fax.replace(/'/g,"\\'")+'\')">Copy</button></div>';
+  html+='<div class="contact-field"><div><div class="contact-label">Mailing Address</div><div class="contact-value" style="font-family:var(--font-sans)">'+d.address+'</div></div><button class="copy-btn" onclick="copyVal(\''+d.address.replace(/'/g,"\\'")+'\')">Copy</button></div>';
+  if(d.portal){html+='<div class="contact-field"><div><div class="contact-label">Portal</div><div class="contact-value" style="font-family:var(--font-sans)"><a href="'+d.portal+'" target="_blank" rel="noopener" style="color:var(--brand-400);text-decoration:none">'+d.portal+'</a></div></div></div>';}
+  document.getElementById('deptContact').innerHTML=html;
+}
+
+function copyVal(val){navigator.clipboard.writeText(val).then(function(){alert('Copied: '+val);});}
+
+renderPayerList(PAYER_DB);
+</script>
+</body>
+</html>
+

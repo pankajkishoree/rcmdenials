@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <script>(function(){var t=localStorage.getItem("rcm_theme");if(t)document.documentElement.setAttribute("data-theme",t);document.addEventListener("DOMContentLoaded",function(){var t2=localStorage.getItem("rcm_theme");if(t2)document.documentElement.setAttribute("data-theme",t2);});})();</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6JRMMNNR40"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-6JRMMNNR40');</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Claim Risk Dashboard — RCM Denials</title>
+  <meta name="description" content="Track claim risk analysis trends and denial prevention metrics." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="tool.css" />
+  <style>
+    .dash-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
+    .dash-stat{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r-lg);padding:20px;text-align:center}
+    .dash-stat-value{font-size:28px;font-weight:800;margin-bottom:4px}
+    .dash-stat-label{font-size:12px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px}
+    .dash-stat.green .dash-stat-value{color:var(--green-400)}
+    .dash-stat.amber .dash-stat-value{color:var(--amber-400)}
+    .dash-stat.red .dash-stat-value{color:var(--red-400)}
+    .dash-stat.brand .dash-stat-value{color:var(--brand-400)}
+    .dash-history{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r-lg);overflow:hidden}
+    .dash-history-header{padding:16px 20px;border-bottom:1px solid var(--border-subtle);display:flex;justify-content:space-between;align-items:center}
+    .dash-history-title{font-size:14px;font-weight:700;color:var(--text-primary)}
+    .dash-history-row{display:grid;grid-template-columns:140px 1fr 80px 80px 80px 100px;padding:12px 20px;border-bottom:1px solid var(--border-subtle);font-size:13px;color:var(--text-secondary);align-items:center}
+    .dash-history-row:last-child{border-bottom:none}
+    .dash-history-row.head{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;background:var(--bg-elevated)}
+    .dash-history-row:hover:not(.head){background:var(--bg-hover)}
+    .dash-category-bar{height:6px;background:var(--bg-elevated);border-radius:3px;overflow:hidden}
+    .dash-category-fill{height:100%;border-radius:3px}
+    .dash-empty{text-align:center;padding:48px 24px;color:var(--text-muted)}
+    .dash-empty-icon{font-size:48px;margin-bottom:12px;opacity:.5}
+    .dash-actions{display:flex;gap:8px;margin-bottom:16px}
+    @media(max-width:768px){.dash-grid{grid-template-columns:1fr 1fr} .dash-history-row{grid-template-columns:1fr;font-size:12px} .dash-history-row.head{display:none}}
+  </style>
+</head>
+<body>
+<div class="static-page">
+  <header class="static-header">
+    <div class="static-header-content">
+      <a class="logo" href="../index.html"><div class="logo-icon">🏥</div><span class="logo-text">RCM <span>Denials</span></span></a>
+      <nav class="static-nav">
+        <a href="../index.html">Home</a>
+        <a href="index.html">Risk Review</a>
+        <a href="dashboard.html" class="active">Dashboard</a>
+      </nav>
+      <div class="static-header-actions">
+        <button class="btn-icon" id="btnTheme" title="Toggle Theme">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="static-main" style="max-width:1100px">
+    <div class="breadcrumb"><a href="../index.html">Home</a> / <a href="index.html">Risk Review</a> / <span>Dashboard</span></div>
+
+    <div class="tool-page-header" style="background:none;border:none;padding:0;margin-bottom:24px">
+      <div class="tool-page-header-inner">
+        <div class="tool-page-badge">📊 Analytics</div>
+        <h1 class="tool-page-title">Claim Risk Dashboard</h1>
+        <p class="tool-page-desc">Track analysis trends and denial prevention metrics</p>
+      </div>
+    </div>
+
+    <div class="dash-actions">
+      <a href="index.html" class="btn btn-primary btn-sm">+ Analyze New Claim</a>
+      <button class="btn btn-secondary btn-sm" onclick="clearDashboard()">🗑️ Clear Data</button>
+    </div>
+
+    <!-- Summary Stats -->
+    <div class="dash-grid" id="dashStats"></div>
+
+    <!-- History -->
+    <div class="dash-history">
+      <div class="dash-history-header">
+        <div class="dash-history-title">Recent Analyses</div>
+        <div style="font-size:12px;color:var(--text-muted)" id="dashCount">0 claims</div>
+      </div>
+      <div class="dash-history-row head">
+        <div>Date</div>
+        <div>Payer / CPT</div>
+        <div>Score</div>
+        <div>Risk</div>
+        <div>Factors</div>
+        <div>Actions</div>
+      </div>
+      <div id="dashHistory"></div>
+    </div>
+  </main>
+
+  <footer class="static-footer">
+    <div class="static-footer-content">
+      <div class="footer-links"><a href="../about.html">About</a><a href="../faq.html">FAQ</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a></div>
+      <div class="footer-copyright">&copy; 2026 RCM Denials. All rights reserved.</div>
+    </div>
+  </footer>
+</div>
+
+<script>
+// Theme toggle
+(function(){var b=document.getElementById('btnTheme');if(b){b.addEventListener('click',function(){var h=document.documentElement,c=h.getAttribute('data-theme'),n=c==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('rcm_theme',n);b.textContent=n==='dark'?'🌙':'☀️';});var c=document.documentElement.getAttribute('data-theme');b.textContent=c==='dark'?'🌙':'☀️';}})();
+
+var analyses = JSON.parse(localStorage.getItem('crr_analyses') || '[]');
+
+function renderDashboard() {
+  // Stats
+  var total = analyses.length;
+  var high = analyses.filter(function(a) { return a.result.overallScore > 60; }).length;
+  var medium = analyses.filter(function(a) { return a.result.overallScore > 30 && a.result.overallScore <= 60; }).length;
+  var low = analyses.filter(function(a) { return a.result.overallScore <= 30; }).length;
+  var avgScore = total > 0 ? Math.round(analyses.reduce(function(s, a) { return s + a.result.overallScore; }, 0) / total) : 0;
+
+  var statsHtml = '';
+  statsHtml += '<div class="dash-stat brand"><div class="dash-stat-value">' + total + '</div><div class="dash-stat-label">Total Analyzed</div></div>';
+  statsHtml += '<div class="dash-stat red"><div class="dash-stat-value">' + high + '</div><div class="dash-stat-label">High Risk</div></div>';
+  statsHtml += '<div class="dash-stat amber"><div class="dash-stat-value">' + medium + '</div><div class="dash-stat-label">Medium Risk</div></div>';
+  statsHtml += '<div class="dash-stat green"><div class="dash-stat-value">' + low + '</div><div class="dash-stat-label">Low Risk</div></div>';
+  document.getElementById('dashStats').innerHTML = statsHtml;
+  document.getElementById('dashCount').textContent = total + ' claims';
+
+  // History
+  var historyHtml = '';
+  if (analyses.length === 0) {
+    historyHtml = '<div class="dash-empty"><div class="dash-empty-icon">📊</div><h3>No analyses yet</h3><p>Analyze your first claim to see trends here</p></div>';
+  } else {
+    analyses.slice(0, 50).forEach(function(a) {
+      var date = new Date(a.timestamp);
+      var dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+      var score = a.result.overallScore;
+      var risk = score <= 30 ? 'low' : score <= 60 ? 'medium' : 'high';
+      var riskLabel = score <= 30 ? 'Low' : score <= 60 ? 'Medium' : 'High';
+      var barColor = risk === 'low' ? 'var(--green-400)' : risk === 'medium' ? 'var(--amber-400)' : 'var(--red-400)';
+      var cptStr = a.claim.cptCodes ? a.claim.cptCodes.join(', ') : 'N/A';
+
+      historyHtml += '<div class="dash-history-row">';
+      historyHtml += '<div>' + dateStr + '</div>';
+      historyHtml += '<div>' + (a.claim.payer || 'N/A') + ' / ' + cptStr + '</div>';
+      historyHtml += '<div><div class="dash-category-bar" style="width:60px;display:inline-block;vertical-align:middle;margin-right:6px"><div class="dash-category-fill" style="width:' + score + '%;background:' + barColor + '"></div></div>' + score + '</div>';
+      historyHtml += '<div style="color:' + barColor + ';font-weight:600">' + riskLabel + '</div>';
+      historyHtml += '<div>' + a.result.factorCount + ' factors</div>';
+      historyHtml += '<div><button class="action-btn" onclick="deleteAnalysis(\'' + a.timestamp + '\')">Del</button></div>';
+      historyHtml += '</div>';
+    });
+  }
+  document.getElementById('dashHistory').innerHTML = historyHtml;
+}
+
+function deleteAnalysis(timestamp) {
+  analyses = analyses.filter(function(a) { return a.timestamp !== timestamp; });
+  localStorage.setItem('crr_analyses', JSON.stringify(analyses));
+  renderDashboard();
+}
+
+function clearDashboard() {
+  if (!confirm('Clear all analysis data?')) return;
+  analyses = [];
+  localStorage.removeItem('crr_analyses');
+  renderDashboard();
+}
+
+renderDashboard();
+</script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <script>(function(){var t=localStorage.getItem("rcm_theme");if(t)document.documentElement.setAttribute("data-theme",t);document.addEventListener("DOMContentLoaded",function(){var t2=localStorage.getItem("rcm_theme");if(t2)document.documentElement.setAttribute("data-theme",t2);});})();</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6JRMMNNR40"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-6JRMMNNR40');</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Post-Call Summary — RCM Denials</title>
+  <meta name="description" content="Auto-generate professional AR call notes and next actions. One-click copy to your billing system." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://rcmdenials.com/post-call-summary/" />
+  <meta property="og:title" content="Post-Call Summary | RCM Denials" />
+  <meta property="og:description" content="Auto-generate professional AR call notes." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rcmdenials.com/post-call-summary/" />
+  <meta property="og:image" content="https://rcmdenials.com/og-image.png" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    .summary-form{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+    .summary-note{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r-lg);padding:20px;min-height:300px}
+    .ar-note-box{width:100%;min-height:280px;border:1px solid var(--border-base);border-radius:var(--r-md);padding:16px;font-size:13px;font-family:var(--font-mono);line-height:1.7;color:var(--text-primary);background:var(--bg-elevated);resize:vertical;outline:none}
+    .ar-note-box:focus{border-color:var(--brand-400)}
+    .summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    @media(max-width:768px){.summary-form,.summary-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="static-page">
+  <header class="static-header">
+    <div class="static-header-content">
+      <a class="logo" href="../index.html"><div class="logo-icon">🏥</div><span class="logo-text">RCM <span>Denials</span></span></a>
+      <nav class="static-nav">
+      <a href="../index.html">Home</a>
+      <a href="../claim-risk-review/index.html">Risk Review</a>
+      <a href="../coding-compliance-checker/index.html">Compliance Check</a>
+      <a href="../timely-filing-calculator/index.html">Timely Filing</a>
+        <a href="../ai-decision-tree/index.html">Decision Tree</a>
+        <a href="../ai-denial-checklist/index.html">Checklist</a>
+        <a href="../payer-directory/index.html">Payer Directory</a>
+        <a href="../batch-claims-tracker/index.html">Batch Tracker</a>
+        <a href="../post-call-summary/index.html" class="active">Post-Call Summary</a>
+      </nav>
+      <div class="static-header-actions"><button class="btn-icon" id="btnTheme" title="Toggle Theme">🌙</button></div>
+    </div>
+  </header>
+
+  <main class="static-main" style="max-width:1000px">
+    <div class="breadcrumb"><a href="../index.html">Home</a> / <span>Post-Call Summary</span></div>
+
+    <div class="tool-page-header" style="background:none;border:none;padding:0;margin-bottom:24px">
+      <div class="tool-page-header-inner">
+        <div class="tool-page-badge">📋 Auto-Generated Notes</div>
+        <h1 class="tool-page-title">Post-Call Summary</h1>
+        <p class="tool-page-desc">Professional AR notes — one-click copy to billing software</p>
+      </div>
+    </div>
+
+    <!-- Call Details Form -->
+    <div class="summary-form">
+      <div class="tool-field">
+        <label class="tool-label" for="sPayer">Payer</label>
+        <select class="tool-select" id="sPayer"><option value="">Select payer…</option></select>
+      </div>
+      <div class="tool-field">
+        <label class="tool-label" for="sClaim">Claim Number</label>
+        <input class="tool-input" id="sClaim" placeholder="CLM-12345" />
+      </div>
+      <div class="tool-field">
+        <label class="tool-label" for="sDenial">Denial Code</label>
+        <select class="tool-select" id="sDenial"><option value="">Select denial code…</option></select>
+      </div>
+      <div class="tool-field">
+        <label class="tool-label" for="sDOS">Date of Service</label>
+        <input class="tool-input" id="sDOS" type="date" />
+      </div>
+      <div class="tool-field">
+        <label class="tool-label" for="sBilled">Billed Amount</label>
+        <input class="tool-input" id="sBilled" placeholder="$0.00" />
+      </div>
+      <div class="tool-field">
+        <label class="tool-label" for="sRep">Rep Name</label>
+        <input class="tool-input" id="sRep" placeholder="Representative name" />
+      </div>
+      <div class="tool-field">
+        <label class="tool-label" for="sRef">Reference #</label>
+        <input class="tool-input" id="sRef" placeholder="Call reference number" />
+      </div>
+      <div class="tool-field">
+        <label class="tool-label" for="sDuration">Call Duration (mm:ss)</label>
+        <input class="tool-input" id="sDuration" placeholder="05:30" />
+      </div>
+    </div>
+
+    <div class="tool-field">
+      <label class="tool-label" for="sNotes">Call Notes (what happened during the call)</label>
+      <textarea class="tool-textarea" id="sNotes" rows="4" placeholder="Describe the call outcome, what the rep said, what was resolved…"></textarea>
+    </div>
+
+    <div style="display:flex;gap:8px;margin:16px 0;flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="generateNotes()">⚡ Generate AR Notes</button>
+      <button class="btn btn-secondary" onclick="copyNotes()">📋 Copy Notes</button>
+      <button class="btn btn-secondary" onclick="clearForm()">↺ Clear</button>
+    </div>
+
+    <!-- Generated Notes -->
+    <div class="summary-note">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <h3 style="font-size:14px;font-weight:700;color:var(--text-primary);margin:0">📄 Generated AR Notes</h3>
+        <button class="btn btn-secondary btn-sm" onclick="copyNotes()">📋 Copy</button>
+      </div>
+      <textarea class="ar-note-box" id="arNoteBox" readonly></textarea>
+    </div>
+  </main>
+
+  <footer class="static-footer">
+    <div class="static-footer-content">
+      <div class="footer-links"><a href="../about.html">About</a><a href="../faq.html">FAQ</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a></div>
+      <div class="footer-copyright">&copy; 2026 RCM Denials. All rights reserved.</div>
+    </div>
+  </footer>
+</div>
+
+<script src="../data.js"></script>
+<script>
+(function(){var b=document.getElementById('btnTheme');if(b){b.addEventListener('click',function(){var h=document.documentElement,c=h.getAttribute('data-theme'),n=c==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('rcm_theme',n);b.textContent=n==='dark'?'🌙':'☀️';});var c=document.documentElement.getAttribute('data-theme');b.textContent=c==='dark'?'🌙':'☀️';}})();
+
+var sPayer=document.getElementById('sPayer');
+var sDenial=document.getElementById('sDenial');
+PAYER_DB.forEach(function(p){var o=document.createElement('option');o.value=p.name;o.text=p.name;sPayer.appendChild(o);});
+DENIAL_CODES.forEach(function(d){var o=document.createElement('option');o.value=d.code;o.text=d.code+' — '+d.desc;sDenial.appendChild(o);});
+
+function generateNotes(){
+  var today=new Date().toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+  var payer=sPayer.options[sPayer.selectedIndex].text||'N/A';
+  if(sPayer.value==='')payer='N/A';
+  var claim=document.getElementById('sClaim').value||'N/A';
+  var denial=sDenial.value||'N/A';
+  var denialDesc=sDenial.selectedIndex>0?sDenial.options[sDenial.selectedIndex].text:'N/A';
+  var dos=document.getElementById('sDOS').value||'N/A';
+  var billed=document.getElementById('sBilled').value||'$0.00';
+  var rep=document.getElementById('sRep').value||'N/A';
+  var ref=document.getElementById('sRef').value||'N/A';
+  var duration=document.getElementById('sDuration').value||'00:00';
+  var notes=document.getElementById('sNotes').value||'No additional notes.';
+
+  var note='AR CALL NOTES — '+today+'\n';
+  note+='━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n';
+  note+='CLAIM INFORMATION:\n';
+  note+='Payer: '+payer+'\n';
+  note+='Claim #: '+claim+'\n';
+  note+='Date of Service: '+dos+'\n';
+  note+='Billed Amount: '+billed+'\n';
+  note+='Denial Code: '+denial+'\n\n';
+  note+='CALL DETAILS:\n';
+  note+='Representative: '+rep+'\n';
+  note+='Reference #: '+ref+'\n';
+  note+='Call Duration: '+duration+'\n\n';
+  note+='CALL SUMMARY:\n';
+  note+=notes+'\n\n';
+  note+='FOLLOW-UP ACTION ITEMS:\n';
+  note+='• Review denial and determine next steps\n';
+  note+='• Document any promised callbacks\n';
+  note+='• Schedule follow-up as needed\n\n';
+  note+='Documented by: RCM Denials AI Assistant';
+
+  document.getElementById('arNoteBox').value=note;
+}
+
+function copyNotes(){
+  var box=document.getElementById('arNoteBox');
+  if(!box.value){alert('Generate notes first.');return;}
+  navigator.clipboard.writeText(box.value).then(function(){alert('Notes copied to clipboard!');});
+}
+
+function clearForm(){
+  document.getElementById('sPayer').selectedIndex=0;
+  document.getElementById('sClaim').value='';
+  document.getElementById('sDenial').selectedIndex=0;
+  document.getElementById('sDOS').value='';
+  document.getElementById('sBilled').value='';
+  document.getElementById('sRep').value='';
+  document.getElementById('sRef').value='';
+  document.getElementById('sDuration').value='';
+  document.getElementById('sNotes').value='';
+  document.getElementById('arNoteBox').value='';
+}
+</script>
+</body>
+</html>
+

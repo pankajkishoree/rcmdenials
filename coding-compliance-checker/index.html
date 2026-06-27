@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <script>(function(){var t=localStorage.getItem("rcm_theme");if(t)document.documentElement.setAttribute("data-theme",t);document.addEventListener("DOMContentLoaded",function(){var t2=localStorage.getItem("rcm_theme");if(t2)document.documentElement.setAttribute("data-theme",t2);});})();</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6JRMMNNR40"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-6JRMMNNR40');</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coding Compliance Checker — RCM Denials</title>
+  <meta name="description" content="Pre-submission coding compliance checker. Validate ICD-10, CPT, modifiers, NCCI edits, and medical necessity before claim submission." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://rcmdenials.com/coding-compliance-checker/" />
+  <meta property="og:title" content="Coding Compliance Checker | RCM Denials" />
+  <meta property="og:description" content="Pre-submission coding compliance checker. Check your codes before the payer does." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rcmdenials.com/coding-compliance-checker/" />
+  <meta property="og:image" content="https://rcmdenials.com/og-image.png" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="tool.css" />
+</head>
+<body>
+<div class="static-page">
+  <header class="static-header">
+    <div class="static-header-content">
+      <a class="logo" href="../index.html"><div class="logo-icon">🏥</div><span class="logo-text">RCM <span>Denials</span></span></a>
+      <nav class="static-nav">
+        <a href="../index.html">Home</a>
+        <a href="index.html" class="active">Compliance Check</a>
+        <a href="../claim-risk-review/index.html">Risk Review</a>
+        <a href="../modifier-validator/index.html">Modifier Validator</a>
+        <a href="../timely-filing-calculator/index.html">Timely Filing</a>
+        <a href="../ai-decision-tree/index.html">Decision Tree</a>
+        <a href="../payer-directory/index.html">Payer Directory</a>
+      </nav>
+      <div class="static-header-actions"><button class="btn-icon" id="btnTheme" title="Toggle Theme">🌙</button></div>
+    </div>
+  </header>
+
+  <main class="static-main" style="max-width:1100px">
+    <div class="breadcrumb"><a href="../index.html">Home</a> / <span>Coding Compliance Checker</span></div>
+
+    <div class="tool-page-header" style="background:none;border:none;padding:0;margin-bottom:24px">
+      <div class="tool-page-header-inner">
+        <div class="tool-page-badge">🔍 Compliance Check</div>
+        <h1 class="tool-page-title">Coding Compliance Checker</h1>
+        <p class="tool-page-desc">Check your codes before the payer does. Pre-submission coding compliance review.</p>
+      </div>
+    </div>
+
+    <!-- INPUT FORM -->
+    <div id="inputSection">
+      <!-- Diagnosis Codes -->
+      <div class="cwc-card">
+        <h2 class="cwc-card-title">Diagnosis Codes (ICD-10-CM)</h2>
+        <p class="cwc-card-hint">Add ICD-10-CM codes one at a time</p>
+        <div id="icdContainer">
+          <div class="cwc-code-row"><input type="text" class="form-input cwc-code-input icd-input" placeholder="e.g. M17.11"></div>
+        </div>
+        <button class="btn btn-outline btn-sm" id="addICD" style="margin-top:8px">+ Add ICD-10 Code</button>
+        <div class="cwc-examples">
+          <span class="cwc-example-label">Examples:</span>
+          <button class="cwc-example-btn" onclick="document.querySelector('#icdContainer .icd-input').value='J06.9'">J06.9</button>
+          <button class="cwc-example-btn" onclick="document.querySelector('#icdContainer .icd-input').value='M54.5'">M54.5</button>
+          <button class="cwc-example-btn" onclick="document.querySelector('#icdContainer .icd-input').value='E11.9'">E11.9</button>
+          <button class="cwc-example-btn" onclick="document.querySelector('#icdContainer .icd-input').value='I10'">I10</button>
+          <button class="cwc-example-btn" onclick="document.querySelector('#icdContainer .icd-input').value='Z87.891'">Z87.891</button>
+        </div>
+      </div>
+
+      <!-- Procedure Codes -->
+      <div class="cwc-card">
+        <h2 class="cwc-card-title">Procedure Codes (CPT / HCPCS)</h2>
+        <p class="cwc-card-hint">Add CPT or HCPCS codes one at a time</p>
+        <div id="cptContainer">
+          <div class="cwc-code-row"><input type="text" class="form-input cwc-code-input cpt-input" placeholder="e.g. 29881"></div>
+        </div>
+        <button class="btn btn-outline btn-sm" id="addCPT" style="margin-top:8px">+ Add CPT Code</button>
+        <div class="cwc-examples">
+          <span class="cwc-example-label">Examples:</span>
+          <button class="cwc-example-btn" onclick="document.querySelector('#cptContainer .cpt-input').value='99213'">99213</button>
+          <button class="cwc-example-btn" onclick="document.querySelector('#cptContainer .cpt-input').value='99214'">99214</button>
+          <button class="cwc-example-btn" onclick="document.querySelector('#cptContainer .cpt-input').value='29881'">29881</button>
+          <button class="cwc-example-btn" onclick="document.querySelector('#cptContainer .cpt-input').value='70553'">70553</button>
+          <button class="cwc-example-btn" onclick="document.querySelector('#cptContainer .cpt-input').value='45378'">45378</button>
+        </div>
+      </div>
+
+      <!-- Modifiers -->
+      <div class="cwc-card">
+        <h2 class="cwc-card-title">Modifiers (Optional)</h2>
+        <p class="cwc-card-hint">Add modifiers with optional description</p>
+        <div id="modContainer"></div>
+        <button class="btn btn-outline btn-sm" id="addMod" style="margin-top:8px">+ Add Modifier</button>
+        <div class="cwc-examples">
+          <span class="cwc-example-label">Common:</span>
+          <button class="cwc-example-btn" onclick="CWC.addModRow()">25 — Separate E/M</button>
+          <button class="cwc-example-btn" onclick="CWC.addModRow()">59 — Distinct Service</button>
+          <button class="cwc-example-btn" onclick="CWC.addModRow()">LT — Left Side</button>
+          <button class="cwc-example-btn" onclick="CWC.addModRow()">RT — Right Side</button>
+        </div>
+      </div>
+
+      <!-- Optional Context -->
+      <div class="cwc-card">
+        <h2 class="cwc-card-title">Additional Context (Optional)</h2>
+        <div class="cwc-grid-3">
+          <div class="tool-field">
+            <label class="tool-label" for="specialty">Specialty</label>
+            <select class="tool-select" id="specialty">
+              <option value="">Select specialty...</option>
+              <option value="Primary Care">Primary Care</option>
+              <option value="Internal Medicine">Internal Medicine</option>
+              <option value="Cardiology">Cardiology</option>
+              <option value="Dermatology">Dermatology</option>
+              <option value="Orthopedic Surgery">Orthopedic Surgery</option>
+              <option value="Neurology">Neurology</option>
+              <option value="Oncology">Oncology</option>
+              <option value="Psychiatry">Psychiatry</option>
+              <option value="OB/GYN">OB/GYN</option>
+              <option value="Pediatrics">Pediatrics</option>
+              <option value="General Surgery">General Surgery</option>
+              <option value="Emergency Medicine">Emergency Medicine</option>
+              <option value="Radiology">Radiology</option>
+              <option value="Physical Therapy">Physical Therapy</option>
+              <option value="Gastroenterology">Gastroenterology</option>
+              <option value="Urology">Urology</option>
+              <option value="Ophthalmology">Ophthalmology</option>
+              <option value="ENT">ENT</option>
+              <option value="Pulmonology">Pulmonology</option>
+              <option value="Endocrinology">Endocrinology</option>
+            </select>
+          </div>
+          <div class="tool-field">
+            <label class="tool-label" for="payer">Payer (if known)</label>
+            <select class="tool-select" id="payer">
+              <option value="">Select payer...</option>
+              <option value="Medicare">Medicare</option>
+              <option value="Medicaid">Medicaid</option>
+              <option value="UnitedHealthcare">UnitedHealthcare</option>
+              <option value="Aetna">Aetna</option>
+              <option value="Cigna">Cigna</option>
+              <option value="Blue Cross Blue Shield">BCBS</option>
+              <option value="Humana">Humana</option>
+              <option value="Kaiser Permanente">Kaiser</option>
+              <option value="Anthem">Anthem</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="tool-field">
+            <label class="tool-label" for="pos">Place of Service</label>
+            <select class="tool-select" id="pos">
+              <option value="11">Office (11)</option>
+              <option value="21">Inpatient Hospital (21)</option>
+              <option value="22">Outpatient Hospital (22)</option>
+              <option value="23">Emergency Room (23)</option>
+              <option value="31">Skilled Nursing (31)</option>
+              <option value="49">Independent Clinic (49)</option>
+              <option value="71">Public Health Clinic (71)</option>
+              <option value="72">Rural Health Clinic (72)</option>
+              <option value="99">Other</option>
+            </select>
+          </div>
+        </div>
+        <div class="cwc-grid-3" style="margin-top:12px">
+          <div class="tool-field">
+            <label class="tool-label" for="age">Patient Age</label>
+            <input type="number" class="tool-input" id="age" placeholder="e.g. 45" min="0" max="120" style="max-width:120px">
+          </div>
+          <div class="tool-field">
+            <label class="tool-label" for="gender">Gender</label>
+            <select class="tool-select" id="gender">
+              <option value="">Select...</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div style="display:flex;align-items:flex-end">
+            <button class="cwc-example-btn" id="loadExample" style="margin-right:6px">Load Example 1</button>
+            <button class="cwc-example-btn" id="loadExample2">Load Example 2</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Check Button -->
+      <div style="display:flex;justify-content:center;gap:12px;margin-top:8px">
+        <button class="btn btn-primary cwc-check-btn" id="analyzeBtn">🔍 Run Compliance Check</button>
+        <button class="btn btn-outline cwc-check-btn" id="clearBtn">Clear All</button>
+      </div>
+    </div>
+
+    <!-- RESULTS (hidden initially) -->
+    <div id="results" style="display:none"></div>
+
+    <!-- Loading -->
+    <div class="cwc-loading" id="loading">
+      <div class="cwc-loading-inner">
+        <div class="cwc-spinner"></div>
+        <div class="cwc-loading-text">Checking compliance...</div>
+        <div class="cwc-loading-subtext">Validating ICD-CPT linkage, NCCI edits, modifiers, and medical necessity</div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="static-footer">
+    <div class="static-footer-content">
+      <div class="footer-links"><a href="../about.html">About</a><a href="../faq.html">FAQ</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a></div>
+      <div class="footer-copyright">&copy; 2026 RCM Denials. All rights reserved.</div>
+    </div>
+  </footer>
+</div>
+
+<script src="../data.js"></script>
+<script src="ncci-edits.js"></script>
+<script src="compliance-engine.js"></script>
+<script src="tool.js"></script>
+<script>(function(){var b=document.getElementById('btnTheme');if(b){b.addEventListener('click',function(){var h=document.documentElement,c=h.getAttribute('data-theme'),n=c==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('rcm_theme',n);b.textContent=n==='dark'?'🌙':'☀️';});var c=document.documentElement.getAttribute('data-theme');b.textContent=c==='dark'?'🌙':'☀️';}})();</script>
+</body>
+</html>

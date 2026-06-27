@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <script>(function(){var t=localStorage.getItem("rcm_theme");if(t)document.documentElement.setAttribute("data-theme",t);document.addEventListener("DOMContentLoaded",function(){var t2=localStorage.getItem("rcm_theme");if(t2)document.documentElement.setAttribute("data-theme",t2);});})();</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6JRMMNNR40"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-6JRMMNNR40');</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Decision Tree Engine — RCM Denials</title>
+  <meta name="description" content="Get guided next steps based on payer call responses. Interactive decision tree for denial resolution." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://rcmdenials.com/ai-decision-tree/" />
+  <meta property="og:title" content="AI Decision Tree Engine | RCM Denials" />
+  <meta property="og:description" content="Guided next steps based on payer call responses." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rcmdenials.com/ai-decision-tree/" />
+  <meta property="og:image" content="https://rcmdenials.com/og-image.png" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    .scenario-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-bottom:24px}
+    .scenario-card{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r-lg);padding:16px;cursor:pointer;transition:all .2s}
+    .scenario-card:hover{border-color:var(--brand-400);transform:translateY(-2px);box-shadow:var(--shadow-md)}
+    .scenario-card.active{border-color:var(--brand-400);background:rgba(0,212,184,.05)}
+    .scenario-card-icon{font-size:28px;margin-bottom:8px}
+    .scenario-card-name{font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:4px}
+    .scenario-card-desc{font-size:12px;color:var(--text-muted);line-height:1.4}
+    .branch-panel{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r-lg);padding:24px;display:none}
+    .branch-panel.visible{display:block}
+    .branch-section{margin-bottom:16px;padding:12px;background:var(--bg-elevated);border-radius:var(--r-md)}
+    .branch-section h3{font-size:13px;font-weight:700;color:var(--brand-400);margin:0 0 8px}
+    .branch-section p,.branch-section li{font-size:13px;color:var(--text-secondary);line-height:1.6;margin:0}
+    .branch-section ul{padding-left:16px;margin:0}
+    .branch-section li{margin-bottom:4px}
+    .branch-trigger{font-size:12px;font-weight:600;color:var(--amber-400);margin-bottom:6px}
+    .branch-response{font-size:13px;color:var(--text-secondary);line-height:1.6}
+    .denial-tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;background:var(--bg-elevated);border:1px solid var(--border);margin:2px}
+  </style>
+</head>
+<body>
+<div class="static-page">
+  <header class="static-header">
+    <div class="static-header-content">
+      <a class="logo" href="../index.html"><div class="logo-icon">🏥</div><span class="logo-text">RCM <span>Denials</span></span></a>
+      <nav class="static-nav">
+      <a href="../index.html">Home</a>
+      <a href="../claim-risk-review/index.html">Risk Review</a>
+      <a href="../coding-compliance-checker/index.html">Compliance Check</a>
+      <a href="../timely-filing-calculator/index.html">Timely Filing</a>
+        <a href="../ai-decision-tree/index.html" class="active">Decision Tree</a>
+        <a href="../ai-denial-checklist/index.html">Checklist</a>
+        <a href="../payer-directory/index.html">Payer Directory</a>
+        <a href="../batch-claims-tracker/index.html">Batch Tracker</a>
+        <a href="../post-call-summary/index.html">Post-Call Summary</a>
+      </nav>
+      <div class="static-header-actions"><button class="btn-icon" id="btnTheme" title="Toggle Theme">🌙</button></div>
+    </div>
+  </header>
+
+  <main class="static-main" style="max-width:1100px">
+    <div class="breadcrumb"><a href="../index.html">Home</a> / <span>AI Decision Tree Engine</span></div>
+
+    <div class="tool-page-header" style="background:none;border:none;padding:0;margin-bottom:24px">
+      <div class="tool-page-header-inner">
+        <div class="tool-page-badge">🧠 AI-Powered</div>
+        <h1 class="tool-page-title">AI Decision Tree Engine</h1>
+        <p class="tool-page-desc">Select the representative's response to get guided next steps</p>
+      </div>
+    </div>
+
+    <div class="scenario-grid" id="scenarioGrid"></div>
+
+    <div class="branch-panel" id="branchPanel"></div>
+  </main>
+
+  <footer class="static-footer">
+    <div class="static-footer-content">
+      <div class="footer-links"><a href="../about.html">About</a><a href="../faq.html">FAQ</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a></div>
+      <div class="footer-copyright">&copy; 2026 RCM Denials. All rights reserved.</div>
+    </div>
+  </footer>
+</div>
+
+<script src="../data.js"></script>
+<script>
+(function(){var b=document.getElementById('btnTheme');if(b){b.addEventListener('click',function(){var h=document.documentElement,c=h.getAttribute('data-theme'),n=c==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('rcm_theme',n);b.textContent=n==='dark'?'🌙':'☀️';});var c=document.documentElement.getAttribute('data-theme');b.textContent=c==='dark'?'🌙':'☀️';}})();
+
+var grid=document.getElementById('scenarioGrid');
+var panel=document.getElementById('branchPanel');
+
+function renderScenarios(){
+  var html='';
+  DECISION_TREE.forEach(function(s){
+    html+='<div class="scenario-card" onclick="selectScenario(\''+s.id+'\')" role="button" tabindex="0">';
+    html+='<div class="scenario-card-icon">'+s.icon+'</div>';
+    html+='<div class="scenario-card-name">'+s.name+'</div>';
+    html+='<div class="scenario-card-desc">'+s.desc+'</div>';
+    if(s.denialCodes&&s.denialCodes.length){
+      html+='<div style="margin-top:8px">';
+      s.denialCodes.slice(0,3).forEach(function(c){html+='<span class="denial-tag">'+c+'</span>';});
+      html+='</div>';
+    }
+    html+='</div>';
+  });
+  grid.innerHTML=html;
+}
+
+function selectScenario(id){
+  var s=DECISION_TREE.find(function(x){return x.id===id;});
+  if(!s)return;
+  document.querySelectorAll('.scenario-card').forEach(function(c){c.classList.remove('active');});
+  event.currentTarget.classList.add('active');
+
+  var html='<div style="margin-bottom:20px"><h2 style="font-size:20px;font-weight:700;color:var(--text-primary);margin:0 0 8px">'+s.icon+' '+s.name+'</h2>';
+  html+='<p style="font-size:14px;color:var(--text-secondary);margin:0">'+s.desc+'</p></div>';
+
+  if(s.ask&&s.ask.length){
+    html+='<div class="branch-section"><h3>💬 Ask the Representative</h3><ul>';
+    s.ask.forEach(function(a){html+='<li>'+a+'</li>';});
+    html+='</ul></div>';
+  }
+  if(s.escalation&&s.escalation.length){
+    html+='<div class="branch-section"><h3>⬆️ Escalation Triggers</h3><ul>';
+    s.escalation.forEach(function(a){html+='<li>'+a+'</li>';});
+    html+='</ul></div>';
+  }
+  if(s.gather&&s.gather.length){
+    html+='<div class="branch-section"><h3>📋 Information to Gather</h3><ul>';
+    s.gather.forEach(function(a){html+='<li>'+a+'</li>';});
+    html+='</ul></div>';
+  }
+  if(s.actions&&s.actions.length){
+    html+='<div class="branch-section"><h3>✅ Recommended Actions</h3><ul>';
+    s.actions.forEach(function(a){html+='<li>'+a+'</li>';});
+    html+='</ul></div>';
+  }
+  if(s.timeline){
+    html+='<div class="branch-section"><h3>⏱️ Expected Timeline</h3><p>'+s.timeline+'</p></div>';
+  }
+  if(s.branches&&s.branches.length){
+    html+='<div class="branch-section"><h3>🔄 If They Say…</h3>';
+    s.branches.forEach(function(b){
+      html+='<div style="margin-bottom:12px;padding:10px;background:var(--bg-overlay);border-radius:8px">';
+      html+='<div class="branch-trigger">Rep says: "'+b.trigger+'"</div>';
+      html+='<div class="branch-response"><strong>You say:</strong> '+b.response+'</div>';
+      if(b.nextAction){html+='<div style="margin-top:4px;font-size:12px;color:var(--brand-400)"><strong>Next:</strong> '+b.nextAction+'</div>';}
+      html+='</div>';
+    });
+    html+='</div>';
+  }
+  if(s.denialCodes&&s.denialCodes.length){
+    html+='<div class="branch-section"><h3>🔗 Related Denial Codes</h3><div>';
+    s.denialCodes.forEach(function(c){
+      var d=DENIAL_CODES.find(function(x){return x.code===c;});
+      html+='<span class="denial-tag" title="'+(d?d.desc:'')+'">'+c+'</span>';
+    });
+    html+='</div></div>';
+  }
+  panel.innerHTML=html;
+  panel.classList.add('visible');
+  panel.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+renderScenarios();
+</script>
+</body>
+</html>
+

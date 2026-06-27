@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <script>(function(){var t=localStorage.getItem("rcm_theme");if(t)document.documentElement.setAttribute("data-theme",t);document.addEventListener("DOMContentLoaded",function(){var t2=localStorage.getItem("rcm_theme");if(t2)document.documentElement.setAttribute("data-theme",t2);});})();</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6JRMMNNR40"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-6JRMMNNR40');</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Denial Checklist — RCM Denials</title>
+  <meta name="description" content="Step-by-step checklist to resolve any denial. AI-powered checklist generator for payer calls." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://rcmdenials.com/ai-denial-checklist/" />
+  <meta property="og:title" content="AI Denial Checklist | RCM Denials" />
+  <meta property="og:description" content="Step-by-step checklist to resolve any denial." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rcmdenials.com/ai-denial-checklist/" />
+  <meta property="og:image" content="https://rcmdenials.com/og-image.png" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    .checklist-setup{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r-lg);padding:24px;max-width:500px;margin:0 auto 24px}
+    .checklist-categories{display:flex;flex-direction:column;gap:12px}
+    .category-accordion{background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r-lg);overflow:hidden}
+    .category-header{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;transition:background .15s}
+    .category-header:hover{background:var(--bg-hover)}
+    .category-name{font-size:14px;font-weight:700;color:var(--text-primary);flex:1}
+    .category-badge{font-size:11px;padding:2px 8px;border-radius:var(--r-full);background:var(--bg-elevated);color:var(--text-muted);border:1px solid var(--border)}
+    .category-badge.critical{background:rgba(239,68,68,.1);color:var(--red-400);border-color:rgba(239,68,68,.2)}
+    .category-count{font-size:11px;color:var(--text-muted)}
+    .category-body{display:none;padding:0 16px 16px}
+    .category-accordion.open .category-body{display:block}
+    .category-accordion.open .category-header{border-bottom:1px solid var(--border-subtle)}
+    .question-item{display:flex;align-items:start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border-subtle)}
+    .question-item:last-child{border-bottom:none}
+    .question-check{width:20px;height:20px;border-radius:4px;border:2px solid var(--border-strong);cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s;margin-top:2px}
+    .question-check.done{background:var(--brand-400);border-color:var(--brand-400);color:#fff}
+    .question-text{font-size:13px;color:var(--text-secondary);line-height:1.5;flex:1}
+    .question-text.done{text-decoration:line-through;color:var(--text-muted)}
+    .priority-badge{font-size:10px;padding:1px 6px;border-radius:4px;font-weight:600;flex-shrink:0}
+    .priority-badge.critical{background:rgba(239,68,68,.1);color:var(--red-400)}
+    .priority-badge.important{background:rgba(245,158,11,.1);color:var(--amber-400)}
+    .priority-badge.optional{background:var(--bg-elevated);color:var(--text-muted)}
+    .progress-bar{height:6px;background:var(--bg-elevated);border-radius:3px;overflow:hidden;margin-top:8px}
+    .progress-fill{height:100%;background:var(--brand-400);border-radius:3px;transition:width .3s}
+  </style>
+</head>
+<body>
+<div class="static-page">
+  <header class="static-header">
+    <div class="static-header-content">
+      <a class="logo" href="../index.html"><div class="logo-icon">🏥</div><span class="logo-text">RCM <span>Denials</span></span></a>
+      <nav class="static-nav">
+      <a href="../index.html">Home</a>
+      <a href="../claim-risk-review/index.html">Risk Review</a>
+      <a href="../coding-compliance-checker/index.html">Compliance Check</a>
+      <a href="../timely-filing-calculator/index.html">Timely Filing</a>
+        <a href="../ai-decision-tree/index.html">Decision Tree</a>
+        <a href="../ai-denial-checklist/index.html" class="active">Checklist</a>
+        <a href="../payer-directory/index.html">Payer Directory</a>
+        <a href="../batch-claims-tracker/index.html">Batch Tracker</a>
+        <a href="../post-call-summary/index.html">Post-Call Summary</a>
+      </nav>
+      <div class="static-header-actions"><button class="btn-icon" id="btnTheme" title="Toggle Theme">🌙</button></div>
+    </div>
+  </header>
+
+  <main class="static-main" style="max-width:900px">
+    <div class="breadcrumb"><a href="../index.html">Home</a> / <span>AI Denial Checklist</span></div>
+
+    <div class="tool-page-header" style="background:none;border:none;padding:0;margin-bottom:24px">
+      <div class="tool-page-header-inner">
+        <div class="tool-page-badge">✅ Smart Checklist</div>
+        <h1 class="tool-page-title">AI Denial Checklist</h1>
+        <p class="tool-page-desc">Select a denial code and payer to generate a tailored checklist</p>
+      </div>
+    </div>
+
+    <!-- Setup Form -->
+    <div class="checklist-setup">
+      <div class="tool-field">
+        <label class="tool-label" for="clPayer">Payer</label>
+        <select class="tool-select" id="clPayer"><option value="">Select payer…</option></select>
+      </div>
+      <div class="tool-field">
+        <label class="tool-label" for="clDenial">Denial Code</label>
+        <select class="tool-select" id="clDenial"><option value="">Select denial code…</option></select>
+      </div>
+      <div class="tool-field">
+        <label class="tool-label" for="clClaim">Claim Number (optional)</label>
+        <input class="tool-input" id="clClaim" placeholder="e.g., CLM-12345" />
+      </div>
+      <button class="btn btn-primary w-full" onclick="generateChecklist()" style="margin-top:8px">Generate Checklist</button>
+    </div>
+
+    <!-- Progress -->
+    <div id="progressArea" style="display:none;margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <span id="progressLabel" style="font-size:13px;color:var(--text-secondary)"></span>
+        <span id="progressPct" style="font-size:13px;font-weight:700;color:var(--brand-400)"></span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    </div>
+
+    <!-- Categories -->
+    <div class="checklist-categories" id="checklistArea"></div>
+
+    <!-- Actions -->
+    <div id="checklistActions" style="display:none;margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn btn-secondary btn-sm" onclick="expandAll()">Expand All</button>
+      <button class="btn btn-secondary btn-sm" onclick="collapseAll()">Collapse All</button>
+      <button class="btn btn-secondary btn-sm" onclick="copyChecklist()">📋 Copy</button>
+    </div>
+  </main>
+
+  <footer class="static-footer">
+    <div class="static-footer-content">
+      <div class="footer-links"><a href="../about.html">About</a><a href="../faq.html">FAQ</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a></div>
+      <div class="footer-copyright">&copy; 2026 RCM Denials. All rights reserved.</div>
+    </div>
+  </footer>
+</div>
+
+<script src="../data.js"></script>
+<script>
+(function(){var b=document.getElementById('btnTheme');if(b){b.addEventListener('click',function(){var h=document.documentElement,c=h.getAttribute('data-theme'),n=c==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('rcm_theme',n);b.textContent=n==='dark'?'🌙':'☀️';});var c=document.documentElement.getAttribute('data-theme');b.textContent=c==='dark'?'🌙':'☀️';}})();
+
+// Populate dropdowns
+var clPayer=document.getElementById('clPayer');
+var clDenial=document.getElementById('clDenial');
+PAYER_DB.forEach(function(p){var o=document.createElement('option');o.value=p.id;o.text=p.name;clPayer.appendChild(o);});
+DENIAL_CODES.forEach(function(d){var o=document.createElement('option');o.value=d.code;o.text=d.code+' — '+d.desc;clDenial.appendChild(o);});
+
+var answers={};
+var categories={};
+
+function generateChecklist(){
+  var denialCode=clDenial.value;
+  if(!denialCode){alert('Please select a denial code');return;}
+  answers={};
+  // Merge default + denial-specific
+  categories=JSON.parse(JSON.stringify(CHECKLIST_DB.default||{}));
+  if(CHECKLIST_DB[denialCode]){
+    var override=CHECKLIST_DB[denialCode];
+    Object.keys(override).forEach(function(cat){
+      if(categories[cat]){
+        categories[cat]=override[cat].concat(categories[cat]);
+      } else {
+        categories[cat]=override[cat];
+      }
+    });
+  }
+  renderCategories();
+  document.getElementById('progressArea').style.display='block';
+  document.getElementById('checklistActions').style.display='flex';
+}
+
+function renderCategories(){
+  var area=document.getElementById('checklistArea');
+  var html='';
+  var ci=0;
+  Object.keys(categories).forEach(function(cat){
+    var questions=categories[cat];
+    var criticalCount=questions.filter(function(q){return q.priority==='critical';}).length;
+    html+='<div class="category-accordion" id="cat-'+ci+'">';
+    html+='<div class="category-header" onclick="toggleCat('+ci+')">';
+    html+='<span style="font-size:18px">📁</span>';
+    html+='<span class="category-name">'+cat+'</span>';
+    if(criticalCount>0){html+='<span class="category-badge critical">'+criticalCount+' critical</span>';}
+    html+='<span class="category-count">'+questions.length+' questions</span>';
+    html+='<span style="font-size:12px;color:var(--text-muted)">▼</span>';
+    html+='</div><div class="category-body">';
+    questions.forEach(function(q,qi){
+      var key=ci+'-'+qi;
+      var done=answers[key]&&answers[key].done;
+      html+='<div class="question-item">';
+      html+='<div class="question-check '+(done?'done':'')+'" onclick="toggleQ(\''+key+'\')">'+(done?'✓':'')+'</div>';
+      html+='<span class="priority-badge '+q.priority+'">'+q.priority+'</span>';
+      html+='<span class="question-text '+(done?'done':'')+'">'+q.q+'</span>';
+      html+='</div>';
+    });
+    html+='</div></div>';
+    ci++;
+  });
+  area.innerHTML=html;
+  updateProgress();
+}
+
+function toggleCat(i){
+  var el=document.getElementById('cat-'+i);
+  el.classList.toggle('open');
+}
+
+function toggleQ(key){
+  if(!answers[key])answers[key]={done:false};
+  answers[key].done=!answers[key].done;
+  renderCategories();
+}
+
+function updateProgress(){
+  var total=0,done=0;
+  Object.keys(categories).forEach(function(cat){
+    categories[cat].forEach(function(q,i){
+      total++;
+      if(answers[cat+'-'+i]&&answers[cat+'-'+i].done)done++;
+    });
+  });
+  var pct=total>0?Math.round(done/total*100):0;
+  document.getElementById('progressLabel').textContent=done+' of '+total+' questions completed';
+  document.getElementById('progressPct').textContent=pct+'%';
+  document.getElementById('progressFill').style.width=pct+'%';
+}
+
+function expandAll(){document.querySelectorAll('.category-accordion').forEach(function(e){e.classList.add('open');});}
+function collapseAll(){document.querySelectorAll('.category-accordion').forEach(function(e){e.classList.remove('open');});}
+
+function copyChecklist(){
+  var text='AI DENIAL CHECKLIST\n';
+  text+='Payer: '+clPayer.options[clPayer.selectedIndex].text+'\n';
+  text+='Denial: '+clDenial.value+'\n\n';
+  Object.keys(categories).forEach(function(cat){
+    text+='== '+cat+' ==\n';
+    categories[cat].forEach(function(q,i){
+      var done=answers[cat+'-'+i]&&answers[cat+'-'+i].done;
+      text+=(done?'[✓]':'[ ]')+' ['+q.priority+'] '+q.q+'\n';
+    });
+    text+='\n';
+  });
+  navigator.clipboard.writeText(text).then(function(){alert('Checklist copied to clipboard!');});
+}
+</script>
+</body>
+</html>
+

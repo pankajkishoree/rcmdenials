@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <script>(function(){var t=localStorage.getItem("rcm_theme");if(t)document.documentElement.setAttribute("data-theme",t);document.addEventListener("DOMContentLoaded",function(){var t2=localStorage.getItem("rcm_theme");if(t2)document.documentElement.setAttribute("data-theme",t2);});})();</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6JRMMNNR40"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-6JRMMNNR40');</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Timely Filing Calculator — RCM Denials</title>
+  <meta name="description" content="Calculate filing and appeal deadlines by payer. Never miss a timely filing deadline again with our free calculator." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://rcmdenials.com/timely-filing-calculator/" />
+  <meta property="og:title" content="Timely Filing Calculator | RCM Denials" />
+  <meta property="og:description" content="Calculate filing and appeal deadlines by payer. Free tool." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rcmdenials.com/timely-filing-calculator/" />
+  <meta property="og:image" content="https://rcmdenials.com/og-image.png" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+<div class="static-page">
+  <header class="static-header">
+    <div class="static-header-content">
+      <a class="logo" href="../index.html"><div class="logo-icon">🏥</div><span class="logo-text">RCM <span>Denials</span></span></a>
+      <nav class="static-nav">
+      <a href="../index.html">Home</a>
+      <a href="../claim-risk-review/index.html">Risk Review</a>
+      <a href="../coding-compliance-checker/index.html">Compliance Check</a>
+      <a href="../timely-filing-calculator/index.html" class="active">Timely Filing</a>
+        <a href="../ai-decision-tree/index.html">Decision Tree</a>
+        <a href="../ai-denial-checklist/index.html">Checklist</a>
+        <a href="../payer-directory/index.html">Payer Directory</a>
+        <a href="../batch-claims-tracker/index.html">Batch Tracker</a>
+        <a href="../post-call-summary/index.html">Post-Call Summary</a>
+      </nav>
+      <div class="static-header-actions">
+        <button class="btn-icon" id="btnTheme" title="Toggle Theme">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="static-main" style="max-width:1000px">
+    <div class="breadcrumb"><a href="../index.html">Home</a> / <span>Timely Filing Calculator</span></div>
+
+    <div class="tool-page-header" style="background:none;border:none;padding:0;margin-bottom:32px">
+      <div class="tool-page-header-inner">
+        <div class="tool-page-badge">📅 Free Calculator</div>
+        <h1 class="tool-page-title">Timely Filing Calculator</h1>
+        <p class="tool-page-desc">Calculate all critical deadlines to prevent missed filings. Select a payer and enter your dates.</p>
+      </div>
+    </div>
+
+    <div class="tool-layout">
+      <!-- Input Panel -->
+      <div class="tool-input-panel">
+        <h2 class="tool-panel-title">📝 Input</h2>
+        <div class="tool-field">
+          <label class="tool-label" for="calcPayer">Payer Name</label>
+          <select class="tool-select" id="calcPayer" onchange="calculateDeadlines()">
+            <option value="">Select payer…</option>
+          </select>
+        </div>
+        <div class="tool-field">
+          <label class="tool-label" for="calcClaimType">Claim Type</label>
+          <select class="tool-select" id="calcClaimType" onchange="calculateDeadlines()">
+            <option value="professional">Professional (CMS-1500)</option>
+            <option value="institutional">Institutional (UB-04)</option>
+            <option value="dental">Dental (ADA)</option>
+          </select>
+        </div>
+        <div class="tool-field">
+          <label class="tool-label" for="calcDOS">Date of Service (DOS)</label>
+          <input class="tool-input" id="calcDOS" type="date" onchange="calculateDeadlines()" />
+        </div>
+        <div class="tool-field">
+          <label class="tool-label" for="calcDenialDate">Denial Date</label>
+          <input class="tool-input" id="calcDenialDate" type="date" onchange="calculateDeadlines()" />
+        </div>
+      </div>
+
+      <!-- Results Panel -->
+      <div class="tool-results-panel">
+        <h2 class="tool-panel-title">📊 Deadlines</h2>
+        <div id="deadlineGrid"></div>
+        <div id="filingGuidance"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="static-footer">
+    <div class="static-footer-content">
+      <div class="footer-links">
+        <a href="../about.html">About</a><a href="../faq.html">FAQ</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a>
+      </div>
+      <div class="footer-copyright">&copy; 2026 RCM Denials. All rights reserved.</div>
+    </div>
+  </footer>
+</div>
+
+<script src="../data.js"></script>
+<script>
+// Theme toggle
+(function(){var b=document.getElementById('btnTheme');if(b){b.addEventListener('click',function(){var h=document.documentElement,c=h.getAttribute('data-theme'),n=c==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('rcm_theme',n);b.textContent=n==='dark'?'🌙':'☀️';});var c=document.documentElement.getAttribute('data-theme');b.textContent=c==='dark'?'🌙':'☀️';}})();
+
+// Calculator
+(function(){
+  var sel=document.getElementById('calcPayer');
+  PAYER_DB.forEach(function(p){
+    var o=document.createElement('option');
+    o.value=p.id;o.text=p.name;
+    sel.appendChild(o);
+  });
+})();
+
+function calculateDeadlines(){
+  var payerId=document.getElementById('calcPayer').value;
+  var dos=document.getElementById('calcDOS').value;
+  var denialDate=document.getElementById('calcDenialDate').value;
+  var grid=document.getElementById('deadlineGrid');
+  var guidance=document.getElementById('filingGuidance');
+  if(!payerId||!dos){grid.innerHTML='<div class="tool-results-placeholder"><div class="tool-results-placeholder-icon">📅</div>Select a payer and enter dates to calculate deadlines</div>';guidance.innerHTML='';return;}
+  var payer=PAYER_DB.find(function(p){return p.id===payerId;});
+  if(!payer)return;
+  var dosDate=new Date(dos);
+  var deadlines=[
+    {label:'Initial Filing Deadline',days:payer.timelyFiling.initial,ref:dosDate,icon:'📋',note:'From Date of Service'},
+    {label:'Corrected Claim Deadline',days:payer.timelyFiling.corrected,ref:dosDate,icon:'🔄',note:'From Date of Service'},
+    {label:'First Level Appeal',days:payer.timelyFiling.appeal,ref:denialDate?new Date(denialDate):dosDate,icon:'⚖️',note:denialDate?'From Denial Date':'From DOS (no denial date set)'},
+    {label:'Second Level Appeal',days:payer.timelyFiling.appeal+30,ref:denialDate?new Date(denialDate):dosDate,icon:'🏛️',note:'Extended appeal window'},
+    {label:'Reconsideration Request',days:180,ref:denialDate?new Date(denialDate):dosDate,icon:'🔄',note:'Medicare reconsideration'},
+    {label:'Regulatory Complaint',days:365,ref:denialDate?new Date(denialDate):dosDate,icon:'📢',note:'State insurance department'}
+  ];
+  var today=new Date();
+  var html='';
+  deadlines.forEach(function(d){
+    var deadline=new Date(d.ref);deadline.setDate(deadline.getDate()+d.days);
+    var diff=Math.ceil((deadline-today)/(1000*60*60*24));
+    var status=diff>60?'safe':diff>14?'warn':'danger';
+    var statusLabel=diff>0?diff+' days left':'EXPIRED ('+Math.abs(diff)+' days ago)';
+    html+='<div class="tool-result-card">';
+    html+='<div style="display:flex;justify-content:space-between;align-items:start">';
+    html+='<div><div class="tool-result-label">'+d.icon+' '+d.label+'</div>';
+    html+='<div class="tool-result-value" style="font-size:16px">'+deadline.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})+'</div>';
+    html+='<div style="font-size:12px;color:var(--text-muted);margin-top:4px">'+d.note+'</div></div>';
+    html+='<div style="text-align:right"><div class="tool-result-value '+status+'" style="font-size:14px">'+statusLabel+'</div>';
+    html+='<div style="font-size:11px;color:var(--text-muted)">'+d.days+' days from reference</div></div></div></div>';
+  });
+  grid.innerHTML=html;
+  guidance.innerHTML='<div class="tool-result-card" style="margin-top:16px"><div class="tool-result-label">📌 Filing Tips for '+payer.name+'</div><div style="font-size:13px;color:var(--text-secondary);line-height:1.6;margin-top:8px"><p style="margin:0 0 8px"><strong>Best time to call:</strong> '+payer.bestTime+'</p><p style="margin:0 0 8px"><strong>Average hold time:</strong> '+payer.holdTime+'</p><p style="margin:0 0 8px"><strong>Callback available:</strong> '+payer.callback+'</p><p style="margin:0"><strong>Always keep:</strong> Proof of filing (clearinghouse report, certified mail receipt, or fax confirmation)</p></div></div>';
+}
+calculateDeadlines();
+</script>
+</body>
+</html>
+

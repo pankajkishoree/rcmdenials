@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <script>(function(){var t=localStorage.getItem("rcm_theme");if(t)document.documentElement.setAttribute("data-theme",t);document.addEventListener("DOMContentLoaded",function(){var t2=localStorage.getItem("rcm_theme");if(t2)document.documentElement.setAttribute("data-theme",t2);});})();</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6JRMMNNR40"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-6JRMMNNR40');</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Claim Denial Risk Review — RCM Denials</title>
+  <meta name="description" content="Pre-submission claim quality review & risk analysis. Identify potential denial risks before submitting claims." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://rcmdenials.com/claim-risk-review/" />
+  <meta property="og:title" content="AI Claim Denial Risk Review | RCM Denials" />
+  <meta property="og:description" content="Pre-submission claim quality review & risk analysis." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rcmdenials.com/claim-risk-review/" />
+  <meta property="og:image" content="https://rcmdenials.com/og-image.png" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="tool.css" />
+</head>
+<body>
+<div class="static-page">
+  <header class="static-header">
+    <div class="static-header-content">
+      <a class="logo" href="../index.html"><div class="logo-icon">🏥</div><span class="logo-text">RCM <span>Denials</span></span></a>
+      <nav class="static-nav">
+      <a href="../index.html">Home</a>
+      <a href="index.html" class="active">Risk Review</a>
+      <a href="../coding-compliance-checker/index.html">Compliance Check</a>
+      <a href="../modifier-validator/index.html">Modifier Validator</a>
+        <a href="../timely-filing-calculator/index.html">Timely Filing</a>
+        <a href="../ai-decision-tree/index.html">Decision Tree</a>
+        <a href="../ai-denial-checklist/index.html">Checklist</a>
+        <a href="../payer-directory/index.html">Payer Directory</a>
+      </nav>
+      <div class="static-header-actions">
+        <button class="btn-icon" id="btnTheme" title="Toggle Theme">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="static-main" style="max-width:1100px">
+    <div class="breadcrumb"><a href="../index.html">Home</a> / <span>AI Claim Denial Risk Review</span></div>
+
+    <div class="tool-page-header" style="background:none;border:none;padding:0;margin-bottom:24px">
+      <div class="tool-page-header-inner">
+        <div class="tool-page-badge">🔬 AI-Powered Review</div>
+        <h1 class="tool-page-title">Claim Denial Risk Review</h1>
+        <p class="tool-page-desc">Pre-submission claim quality review & risk analysis. Identify potential issues before submitting.</p>
+      </div>
+    </div>
+
+    <!-- STEP INDICATOR -->
+    <div class="crr-steps" id="stepIndicator">
+      <div class="crr-step active" data-step="1"><span>1</span>Patient</div>
+      <div class="crr-step" data-step="2"><span>2</span>Insurance</div>
+      <div class="crr-step" data-step="3"><span>3</span>Provider</div>
+      <div class="crr-step" data-step="4"><span>4</span>Claim</div>
+      <div class="crr-step" data-step="5"><span>5</span>Documentation</div>
+      <div class="crr-step" data-step="6"><span>6</span>Results</div>
+    </div>
+
+    <!-- STEP 1: PATIENT INFO -->
+    <div class="crr-form-step active" id="step1">
+      <div class="crr-card">
+        <h2 class="crr-card-title">👤 Patient Information</h2>
+        <div class="crr-grid-2">
+          <div class="tool-field">
+            <label class="tool-label" for="patientAge">Age</label>
+            <input class="tool-input" id="patientAge" type="number" min="0" max="120" placeholder="e.g., 45" />
+          </div>
+          <div class="tool-field">
+            <label class="tool-label" for="patientGender">Gender</label>
+            <select class="tool-select" id="patientGender">
+              <option value="">Select gender...</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="crr-nav">
+        <div></div>
+        <button class="btn btn-primary" onclick="goToStep(2)">Next: Insurance →</button>
+      </div>
+    </div>
+
+    <!-- STEP 2: INSURANCE -->
+    <div class="crr-form-step" id="step2">
+      <div class="crr-card">
+        <h2 class="crr-card-title">🏥 Insurance Information</h2>
+        <div class="crr-grid-2">
+          <div class="tool-field">
+            <label class="tool-label" for="payer">Payer</label>
+            <select class="tool-select" id="payer"><option value="">Select payer...</option></select>
+          </div>
+          <div class="tool-field">
+            <label class="tool-label" for="planType">Plan Type</label>
+            <select class="tool-select" id="planType">
+              <option value="">Select plan type...</option>
+              <option value="commercial">Commercial</option>
+              <option value="medicare">Medicare</option>
+              <option value="medicaid">Medicaid</option>
+              <option value="advantage">Medicare Advantage</option>
+              <option value="tricare">TRICARE</option>
+              <option value="workers-comp">Workers Comp</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="crr-nav">
+        <button class="btn btn-secondary" onclick="goToStep(1)">← Back</button>
+        <button class="btn btn-primary" onclick="goToStep(3)">Next: Provider →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: PROVIDER -->
+    <div class="crr-form-step" id="step3">
+      <div class="crr-card">
+        <h2 class="crr-card-title">🩺 Provider Information</h2>
+        <div class="crr-grid-2">
+          <div class="tool-field">
+            <label class="tool-label" for="specialty">Specialty</label>
+            <select class="tool-select" id="specialty">
+              <option value="">Select specialty...</option>
+              <option value="primary-care">Primary Care / Family Medicine</option>
+              <option value="internal-medicine">Internal Medicine</option>
+              <option value="cardiology">Cardiology</option>
+              <option value="dermatology">Dermatology</option>
+              <option value="orthopedics">Orthopedics</option>
+              <option value="neurology">Neurology</option>
+              <option value="oncology">Oncology</option>
+              <option value="psychiatry">Psychiatry</option>
+              <option value="obgyn">OB/GYN</option>
+              <option value="pediatrics">Pediatrics</option>
+              <option value="general-surgery">General Surgery</option>
+              <option value="emergency">Emergency Medicine</option>
+              <option value="radiology">Radiology</option>
+              <option value="anesthesiology">Anesthesiology</option>
+              <option value="physical-therapy">Physical Therapy</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="tool-field">
+            <label class="tool-label" for="providerState">State</label>
+            <select class="tool-select" id="providerState">
+              <option value="">Select state...</option>
+              <option value="AL">Alabama</option><option value="AK">Alaska</option><option value="AZ">Arizona</option>
+              <option value="AR">Arkansas</option><option value="CA">California</option><option value="CO">Colorado</option>
+              <option value="CT">Connecticut</option><option value="DE">Delaware</option><option value="FL">Florida</option>
+              <option value="GA">Georgia</option><option value="HI">Hawaii</option><option value="ID">Idaho</option>
+              <option value="IL">Illinois</option><option value="IN">Indiana</option><option value="IA">Iowa</option>
+              <option value="KS">Kansas</option><option value="KY">Kentucky</option><option value="LA">Louisiana</option>
+              <option value="ME">Maine</option><option value="MD">Maryland</option><option value="MA">Massachusetts</option>
+              <option value="MI">Michigan</option><option value="MN">Minnesota</option><option value="MS">Mississippi</option>
+              <option value="MO">Missouri</option><option value="MT">Montana</option><option value="NE">Nebraska</option>
+              <option value="NV">Nevada</option><option value="NH">New Hampshire</option><option value="NJ">New Jersey</option>
+              <option value="NM">New Mexico</option><option value="NY">New York</option><option value="NC">North Carolina</option>
+              <option value="ND">North Dakota</option><option value="OH">Ohio</option><option value="OK">Oklahoma</option>
+              <option value="OR">Oregon</option><option value="PA">Pennsylvania</option><option value="RI">Rhode Island</option>
+              <option value="SC">South Carolina</option><option value="SD">South Dakota</option><option value="TN">Tennessee</option>
+              <option value="TX">Texas</option><option value="UT">Utah</option><option value="VT">Vermont</option>
+              <option value="VA">Virginia</option><option value="WA">Washington</option><option value="WV">West Virginia</option>
+              <option value="WI">Wisconsin</option><option value="WY">Wyoming</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="crr-nav">
+        <button class="btn btn-secondary" onclick="goToStep(2)">← Back</button>
+        <button class="btn btn-primary" onclick="goToStep(4)">Next: Claim Details →</button>
+      </div>
+    </div>
+
+    <!-- STEP 4: CLAIM DETAILS -->
+    <div class="crr-form-step" id="step4">
+      <div class="crr-card">
+        <h2 class="crr-card-title">📋 Claim Details</h2>
+        <div class="tool-field">
+          <label class="tool-label" for="dos">Date of Service</label>
+          <input class="tool-input" id="dos" type="date" style="max-width:300px" />
+        </div>
+        <div class="crr-grid-2" style="margin-top:16px">
+          <div class="tool-field">
+            <label class="tool-label" for="icdCodes">ICD-10 Diagnosis Codes <span style="color:var(--text-muted)">(comma-separated)</span></label>
+            <textarea class="tool-textarea" id="icdCodes" rows="3" placeholder="e.g., J06.9, R05.9, Z87.39"></textarea>
+          </div>
+          <div class="tool-field">
+            <label class="tool-label" for="cptCodes">CPT / HCPCS Codes <span style="color:var(--text-muted)">(comma-separated)</span></label>
+            <textarea class="tool-textarea" id="cptCodes" rows="3" placeholder="e.g., 99213, 99214"></textarea>
+          </div>
+        </div>
+        <div class="crr-grid-3" style="margin-top:16px">
+          <div class="tool-field">
+            <label class="tool-label" for="modifiers">Modifiers <span style="color:var(--text-muted)">(comma-separated)</span></label>
+            <input class="tool-input" id="modifiers" placeholder="e.g., 25, 59" />
+          </div>
+          <div class="tool-field">
+            <label class="tool-label" for="units">Units</label>
+            <input class="tool-input" id="units" type="number" min="1" value="1" />
+          </div>
+          <div class="tool-field">
+            <label class="tool-label" for="billedAmount">Billed Amount</label>
+            <input class="tool-input" id="billedAmount" placeholder="$0.00" />
+          </div>
+        </div>
+      </div>
+      <div class="crr-nav">
+        <button class="btn btn-secondary" onclick="goToStep(3)">← Back</button>
+        <button class="btn btn-primary" onclick="goToStep(5)">Next: Documentation →</button>
+      </div>
+    </div>
+
+    <!-- STEP 5: DOCUMENTATION -->
+    <div class="crr-form-step" id="step5">
+      <div class="crr-card">
+        <h2 class="crr-card-title">📝 Documentation &amp; Authorization</h2>
+        <div class="tool-field">
+          <label class="tool-label" for="clinicalNote">Clinical Note / Brief Description</label>
+          <textarea class="tool-textarea" id="clinicalNote" rows="5" placeholder="Describe the clinical scenario, symptoms, examination findings, and medical decision-making..."></textarea>
+        </div>
+        <div class="crr-grid-3" style="margin-top:16px">
+          <div class="tool-field">
+            <label class="tool-label" for="referralRequired">Referral Required?</label>
+            <select class="tool-select" id="referralRequired">
+              <option value="unknown">Unknown</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+          <div class="tool-field">
+            <label class="tool-label" for="priorAuth">Prior Authorization</label>
+            <select class="tool-select" id="priorAuth">
+              <option value="unknown">Unknown</option>
+              <option value="obtained">Obtained</option>
+              <option value="not-required">Not Required</option>
+              <option value="required-not-obtained">Required - Not Obtained</option>
+            </select>
+          </div>
+          <div class="tool-field">
+            <label class="tool-label" for="placeOfService">Place of Service</label>
+            <select class="tool-select" id="placeOfService">
+              <option value="11">Office (11)</option>
+              <option value="21">Inpatient Hospital (21)</option>
+              <option value="22">Outpatient Hospital (22)</option>
+              <option value="23">Emergency Room (23)</option>
+              <option value="31">Skilled Nursing (31)</option>
+              <option value="32">Nursing Facility (32)</option>
+              <option value="49">Independent Clinic (49)</option>
+              <option value="71">Public Health Clinic (71)</option>
+              <option value="72">Rural Health Clinic (72)</option>
+              <option value="99">Other</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="crr-nav">
+        <button class="btn btn-secondary" onclick="goToStep(4)">← Back</button>
+        <button class="btn btn-primary crr-analyze-btn" onclick="analyzeClaim()">🔍 Analyze Claim Risk</button>
+      </div>
+    </div>
+
+    <!-- STEP 6: RESULTS -->
+    <div class="crr-form-step" id="step6">
+      <!-- Risk Score Header -->
+      <div class="crr-results-header" id="resultsHeader">
+        <div class="crr-risk-gauge">
+          <div class="crr-gauge-ring" id="gaugeRing">
+            <svg viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="54" fill="none" stroke="var(--bg-elevated)" stroke-width="8"/>
+              <circle cx="60" cy="60" r="54" fill="none" stroke-width="8" stroke-linecap="round" id="gaugeArc" stroke-dasharray="339.3" stroke-dashoffset="339.3" transform="rotate(-90 60 60)"/>
+            </svg>
+            <div class="crr-gauge-score" id="gaugeScore">0</div>
+          </div>
+          <div>
+            <div class="crr-risk-label" id="riskLabel">Analyzing...</div>
+            <div class="crr-risk-sublabel" id="riskSublabel">Running analysis</div>
+          </div>
+        </div>
+        <div class="crr-results-actions">
+          <button class="btn btn-secondary btn-sm" onclick="exportReport()">📥 Export Report</button>
+          <button class="btn btn-secondary btn-sm" onclick="saveToDashboard()">💾 Save to Dashboard</button>
+          <button class="btn btn-primary btn-sm" onclick="resetForm()">🔄 New Claim</button>
+        </div>
+      </div>
+
+      <!-- Disclaimer -->
+      <div class="crr-disclaimer">
+        <strong>Disclaimer:</strong> This analysis is a claim quality review and does not guarantee payer outcomes. It is designed to assist billers in identifying potential areas of concern before submission.
+      </div>
+
+      <!-- Category Scores -->
+      <div class="crr-card" style="margin-top:16px">
+        <h2 class="crr-card-title">📊 Category Risk Scores</h2>
+        <div class="crr-categories" id="categoryScores"></div>
+      </div>
+
+      <!-- Primary Risk Factors -->
+      <div class="crr-card">
+        <h2 class="crr-card-title">⚠️ Primary Risk Factors</h2>
+        <div id="riskFactors"></div>
+      </div>
+
+      <!-- Likely Denial Categories -->
+      <div class="crr-card">
+        <h2 class="crr-card-title">🔴 Likely Denial Categories</h2>
+        <div id="denialCategories"></div>
+      </div>
+
+      <!-- Suggested Actions -->
+      <div class="crr-card">
+        <h2 class="crr-card-title">✅ Suggested Review Actions</h2>
+        <div id="suggestedActions"></div>
+      </div>
+
+      <!-- Rule Warnings -->
+      <div class="crr-card">
+        <h2 class="crr-card-title">🔧 Rule Engine Findings</h2>
+        <div id="ruleWarnings"></div>
+      </div>
+
+      <!-- Confidence -->
+      <div class="crr-card">
+        <h2 class="crr-card-title">🎯 Confidence Level</h2>
+        <div id="confidenceLevel"></div>
+      </div>
+
+      <div class="crr-nav" style="margin-top:16px">
+        <button class="btn btn-secondary" onclick="goToStep(5)">← Edit Claim</button>
+        <button class="btn btn-primary" onclick="resetForm()">🔄 Analyze New Claim</button>
+      </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="crr-loading" id="loadingOverlay">
+      <div class="crr-loading-inner">
+        <div class="crr-spinner"></div>
+        <div class="crr-loading-text">Analyzing claim risk...</div>
+        <div class="crr-loading-subtext" id="loadingStep">Running rule engine</div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="static-footer">
+    <div class="static-footer-content">
+      <div class="footer-links"><a href="../about.html">About</a><a href="../faq.html">FAQ</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a></div>
+      <div class="footer-copyright">&copy; 2026 RCM Denials. All rights reserved.</div>
+    </div>
+  </footer>
+</div>
+
+<script src="../data.js"></script>
+<script src="rule-engine.js"></script>
+<script src="ai-engine.js"></script>
+<script src="tool.js"></script>
+</body>
+</html>

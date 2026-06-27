@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <script>(function(){var t=localStorage.getItem("rcm_theme");if(t)document.documentElement.setAttribute("data-theme",t);document.addEventListener("DOMContentLoaded",function(){var t2=localStorage.getItem("rcm_theme");if(t2)document.documentElement.setAttribute("data-theme",t2);});})();</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6JRMMNNR40"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-6JRMMNNR40');</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Batch Claims Tracker — RCM Denials</title>
+  <meta name="description" content="Track and manage multiple claims efficiently. Sort, filter, and export your claims data." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://rcmdenials.com/batch-claims-tracker/" />
+  <meta property="og:title" content="Batch Claims Tracker | RCM Denials" />
+  <meta property="og:description" content="Track and manage multiple claims efficiently." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rcmdenials.com/batch-claims-tracker/" />
+  <meta property="og:image" content="https://rcmdenials.com/og-image.png" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="stylesheet" href="../styles.css" />
+  <style>
+    .batch-filters{display:flex;gap:12px;margin-bottom:16px;flex-wrap:wrap}
+    .batch-filters input,.batch-filters select{flex:1;min-width:150px}
+    .batch-table-wrap{overflow-x:auto;border:1px solid var(--border-subtle);border-radius:var(--r-lg)}
+    .batch-table{width:100%;border-collapse:collapse;font-size:13px}
+    .batch-table th{padding:10px 14px;text-align:left;font-weight:600;color:var(--text-muted);font-size:11px;text-transform:uppercase;letter-spacing:.5px;background:var(--bg-elevated);border-bottom:1px solid var(--border-subtle);cursor:pointer;white-space:nowrap;user-select:none}
+    .batch-table th:hover{color:var(--text-primary)}
+    .batch-table td{padding:10px 14px;border-bottom:1px solid var(--border-subtle);color:var(--text-secondary)}
+    .batch-table tr:hover td{background:var(--bg-hover)}
+    .status-badge{display:inline-block;padding:3px 10px;border-radius:var(--r-full);font-size:11px;font-weight:600}
+    .status-badge.pending{background:rgba(245,158,11,.1);color:var(--amber-400)}
+    .status-badge.in-progress{background:rgba(59,130,246,.1);color:#3b82f6}
+    .status-badge.resolved{background:rgba(34,197,94,.1);color:var(--green-400)}
+    .status-badge.denied{background:rgba(239,68,68,.1);color:var(--red-400)}
+    .batch-summary{display:flex;gap:16px;flex-wrap:wrap;margin-top:16px}
+    .batch-stat{padding:12px 16px;background:var(--bg-surface);border:1px solid var(--border-subtle);border-radius:var(--r-md)}
+    .batch-stat-label{font-size:11px;color:var(--text-muted);margin-bottom:2px}
+    .batch-stat-value{font-size:16px;font-weight:700;color:var(--text-primary)}
+    .action-btn{padding:4px 8px;border-radius:4px;border:1px solid var(--border);background:transparent;color:var(--text-muted);font-size:11px;cursor:pointer;transition:all .15s;margin-right:4px}
+    .action-btn:hover{border-color:var(--brand-400);color:var(--brand-400)}
+    .action-btn.danger:hover{border-color:var(--red-400);color:var(--red-400)}
+    .empty-state{text-align:center;padding:48px 24px;color:var(--text-muted)}
+    .empty-state-icon{font-size:48px;margin-bottom:12px;opacity:.5}
+  </style>
+</head>
+<body>
+<div class="static-page">
+  <header class="static-header">
+    <div class="static-header-content">
+      <a class="logo" href="../index.html"><div class="logo-icon">🏥</div><span class="logo-text">RCM <span>Denials</span></span></a>
+      <nav class="static-nav">
+      <a href="../index.html">Home</a>
+      <a href="../claim-risk-review/index.html">Risk Review</a>
+      <a href="../coding-compliance-checker/index.html">Compliance Check</a>
+      <a href="../timely-filing-calculator/index.html">Timely Filing</a>
+        <a href="../ai-decision-tree/index.html">Decision Tree</a>
+        <a href="../ai-denial-checklist/index.html">Checklist</a>
+        <a href="../payer-directory/index.html">Payer Directory</a>
+        <a href="../batch-claims-tracker/index.html" class="active">Batch Tracker</a>
+        <a href="../post-call-summary/index.html">Post-Call Summary</a>
+      </nav>
+      <div class="static-header-actions"><button class="btn-icon" id="btnTheme" title="Toggle Theme">🌙</button></div>
+    </div>
+  </header>
+
+  <main class="static-main" style="max-width:1100px">
+    <div class="breadcrumb"><a href="../index.html">Home</a> / <span>Batch Claims Tracker</span></div>
+
+    <div class="tool-page-header" style="background:none;border:none;padding:0;margin-bottom:24px">
+      <div class="tool-page-header-inner">
+        <div class="tool-page-badge">📑 Batch Management</div>
+        <h1 class="tool-page-title">Batch Claims Tracker</h1>
+        <p class="tool-page-desc">Track multiple claims in parallel — sort, filter, and export</p>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
+      <button class="btn btn-primary btn-sm" onclick="addClaim()">+ Add Claim</button>
+      <button class="btn btn-secondary btn-sm" onclick="exportCSV()">📥 Export CSV</button>
+    </div>
+
+    <div class="batch-filters">
+      <input class="tool-input" id="batchSearch" type="text" placeholder="Search claims…" oninput="renderTable()" />
+      <select class="tool-select" id="batchStatusFilter" onchange="renderTable()" style="max-width:160px">
+        <option value="">All Statuses</option>
+        <option value="pending">Pending</option>
+        <option value="in-progress">In Progress</option>
+        <option value="resolved">Resolved</option>
+        <option value="denied">Denied</option>
+      </select>
+      <select class="tool-select" id="batchPayerFilter" onchange="renderTable()" style="max-width:200px">
+        <option value="">All Payers</option>
+      </select>
+    </div>
+
+    <div class="batch-table-wrap">
+      <table class="batch-table">
+        <thead>
+          <tr>
+            <th onclick="sortBy('claim')">Claim # ↕</th>
+            <th onclick="sortBy('payer')">Payer ↕</th>
+            <th onclick="sortBy('denial')">Denial ↕</th>
+            <th onclick="sortBy('amount')">Amount ↕</th>
+            <th onclick="sortBy('status')">Status ↕</th>
+            <th onclick="sortBy('dos')">DOS ↕</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="batchBody"></tbody>
+      </table>
+    </div>
+
+    <div class="batch-summary" id="batchSummary"></div>
+  </main>
+
+  <footer class="static-footer">
+    <div class="static-footer-content">
+      <div class="footer-links"><a href="../about.html">About</a><a href="../faq.html">FAQ</a><a href="../privacy.html">Privacy</a><a href="../terms.html">Terms</a><a href="../contact.html">Contact</a></div>
+      <div class="footer-copyright">&copy; 2026 RCM Denials. All rights reserved.</div>
+    </div>
+  </footer>
+</div>
+
+<script src="../data.js"></script>
+<script>
+(function(){var b=document.getElementById('btnTheme');if(b){b.addEventListener('click',function(){var h=document.documentElement,c=h.getAttribute('data-theme'),n=c==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('rcm_theme',n);b.textContent=n==='dark'?'🌙':'☀️';});var c=document.documentElement.getAttribute('data-theme');b.textContent=c==='dark'?'🌙':'☀️';}})();
+
+var claims=JSON.parse(localStorage.getItem('rcm_batch_claims')||'[]');
+var sortField='dos',sortDir='desc';
+
+// Populate payer filter
+var pf=document.getElementById('batchPayerFilter');
+PAYER_DB.forEach(function(p){var o=document.createElement('option');o.value=p.abbr;o.text=p.name;pf.appendChild(o);});
+
+function save(){localStorage.setItem('rcm_batch_claims',JSON.stringify(claims));}
+
+function addClaim(){
+  var c={id:'cl-'+Date.now(),claim:'CLM-'+Math.random().toString(36).substr(2,8).toUpperCase(),payer:'',payerId:'',denial:'',amount:'$0.00',status:'pending',dos:new Date().toISOString().split('T')[0],notes:''};
+  claims.unshift(c);save();renderTable();editClaim(c.id);
+}
+
+function editClaim(id){
+  var c=claims.find(function(x){return x.id===id;});if(!c)return;
+  var n=prompt('Claim #:',c.claim);if(n!==null)c.claim=n;
+  n=prompt('Payer:',c.payer);if(n!==null)c.payer=n;
+  n=prompt('Denial Code:',c.denial);if(n!==null)c.denial=n;
+  n=prompt('Billed Amount:',c.amount);if(n!==null)c.amount=n;
+  n=prompt('Status (pending/in-progress/resolved/denied):',c.status);if(n!==null&&['pending','in-progress','resolved','denied'].indexOf(n)>-1)c.status=n;
+  n=prompt('Date of Service (YYYY-MM-DD):',c.dos);if(n!==null)c.dos=n;
+  save();renderTable();
+}
+
+function deleteClaim(id){if(!confirm('Delete this claim?'))return;claims=claims.filter(function(x){return x.id!==id;});save();renderTable();}
+
+function sortBy(field){
+  if(sortField===field){sortDir=sortDir==='asc'?'desc':'asc';}else{sortField=field;sortDir='asc';}
+  renderTable();
+}
+
+function getFiltered(){
+  var search=document.getElementById('batchSearch').value.toLowerCase();
+  var status=document.getElementById('batchStatusFilter').value;
+  var payer=document.getElementById('batchPayerFilter').value;
+  return claims.filter(function(c){
+    var ms=!search||c.claim.toLowerCase().indexOf(search)>-1||c.payer.toLowerCase().indexOf(search)>-1||c.denial.toLowerCase().indexOf(search)>-1;
+    var mf=!status||c.status===status;
+    var mp=!payer||c.payerId===payer||c.payer.toLowerCase().indexOf(payer.toLowerCase())>-1;
+    return ms&&mf&&mp;
+  });
+}
+
+function renderTable(){
+  var filtered=getFiltered();
+  filtered.sort(function(a,b){
+    var va=a[sortField]||'',vb=b[sortField]||'';
+    if(sortField==='amount'){va=parseFloat(va.replace(/[$,]/g,''))||0;vb=parseFloat(vb.replace(/[$,]/g,''))||0;}
+    if(va<vb)return sortDir==='asc'?-1:1;
+    if(va>vb)return sortDir==='asc'?1:-1;
+    return 0;
+  });
+
+  var html='';
+  if(filtered.length===0){
+    html='<tr><td colspan="7"><div class="empty-state"><div class="empty-state-icon">📑</div><h3>No claims yet</h3><p>Click "+ Add Claim" to start tracking</p></div></td></tr>';
+  } else {
+    filtered.forEach(function(c){
+      html+='<tr>';
+      html+='<td style="font-weight:600;color:var(--text-primary)">'+c.claim+'</td>';
+      html+='<td>'+c.payer+'</td>';
+      html+='<td><span class="denial-tag">'+c.denial+'</span></td>';
+      html+='<td style="font-weight:600">'+c.amount+'</td>';
+      html+='<td><span class="status-badge '+c.status+'">'+c.status+'</span></td>';
+      html+='<td>'+c.dos+'</td>';
+      html+='<td><button class="action-btn" onclick="editClaim(\''+c.id+'\')">Edit</button><button class="action-btn danger" onclick="deleteClaim(\''+c.id+'\')">Del</button></td>';
+      html+='</tr>';
+    });
+  }
+  document.getElementById('batchBody').innerHTML=html;
+
+  var totalAmt=filtered.reduce(function(s,c){return s+(parseFloat(c.amount.replace(/[$,]/g,''))||0);},0);
+  var pending=filtered.filter(function(c){return c.status==='pending'||c.status==='in-progress';}).length;
+  var resolved=filtered.filter(function(c){return c.status==='resolved';}).length;
+  document.getElementById('batchSummary').innerHTML=
+    '<div class="batch-stat"><div class="batch-stat-label">Total Claims</div><div class="batch-stat-value">'+filtered.length+'</div></div>'+
+    '<div class="batch-stat"><div class="batch-stat-label">Total Billed</div><div class="batch-stat-value">$'+totalAmt.toLocaleString('en-US',{minimumFractionDigits:2})+'</div></div>'+
+    '<div class="batch-stat"><div class="batch-stat-label">Pending</div><div class="batch-stat-value">'+pending+'</div></div>'+
+    '<div class="batch-stat"><div class="batch-stat-label">Resolved</div><div class="batch-stat-value">'+resolved+'</div></div>';
+}
+
+function exportCSV(){
+  var filtered=getFiltered();
+  var csv='Claim#,Payer,Denial Code,Amount,Status,DOS,Notes\n';
+  filtered.forEach(function(c){csv+='"'+c.claim+'","'+c.payer+'","'+c.denial+'","'+c.amount+'","'+c.status+'","'+c.dos+'","'+(c.notes||'')+'"\n';});
+  var blob=new Blob([csv],{type:'text/csv'});
+  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='batch-claims.csv';a.click();
+}
+
+renderTable();
+</script>
+</body>
+</html>
+
