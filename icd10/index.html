@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <script>(function(){var t=localStorage.getItem("rcm_theme");if(t)document.documentElement.setAttribute("data-theme",t);document.addEventListener("DOMContentLoaded",function(){var t2=localStorage.getItem("rcm_theme");if(t2)document.documentElement.setAttribute("data-theme",t2);});})();</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6JRMMNNR40"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-6JRMMNNR40');</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ICD-10 Code Search — Free ICD-10-CM Lookup Tool | RCM Denials</title>
+  <meta name="description" content="Search 3,000+ ICD-10-CM diagnosis codes instantly. Free tool with fuzzy search, autocomplete, synonyms, similar codes, and clinical coding guidance for medical billers and coders." />
+  <meta name="keywords" content="ICD-10 search, ICD-10 code lookup, ICD-10-CM codes, diagnosis code search, medical coding, healthcare billing, ICD-10 finder, free ICD-10 tool" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://rcmdenials.com/icd10/" />
+  <meta property="og:title" content="ICD-10 Code Search — Free ICD-10-CM Lookup Tool | RCM Denials" />
+  <meta property="og:description" content="Search 3,000+ ICD-10-CM diagnosis codes instantly. Free fuzzy search with synonyms, similar codes, and coding guidance." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rcmdenials.com/icd10/" />
+  <meta property="og:image" content="https://rcmdenials.com/og-image.png" />
+  <meta property="og:site_name" content="RCM Denials" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ICD-10 Code Search — Free ICD-10-CM Lookup | RCM Denials" />
+  <meta name="twitter:description" content="Search 3,000+ ICD-10-CM codes with fuzzy search, synonyms, and coding guidance." />
+  <meta name="twitter:image" content="https://rcmdenials.com/og-image.png" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="icon" type="image/png" href="../favicon.png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="../favicon.png" />
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="tool.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ICD-10 Code Search",
+    "url": "https://rcmdenials.com/icd10/",
+    "description": "Free ICD-10-CM diagnosis code search tool. Search 3,000+ codes with fuzzy matching, synonyms, similar codes, and clinical guidance.",
+    "applicationCategory": "MedicalApplication",
+    "operatingSystem": "Web Browser",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Fuzzy search with natural language queries",
+      "Autocomplete with ICD-10 code suggestions",
+      "Synonym and lay-term matching",
+      "Parent and child category hierarchy",
+      "Similar and related diagnosis codes",
+      "Clinical coding guidance and documentation tips",
+      "3,000+ ICD-10-CM codes across all 21 chapters"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://rcmdenials.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "ICD-10 Search",
+        "item": "https://rcmdenials.com/icd10/"
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+<div class="static-page">
+  <header class="static-header">
+    <div class="static-header-content">
+      <a class="logo" href="../index.html"><div class="logo-icon">🏥</div><span class="logo-text">RCM <span>Denials</span></span></a>
+      <nav class="static-nav">
+        <a href="../index.html">Home</a>
+        <a href="index.html" class="active">ICD-10 Search</a>
+        <a href="../coding-compliance-checker/index.html">Compliance Check</a>
+        <a href="../claim-risk-review/index.html">Risk Review</a>
+        <a href="../modifier-validator/index.html">Modifier Validator</a>
+        <a href="../timely-filing-calculator/index.html">Timely Filing</a>
+        <a href="../ai-decision-tree/index.html">Decision Tree</a>
+        <a href="../payer-directory/index.html">Payer Directory</a>
+      </nav>
+      <div class="static-header-actions"><button class="btn-icon" id="btnTheme" title="Toggle Theme">🌙</button></div>
+    </div>
+  </header>
+
+  <main class="static-main" style="max-width:1100px">
+    <div class="breadcrumb"><a href="../index.html">Home</a> / <span>ICD-10 Code Search</span></div>
+
+    <div class="tool-page-header" style="background:none;border:none;padding:0;margin-bottom:24px">
+      <div class="tool-page-header-inner">
+        <div class="tool-page-badge">📋 Free Tool</div>
+        <h1 class="tool-page-title">ICD-10 Code Search</h1>
+        <p class="tool-page-desc">Search 3,000+ ICD-10-CM diagnosis codes with fuzzy matching, synonyms, similar codes, and clinical coding guidance.</p>
+      </div>
+    </div>
+
+    <!-- Search Input -->
+    <div class="icd-search-section">
+      <div class="icd-search-wrap">
+        <span class="icd-search-icon">🔍</span>
+        <input type="text" id="icdSearchInput" class="icd-search-input" placeholder="Search ICD-10 codes, descriptions, or medical terms..." autocomplete="off" autofocus />
+        <button id="icdSearchClear" class="icd-search-clear" title="Clear search">✕</button>
+      </div>
+      <div id="icdAutocomplete" class="icd-autocomplete"></div>
+      <div class="icd-search-hints">
+        <button class="icd-hint-btn" onclick="ICD10Tool.selectCode('E11.9')">E11.9 Diabetes</button>
+        <button class="icd-hint-btn" onclick="ICD10Tool.selectCode('I10')">I10 Hypertension</button>
+        <button class="icd-hint-btn" onclick="ICD10Tool.selectCode('M54.5')">M54.5 Low Back Pain</button>
+        <button class="icd-hint-btn" onclick="ICD10Tool.selectCode('J44.1')">J44.1 COPD</button>
+        <button class="icd-hint-btn" onclick="ICD10Tool.selectCode('N18.3')">N18.3 CKD Stage 3</button>
+        <button class="icd-hint-btn" onclick="ICD10Tool.selectCode('Z87.891')">Z87.891 Nicotine Dependence</button>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="icd-stats-bar">
+      <div class="icd-stat"><div class="icd-stat-value" id="icdStatCodes">0</div><div class="icd-stat-label">ICD-10 Codes</div></div>
+      <div class="icd-stat"><div class="icd-stat-value" id="icdStatCats">0</div><div class="icd-stat-label">Categories</div></div>
+      <div class="icd-stat"><div class="icd-stat-value" id="icdStatChapters">0</div><div class="icd-stat-label">Chapters</div></div>
+    </div>
+
+    <!-- Results -->
+    <div id="icdResults" class="icd-results-container">
+      <div class="icd-results-header">
+        <div id="icdResultsCount" class="icd-results-count"></div>
+      </div>
+      <div id="icdResultsList"></div>
+    </div>
+
+    <!-- Chapter Browser -->
+    <div class="icd-chapters-section">
+      <h2 class="icd-chapters-title">Browse by Chapter</h2>
+      <div id="icdChaptersGrid" class="icd-chapters-grid"></div>
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="icd-disclaimer">
+      <strong>Disclaimer:</strong> This tool is for educational and coding guidance purposes only. ICD-10 codes should always be verified against official CMS ICD-10-CM coding guidelines, the ICD-10-CM Official Guidelines for Coding and Reporting, and applicable payer policies. This tool does not replace clinical judgment or official coding manuals.
+    </div>
+  </main>
+
+  <footer class="static-footer">
+    <div class="static-footer-content">
+      <div class="footer-links">
+        <a href="../index.html">Home</a>
+        <a href="../about.html">About</a>
+        <a href="../faq.html">FAQ</a>
+        <a href="../contact.html">Contact</a>
+        <a href="../privacy.html">Privacy</a>
+        <a href="../terms.html">Terms</a>
+      </div>
+      <div class="footer-copyright">&copy; 2026 RCM Denials. All rights reserved.</div>
+    </div>
+  </footer>
+</div>
+
+<!-- Detail Overlay -->
+<div id="icdDetailOverlay" class="icd-detail-overlay">
+  <div id="icdDetailPanel" class="icd-detail-panel"></div>
+</div>
+
+<script src="icd10-data.js"></script>
+<script src="search-engine.js"></script>
+<script src="tool.js"></script>
+<script>(function(){var b=document.getElementById('btnTheme');if(b){b.addEventListener('click',function(){var h=document.documentElement,c=h.getAttribute('data-theme'),n=c==='dark'?'light':'dark';h.setAttribute('data-theme',n);localStorage.setItem('rcm_theme',n);b.textContent=n==='dark'?'🌙':'☀️';});var c=document.documentElement.getAttribute('data-theme');b.textContent=c==='dark'?'🌙':'☀️';}})();</script>
+</body>
+</html>
