@@ -1,343 +1,173 @@
-# RCM Denials - AI-Powered AR Calling Assistant
+# RCM Denials — Free Healthcare Denial Management Tools
 
 [![Live Demo](https://img.shields.io/badge/demo-live-success)](https://rcmdenials.com)
 [![License](https://img.shields.io/badge/license-proprietary-blue)](#)
 
-A comprehensive web application designed to help healthcare billing professionals resolve medical claim denials efficiently. This tool provides instant access to payer information, denial code guidance, and AI-powered resolution strategies.
+Free, no-login healthcare tools for medical billing professionals. AI-powered denial management, coding validation, and revenue cycle optimization — all in one place.
 
-## 🎯 Overview
+## Tools
 
-RCM Denials is a full-featured SaaS platform that streamlines the accounts receivable (AR) calling process by providing:
+### AI Claim Risk Review
+Pre-submission claim quality review and denial risk analysis. Enter CPT/HCPCS codes, ICD-10 diagnosis codes, modifiers, and payer info to get a risk score with specific denial predictions and fix recommendations before claim submission.
 
-- **Comprehensive Payer Directory** - Contact information, IVR navigation, and timely filing limits for 30+ major insurance payers
-- **Denial Code Database** - Detailed explanations and resolution strategies for 100+ denial codes
-- **AI-Powered Guidance** - Real-time assistance with denial resolution workflows
-- **Interactive Checklists** - Context-aware questions to ask payer representatives
-- **Decision Trees** - Step-by-step guidance for complex denial scenarios
+### Coding Compliance Checker
+Pre-submission coding compliance — validates ICD-CPT linkage, NCCI edits, modifier usage, and medical necessity. Checks your codes before the payer does.
 
-## ✨ Key Features
+### Modifier Validator
+Validate CPT modifiers against payer-specific rules. Supports 25, 59, 76, 77, LT, RT, and all standard modifiers with commercial payer rule sets.
 
-### 📞 Payer Information
-- **30+ Major Payers** including:
-  - Commercial: Anthem BCBS, Aetna, UnitedHealthcare, Cigna, Humana
-  - Government: Medicare, Medicaid, TRICARE, VA, CHAMPVA
-  - Managed Care: Molina, Centene, WellCare, Amerigroup
-  - Behavioral Health: Carelon, Optum BH, Magellan
-  - Workers Comp: Sedgwick, CorVel, Gallagher Bassett
+### Timely Filing Calculator
+Calculate filing and appeal deadlines by payer. Enter the date of service, payer, and claim type to get exact deadlines for initial filing, appeals, and corrected claims.
 
-- **Complete Contact Details**:
-  - Phone numbers with IVR navigation scripts
-  - Fax numbers for all departments
-  - Mailing addresses
-  - Provider portals
-  - Best calling times and average hold times
+### AI Decision Tree Engine
+Guided next steps based on payer call responses. Interactive decision trees for claim not on file, timely filing issues, authorization denials, eligibility problems, and more.
 
-- **Department-Specific Contacts**:
-  - Claims Processing
-  - Appeals
-  - Authorization/Prior Auth
-  - EDI Support
-  - Credentialing
+### AI Denial Checklist
+Step-by-step checklist to resolve any denial. Dynamic questions based on denial type, payer, and claim details with escalation triggers and documentation tracking.
 
-### 🔢 Denial Code Resolution
+### Payer Directory & IVR Navigator
+Payer contacts, IVR navigation paths, and escalation steps for 30+ major insurance payers. Includes phone numbers, fax, portal links, best calling times, and hold time estimates.
 
-Comprehensive coverage of:
-- **CO Codes** (Contractual Obligation) - CO-4, CO-16, CO-22, CO-29, CO-45, CO-50, CO-97, etc.
-- **PR Codes** (Patient Responsibility) - PR-1, PR-2, PR-3, PR-96, PR-97, etc.
-- **OA Codes** (Other Adjustment) - OA-18, OA-23
-- **PI Codes** (Payer Initiated) - PI-4
-- **NCPDP Codes** - N30-N100, N382, N517, N569
-- **Other Codes** - B15
+### Batch Claims Tracker
+Track and manage multiple claims efficiently. Log claim numbers, status updates, rep names, and next actions in a batch workflow.
 
-Each denial code includes:
-- Full description
-- Common triggers and keywords
-- Resolution strategies
-- Required documentation
-- Appeal processes
-- Timeline expectations
+### Post-Call Summary
+Auto-generate call notes and next actions from payer call details. Structured summary with reference numbers, deadlines, and follow-up tasks.
 
-### 🤖 AI-Powered Tools
+### ICD-10 Code Search
+Search 3,700+ ICD-10-CM diagnosis codes with fuzzy matching, synonyms, autocomplete, parent/child hierarchy, and similar code suggestions. Includes clinical coding guidance and documentation tips.
 
-- **Real-time Call Assistance** - Context-aware guidance during payer calls
-- **Smart Checklists** - Dynamic questions based on denial type and payer
-- **Decision Trees** - 15+ interactive workflows for common scenarios:
-  - Claim not on file
-  - Timely filing issues
-  - Authorization denials
-  - Eligibility problems
-  - Credentialing issues
-  - Medical necessity denials
-  - Bundling/NCCI edits
-  - Out-of-network denials
-  - COB issues
-  - And more...
+## Additional Resources
 
-- **Escalation Triggers** - Automatic alerts for when to request supervisor
-- **Documentation Tracking** - What to gather before ending the call
+- **[Denial Code Directory](https://rcmdenials.com/denial-codes/)** — 45+ denial codes with causes, resolutions, and appeal templates
+- **[Specialty CPT Guides](https://rcmdenials.com/specialties/)** — 20+ medical specialties with CPT code references
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 rcmdenials/
-├── denial-codes/              # Individual denial code pages
-│   ├── co-16-denial-code.html # Claim lacks information
-│   ├── co-22-denial-code.html # COB - primary paid
-│   ├── co-27-denial-code.html # Expenses incurred after coverage terminated
-│   ├── co-29-denial-code.html # Time limit for filing expired
-│   ├── co-4-denial-code.html  # Service inconsistent with modifier
-│   ├── co-45-denial-code.html # Contractual adjustment
-│   ├── co-50-denial-code.html # Not medically necessary
-│   ├── co-97-denial-code.html # Payment included in another service
-│   └── pr-1-denial-code.html  # Deductible amount
-├── app.js                     # Main application logic & data
-├── index.html                 # Homepage
-├── about.html                 # About page
-├── contact.html               # Contact page
-├── cookies.html               # Cookie policy
-├── 404.html                   # Error page
-├── _headers                   # Security headers configuration
-└── .wrangler/                 # Cloudflare Pages deployment config
+├── index.html                      # Homepage with tool card grid
+├── styles.css                      # Design system (CSS variables, dark/light theme)
+├── data.js                         # Shared data (payers, denial codes, checklists)
+├── app.js                          # Main application logic
+├── _headers                        # Cloudflare Pages security headers
+│
+├── claim-risk-review/              # AI Claim Risk Review
+│   ├── index.html
+│   ├── dashboard.html
+│   ├── tool.js / tool.css
+│   ├── rule-engine.js
+│   └── ai-engine.js
+│
+├── coding-compliance-checker/      # Coding Compliance Checker
+│   ├── index.html
+│   ├── tool.js / tool.css
+│   ├── compliance-engine.js
+│   └── cci-edits.js
+│
+├── modifier-validator/             # Modifier Validator
+│   ├── index.html
+│   ├── app.js / styles.css
+│   └── data/                       # Rule databases
+│       ├── modifierDatabase.js
+│       ├── cptDatabase.js
+│       ├── icdDatabase.js
+│       ├── ncciRules.js
+│       └── payerRules.js
+│
+├── timely-filing-calculator/       # Timely Filing Calculator
+│   └── index.html
+│
+├── ai-decision-tree/               # AI Decision Tree Engine
+│   └── index.html
+│
+├── ai-denial-checklist/            # AI Denial Checklist
+│   └── index.html
+│
+├── payer-directory/                # Payer Directory & IVR Navigator
+│   └── index.html
+│
+├── batch-claims-tracker/           # Batch Claims Tracker
+│   └── index.html
+│
+├── post-call-summary/              # Post-Call Summary
+│   └── index.html
+│
+├── icd10/                          # ICD-10 Code Search
+│   ├── index.html
+│   ├── icd10-data.js               # 3,700+ ICD-10-CM codes
+│   ├── search-engine.js            # Fuzzy search, autocomplete, scoring
+│   ├── tool.js / tool.css
+│   └── generate*.js                # Data generation scripts
+│
+├── denial-codes/                   # Individual denial code pages (SEO)
+│   ├── index.html
+│   └── *.html                      # 45+ denial code detail pages
+│
+├── specialties/                    # Specialty CPT code guides (SEO)
+│   ├── index.html
+│   └── *.html                      # 20+ specialty pages
+│
+├── about.html
+├── faq.html
+├── contact.html
+├── privacy.html
+├── terms.html
+├── cookies.html
+├── 404.html
+├── sitemap.xml
+└── robots.txt
 ```
 
-## 🛠️ Technology Stack
+## Tech Stack
 
-- **Frontend**: HTML5, CSS3, Vanilla JavaScript
-- **Styling**: Custom CSS with dark theme support
-- **Deployment**: Cloudflare Pages
-- **Analytics**: Google Analytics
-- **Performance**: Optimized for fast loading and mobile responsiveness
+- **Frontend**: HTML5, CSS3, Vanilla JavaScript (no frameworks, no build step)
+- **Styling**: Custom CSS design system with CSS variables, dark/light theme
+- **Deployment**: Cloudflare Pages (auto-deploy on push to main)
+- **Analytics**: Google Analytics (G-6JRMMNNR40)
+- **Performance**: Static site, optimized for fast loading and mobile
 
-## 🚀 Getting Started
+## Local Development
 
-### Prerequisites
-- Modern web browser (Chrome, Firefox, Safari, Edge)
-- No build tools required - pure HTML/CSS/JS
-
-### Local Development
-
-1. **Clone the repository**
-   ```bash
-   git clone https://gitlab.com/ipankajkishore/rcmdenials.git
-   cd rcmdenials
-   ```
-
-2. **Open in browser**
-   ```bash
-   # Simply open index.html in your browser
-   open index.html
-   # or
-   python -m http.server 8000
-   # Then visit http://localhost:8000
-   ```
-
-3. **Start developing**
-   - Edit HTML/CSS/JS files directly
-   - Refresh browser to see changes
-   - No compilation or build step needed
-
-### Deployment
-
-The application is deployed on Cloudflare Pages:
-- **Production URL**: https://rcmdenials.com
-- **Auto-deployment**: Pushes to main branch trigger automatic deployment
-
-## 📊 Data Structures
-
-### Payer Database (`PAYER_DB`)
-
-Each payer entry includes:
-```javascript
-{
-  id: 'PAYER-ID',
-  name: 'Full Payer Name',
-  abbr: 'ABBR',
-  payerId: '12345',
-  type: 'Commercial|Medicare|Medicaid|etc',
-  states: ['CA', 'TX', ...],
-  timelyFiling: {
-    initial: 365,    // days
-    appeal: 180,     // days
-    corrected: 365   // days
-  },
-  departments: {
-    Claims: { phone, fax, address, portal },
-    Appeals: { ... },
-    Authorization: { ... },
-    // etc.
-  },
-  ivr: [
-    { action: 'Press 1', detail: 'For English' },
-    // Step-by-step IVR navigation
-  ],
-  holdTime: '18 min',
-  bestTime: '8-10 AM EST',
-  callback: 'Yes|No',
-  verified: '2024-12-01'
-}
+```bash
+git clone https://github.com/pankajkishoree/rcmdenials.git
+cd rcmdenials
+python -m http.server 8000
+# Visit http://localhost:8000
 ```
 
-### Denial Codes (`DENIAL_CODES`)
+No build tools required — edit HTML/CSS/JS files directly and refresh.
 
-```javascript
-[
-  { code: 'CO-16', desc: 'Claim lacks information needed for adjudication' },
-  { code: 'CO-29', desc: 'Time limit for filing expired' },
-  // 100+ codes...
-]
-```
+## Key Data
 
-### Checklist Database (`CHECKLIST_DB`)
+| Dataset | Count | Description |
+|---------|-------|-------------|
+| ICD-10-CM Codes | 3,700+ | All 21 chapters with synonyms and hierarchy |
+| Denial Codes | 45+ | CO, PR, OA codes with resolutions |
+| Payer Profiles | 30+ | Contacts, IVR paths, filing limits |
+| Specialty Guides | 20+ | CPT codes by medical specialty |
+| Decision Trees | 15+ | Interactive denial resolution workflows |
 
-Context-aware questions organized by:
-- Claim Verification
-- Denial Clarification
-- Authorization
-- Eligibility
-- Timely Filing
-- Appeals
-- Fee Schedule
-- Medical Necessity
-- Provider Enrollment
-- Documentation Requests
+## Browser Support
 
-### Decision Trees (`DECISION_TREE`)
+- Chrome/Edge (latest)
+- Firefox (latest)
+- Safari (latest)
+- Mobile browsers (iOS Safari, Chrome Mobile)
+- Tablet optimized
 
-Interactive workflows with:
-- Trigger keywords
-- Questions to ask
-- Escalation criteria
-- Documentation requirements
-- Action items
-- Timeline expectations
+## Security
 
-## 🎯 Use Cases
-
-Perfect for:
-- **Medical Billing Specialists** - Resolve denials faster with instant payer info
-- **AR Calling Teams** - Standardize call scripts and documentation
-- **Revenue Cycle Managers** - Train new staff with comprehensive guides
-- **Healthcare Billing Departments** - Reduce denial resolution time
-- **Medical Practice Administrators** - Improve cash flow with faster resolutions
-- **Billing Service Companies** - Handle multiple payers efficiently
-
-## 📈 Statistics
-
-- ✅ **30+** Major payers covered
-- ✅ **100+** Denial codes documented
-- ✅ **15+** Decision tree workflows
-- ✅ **200+** Checklist questions
-- ✅ **Real-time** AI assistance
-- ✅ **Mobile-responsive** design
-
-## 🔒 Security & Privacy
-
-- Content Security Policy (CSP) headers configured
+- CSP headers configured
 - HTTPS enforced via Cloudflare
-- No sensitive patient data stored
-- Privacy-focused analytics
-- HIPAA-compliant design (no PHI processed)
+- No PHI stored or processed
+- HIPAA-conscious design
 
-## 📱 Browser Support
+## License
 
-- ✅ Chrome/Edge (latest)
-- ✅ Firefox (latest)
-- ✅ Safari (latest)
-- ✅ Mobile browsers (iOS Safari, Chrome Mobile)
-- ✅ Tablet optimized
+Copyright 2026 RCM Denials. All rights reserved.
 
-## 🎨 Features in Detail
+## Contact
 
-### IVR Navigation Scripts
-Step-by-step instructions for navigating payer phone systems:
-- Exact button presses
-- Information to have ready (NPI, Tax ID, Claim #)
-- Expected prompts
-- Shortcuts to reach live representatives
-
-### Timely Filing Limits
-Critical deadlines for each payer:
-- Initial claim submission
-- Appeal filing
-- Corrected claim resubmission
-- State-specific variations
-
-### Smart Escalation
-Automatic triggers for requesting supervisor:
-- Authorization denials
-- Medical necessity denials
-- Timely filing with proof
-- Contract disputes over $500
-- Patient safety concerns
-
-### Documentation Checklists
-Never forget to gather:
-- Reference numbers
-- Representative names
-- Exact denial reasons
-- Appeal deadlines
-- Required documentation
-- Next steps promised
-
-## 🤝 Contributing
-
-This is a proprietary project. For inquiries or suggestions:
-- Visit the [Contact Page](https://rcmdenials.com/contact.html)
-- Email: contact@rcmdenials.com
-
-## 📄 License
-
-Copyright © 2024 RCM Denials. All rights reserved.
-
-This is proprietary software. Unauthorized copying, distribution, or modification is prohibited.
-
-## 🆘 Support
-
-For questions, issues, or feature requests:
-- 📧 Email: support@rcmdenials.com
-- 🌐 Website: [rcmdenials.com](https://rcmdenials.com)
-- 📞 Contact form: [rcmdenials.com/contact](https://rcmdenials.com/contact.html)
-
-## 🗺️ Roadmap
-
-- [ ] Additional payer integrations
-- [ ] Real-time payer status updates
-- [ ] Mobile app (iOS/Android)
-- [ ] API for integration with billing systems
-- [ ] Advanced analytics dashboard
-- [ ] Multi-language support
-- [ ] Voice-to-text call documentation
-
-## 📚 Resources
-
-- [About RCM Denials](https://rcmdenials.com/about.html)
-- [Denial Code Library](https://rcmdenials.com/denial-codes/)
-- [Cookie Policy](https://rcmdenials.com/cookies.html)
-
-## 🏆 Why RCM Denials?
-
-**Save Time**
-- Instant access to payer contact info
-- Pre-written IVR scripts
-- No more searching for phone numbers
-
-**Increase Success Rate**
-- Know exactly what to ask
-- Context-aware checklists
-- Escalation triggers
-
-**Standardize Process**
-- Consistent documentation
-- Repeatable workflows
-- Training tool for new staff
-
-**Reduce Denials**
-- Learn from resolution patterns
-- Understand payer requirements
-- Prevent future denials
-
----
-
-**Built with ❤️ for healthcare billing professionals**
-
-*Making denial resolution faster, easier, and more effective.*
+- Website: [rcmdenials.com](https://rcmdenials.com)
+- Contact: [rcmdenials.com/contact](https://rcmdenials.com/contact.html)
