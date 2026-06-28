@@ -9,7 +9,12 @@ Sitemap: https://rcmdenials.com/sitemap.xml
 
 # Disallow admin/private paths
 Disallow: /api/
-Disallow: /.wrangler/
+Disallow: /_.wrangler/
+Disallow: /_new_data_entries.js
+Disallow: /_new_cards.html
+Disallow: /_audit*.py
+Disallow: /_fix_audit.py
+Disallow: /_fix_search_index.py
 
 # Crawl-delay for polite bots
 Crawl-delay: 1
