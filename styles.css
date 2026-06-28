@@ -3474,6 +3474,179 @@ button:focus-visible,
 }
 .faq-answer p { margin: 0; }
 
+/* ── LEGAL/INFO PAGE HERO ──────────────────────────────── */
+.legal-hero {
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 48px 24px 40px;
+  text-align: center;
+}
+.legal-hero h1 {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0 0 8px;
+  letter-spacing: -0.5px;
+}
+.legal-hero p {
+  font-size: 15px;
+  color: var(--text-muted);
+  margin: 0;
+}
+.legal-hero .hero-badge {
+  display: inline-block;
+  background: var(--brand-500);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ── LEGAL PAGE LAYOUT ──────────────────────────────────── */
+.legal-page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+.legal-page .breadcrumb {
+  margin-bottom: 24px;
+}
+.legal-page h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 36px 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+.legal-page h2:first-child { margin-top: 0; }
+.legal-page h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 24px 0 8px;
+}
+.legal-page p {
+  color: var(--text-secondary);
+  line-height: 1.75;
+  margin: 0 0 12px;
+  font-size: 15px;
+}
+.legal-page ul, .legal-page ol {
+  color: var(--text-secondary);
+  line-height: 2;
+  padding-left: 20px;
+  margin: 0 0 12px;
+  font-size: 15px;
+}
+.legal-page li { margin-bottom: 4px; }
+.legal-page a {
+  color: var(--brand-400);
+  text-decoration: none;
+}
+.legal-page a:hover { text-decoration: underline; }
+.legal-page strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.legal-page .callout {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--brand-500);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 16px 0;
+  font-size: 14px;
+}
+.legal-page .callout p { margin: 0; font-size: 14px; }
+.legal-page .last-updated {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-bottom: 24px;
+}
+
+/* ── ABOUT PAGE CARDS ───────────────────────────────────── */
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+  margin: 16px 0;
+}
+.about-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  transition: border-color 0.2s;
+}
+.about-card:hover { border-color: var(--brand-400); }
+.about-card .card-icon {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+.about-card h3 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 6px;
+}
+.about-card p {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+.about-card a {
+  color: var(--brand-400);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+}
+.about-card a:hover { text-decoration: underline; }
+
+/* ── FAQ SEARCH ─────────────────────────────────────────── */
+.faq-search-wrap {
+  position: relative;
+  max-width: 480px;
+  margin: 0 auto 28px;
+}
+.faq-search-wrap input {
+  width: 100%;
+  padding: 12px 16px 12px 40px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text-primary);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.faq-search-wrap input:focus { border-color: var(--brand-400); }
+.faq-search-wrap input::placeholder { color: var(--text-muted); }
+.faq-search-wrap::before {
+  content: '\\1F50D';
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  pointer-events: none;
+}
+.faq-category {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--brand-400);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 28px 0 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
 /* 404 Page */
 .page-404 {
   display: flex;
