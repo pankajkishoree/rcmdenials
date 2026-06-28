@@ -96,10 +96,275 @@
     .denial-code-desc { color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px; font-size: 14px; }
     .denial-code-meta { display: flex; gap: 12px; font-size: 12px; color: var(--text-muted); padding-top: 12px; border-top: 1px solid var(--border); }
     .meta-item { display: flex; align-items: center; gap: 4px; }
+
+    /* === PREMIUM SEARCH COMPONENT === */
+    .premium-search-wrapper {
+      position: relative;
+      flex-grow: 1;
+      max-width: 640px;
+      margin-bottom: 0;
+    }
+    .premium-search-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background: var(--bg-elevated);
+      border: 1.5px solid var(--border);
+      border-radius: 16px;
+      padding: 0 16px;
+      transition: all .25s cubic-bezier(.4,0,.2,1);
+      box-shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+    }
+    .premium-search-container:hover {
+      border-color: rgba(255,255,255,.12);
+      box-shadow: 0 4px 12px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.08);
+    }
+    .premium-search-container.focused {
+      border-color: var(--brand-400);
+      box-shadow: 0 0 0 3px rgba(var(--brand-400-rgb, 52,211,153), .15), 0 4px 16px rgba(0,0,0,.15);
+    }
+    .premium-search-icon {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      color: var(--text-muted);
+      opacity: .55;
+      transition: all .25s ease;
+      margin-right: 12px;
+    }
+    .premium-search-container.focused .premium-search-icon,
+    .premium-search-container:hover .premium-search-icon {
+      opacity: .9;
+      color: var(--brand-400);
+    }
+    .premium-search-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text-primary);
+      font-size: 15px;
+      font-family: inherit;
+      padding: 14px 0;
+      line-height: 1.5;
+      min-width: 0;
+    }
+    .premium-search-input::placeholder {
+      color: var(--text-muted);
+      opacity: .6;
+    }
+    .premium-search-clear {
+      flex-shrink: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      border: none;
+      background: rgba(255,255,255,.06);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all .15s ease;
+      margin-left: 8px;
+      padding: 0;
+    }
+    .premium-search-clear:hover {
+      background: rgba(255,255,255,.12);
+      color: var(--text-primary);
+    }
+    .premium-search-clear.visible {
+      display: flex;
+    }
+    .premium-search-clear svg {
+      width: 14px;
+      height: 14px;
+    }
+    .premium-search-shortcut {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      margin-left: 8px;
+      padding: 3px 7px;
+      border-radius: 6px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      font-size: 11px;
+      color: var(--text-muted);
+      opacity: .5;
+      font-family: inherit;
+      pointer-events: none;
+      transition: opacity .2s;
+    }
+    .premium-search-container.focused .premium-search-shortcut,
+    .premium-search-container:hover .premium-search-shortcut {
+      opacity: 0;
+    }
+
+    /* === AUTOCOMPLETE DROPDOWN === */
+    .search-dropdown {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      right: 0;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.25), 0 4px 12px rgba(0,0,0,.15);
+      z-index: 1000;
+      max-height: 420px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: none;
+      opacity: 0;
+      transform: translateY(-4px) scale(.98);
+      transition: opacity .18s ease, transform .18s ease;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(255,255,255,.1) transparent;
+    }
+    .search-dropdown.visible {
+      display: block;
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    .search-dropdown::-webkit-scrollbar { width: 6px; }
+    .search-dropdown::-webkit-scrollbar-track { background: transparent; }
+    .search-dropdown::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 3px; }
+
+    .search-dropdown-header {
+      padding: 10px 16px 6px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      border-bottom: 1px solid var(--border);
+    }
+    .search-result-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 16px;
+      cursor: pointer;
+      transition: background .1s ease;
+      text-decoration: none;
+      color: inherit;
+      border-bottom: 1px solid rgba(255,255,255,.03);
+    }
+    .search-result-item:last-child { border-bottom: none; }
+    .search-result-item:hover,
+    .search-result-item.active {
+      background: rgba(255,255,255,.04);
+    }
+    .search-result-item.active {
+      background: rgba(var(--brand-400-rgb, 52,211,153), .08);
+    }
+    .search-result-badge {
+      flex-shrink: 0;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 12px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--brand-500), var(--brand-700));
+      min-width: 52px;
+      text-align: center;
+    }
+    .search-result-badge.badge-pr { background: linear-gradient(135deg, #f59e0b, #d97706); }
+    .search-result-badge.badge-oa { background: linear-gradient(135deg, #8b5cf6, #6d28d9); }
+    .search-result-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .search-result-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.3;
+    }
+    .search-result-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.4;
+      margin-top: 1px;
+    }
+    .search-result-meta {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .search-result-category {
+      font-size: 11px;
+      color: var(--text-muted);
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: rgba(255,255,255,.04);
+      white-space: nowrap;
+    }
+    .search-result-correctable {
+      font-size: 11px;
+      color: #34d399;
+    }
+    .search-result-priority {
+      font-size: 11px;
+    }
+
+    .search-empty {
+      padding: 24px 16px;
+      text-align: center;
+    }
+    .search-empty-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .search-empty-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    .search-empty-tips {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+    }
+    .search-empty-tip {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 6px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.06);
+      color: var(--text-muted);
+    }
+
+    .search-result-item mark {
+      background: rgba(250, 204, 21, .25);
+      color: var(--text-primary);
+      border-radius: 2px;
+      padding: 0 1px;
+    }
+
     @media (max-width: 640px) {
       .denial-codes-grid { grid-template-columns: 1fr; }
       .sort-controls { flex-direction: column; align-items: stretch; }
-      .sort-controls .search-box { max-width: 100% !important; }
+      .premium-search-wrapper { max-width: 100%; }
+      .premium-search-shortcut { display: none; }
+      .search-result-meta { display: none; }
+      .search-dropdown { max-height: 320px; }
+    }
+    @media (min-width: 641px) and (max-width: 1024px) {
+      .premium-search-wrapper { max-width: 520px; }
     }
   </style>
 </head>
@@ -134,8 +399,33 @@
     </header>
 
     <div class="sort-controls">
-      <div class="search-box search-icon-pos" style="flex-grow: 1; max-width: 400px; margin-bottom: 0;">
-        <input type="text" class="search-input" id="denialSearch" placeholder="Search codes by name, number, or category…" style="padding-left:40px;" />
+      <div class="premium-search-wrapper" id="searchWrapper" role="combobox" aria-expanded="false" aria-haspopup="listbox" aria-owns="searchDropdown">
+        <div class="premium-search-container" id="searchContainer">
+          <svg class="premium-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input
+            type="text"
+            class="premium-search-input"
+            id="denialSearch"
+            placeholder="Search denial codes..."
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Search denial codes by code number, title, keyword, or description"
+            aria-autocomplete="list"
+            aria-controls="searchDropdown"
+            aria-activedescendant=""
+            role="searchbox"
+          />
+          <button class="premium-search-clear" id="searchClear" type="button" aria-label="Clear search" tabindex="-1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+          <span class="premium-search-shortcut" aria-hidden="true">/</span>
+        </div>
+        <div class="search-dropdown" id="searchDropdown" role="listbox" aria-label="Search suggestions"></div>
       </div>
       <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
         <label for="sortOrder" style="font-size: 13px; color: var(--text-muted);">Sort by:</label>
@@ -1688,6 +1978,10 @@
 <script>
 (function() {
   var searchInput = document.getElementById('denialSearch');
+  var searchClear = document.getElementById('searchClear');
+  var searchContainer = document.getElementById('searchContainer');
+  var searchDropdown = document.getElementById('searchDropdown');
+  var searchWrapper = document.getElementById('searchWrapper');
   var sortOrderSelect = document.getElementById('sortOrder');
   var filterTabs = document.querySelectorAll('.filter-tab');
   var cards = document.querySelectorAll('.denial-code-card');
@@ -1710,6 +2004,43 @@
 
   var activeFilter = 'all';
   var debounceTimer = null;
+  var dropdownIndex = -1;
+  var dropdownItems = [];
+  var isDropdownVisible = false;
+
+  // === ROTATING PLACEHOLDERS ===
+  var placeholders = [
+    'Search CO-96...',
+    'Search denial codes...',
+    'Search by code or description...',
+    'Search Duplicate Claim...',
+    'Search Modifier...',
+    'Search Eligibility...',
+    'Search Timely Filing...',
+    'Search Medical Necessity...',
+    'Search Authorization...',
+    'Search by keyword...'
+  ];
+  var placeholderIndex = 0;
+  var placeholderTimer = null;
+  var isInputFocused = false;
+
+  function rotatePlaceholder() {
+    if (isInputFocused || searchInput.value.length > 0) return;
+    placeholderIndex = (placeholderIndex + 1) % placeholders.length;
+    searchInput.setAttribute('placeholder', placeholders[placeholderIndex]);
+  }
+
+  function startPlaceholderRotation() {
+    stopPlaceholderRotation();
+    placeholderTimer = setInterval(rotatePlaceholder, 4000);
+  }
+
+  function stopPlaceholderRotation() {
+    if (placeholderTimer) { clearInterval(placeholderTimer); placeholderTimer = null; }
+  }
+
+  startPlaceholderRotation();
 
   // Medical billing synonyms
   var SYNONYMS = {
@@ -1760,12 +2091,46 @@
     'eob': 'explanation of benefits', '835': 'electronic remittance advice'
   };
 
-  // Category full names for search
   var CATEGORY_NAMES = {
     'co': 'contractual obligation',
     'pr': 'patient responsibility',
     'oa': 'other adjustment'
   };
+
+  // === PRE-BUILD SEARCH INDEX ===
+  var searchIndex = [];
+  cards.forEach(function(card) {
+    var code = card.getAttribute('data-code') || '';
+    var category = (card.getAttribute('data-category') || '').toLowerCase();
+    var categoryLabel = (card.querySelector('.denial-code-category') || {}).textContent || '';
+    var desc = (card.querySelector('.denial-code-desc') || {}).textContent || '';
+    var metaItems = card.querySelectorAll('.meta-item');
+    var hasCorrectable = false;
+    var isHighPriority = false;
+    metaItems.forEach(function(m) {
+      var t = m.textContent.toLowerCase();
+      if (t.indexOf('correctable') !== -1) hasCorrectable = true;
+      if (t.indexOf('high priority') !== -1) isHighPriority = true;
+    });
+    var normCode = normalize(code);
+    var normTitle = normalize(categoryLabel);
+    var normDesc = normalize(desc);
+    var normAll = normCode + ' ' + normTitle + ' ' + normDesc + ' ' + normalize(card.textContent);
+    searchIndex.push({
+      card: card,
+      code: code,
+      category: category,
+      categoryLabel: categoryLabel.trim(),
+      desc: desc.trim(),
+      normCode: normCode,
+      normTitle: normTitle,
+      normDesc: normDesc,
+      normAll: normAll,
+      hasCorrectable: hasCorrectable,
+      isHighPriority: isHighPriority,
+      href: card.getAttribute('href') || '#'
+    });
+  });
 
   function normalize(str) {
     return str.toLowerCase()
@@ -1788,7 +2153,6 @@
     return expanded.join(' ');
   }
 
-  // Levenshtein distance
   function levenshtein(a, b) {
     if (a.length === 0) return b.length;
     if (b.length === 0) return a.length;
@@ -1808,98 +2172,250 @@
     return matrix[b.length][a.length];
   }
 
-  function smartMatch(normalizedQuery, normalizedCode) {
-    if (normalizedQuery === normalizedCode) return { match: true, type: 'exact' };
-    if (normalizedCode.indexOf(normalizedQuery) === 0) return { match: true, type: 'prefix' };
-    if (normalizedCode.indexOf(normalizedQuery) !== -1) return { match: true, type: 'contains' };
-    // Allow prefix with partial number: "CO9" matches "CO-96" if CO9 is close enough
-    if (normalizedQuery.length >= 3) {
-      var prefixPart = normalizedQuery.replace(/[0-9]+$/, '');
-      var numPart = normalizedQuery.replace(/^[a-z]+/, '');
-      var codePrefix = normalizedCode.replace(/[0-9]+$/, '');
-      var codeNum = normalizedCode.replace(/^[a-z]+/, '');
-      if (prefixPart === codePrefix && codeNum.indexOf(numPart) === 0) {
-        return { match: true, type: 'prefix-variant' };
-      }
-    }
-    return { match: false };
-  }
+  function computeRelevance(item, normalizedQuery, rawQuery) {
+    var card = item.card;
+    var normCode = item.normCode;
+    var category = item.category;
+    var normText = item.normAll;
+    var normDesc = item.normDesc;
 
-  function textContainsFuzzy(normalizedQuery, normalizedText, threshold) {
-    if (!threshold) threshold = 2;
-    if (normalizedText.indexOf(normalizedQuery) !== -1) return true;
-    var words = normalizedText.split(/\s+/);
-    for (var i = 0; i < words.length; i++) {
-      if (words[i].length > 0 && levenshtein(normalizedQuery, words[i]) <= threshold) {
-        return true;
-      }
-    }
-    // Check consecutive word groups (bigrams)
-    if (normalizedQuery.length >= 3) {
-      for (var i = 0; i < words.length - 1; i++) {
-        var bigram = words[i] + words[i + 1];
-        if (levenshtein(normalizedQuery, bigram) <= threshold + 1) return true;
-      }
-    }
-    return false;
-  }
-
-  function computeRelevance(card, normalizedQuery, rawQuery) {
-    var code = card.getAttribute('data-code') || '';
-    var category = (card.getAttribute('data-category') || '').toLowerCase();
-    var normCode = normalize(code);
-    var cardText = card.textContent.toLowerCase();
-    var normText = normalize(cardText);
-
-    // 1. Exact code match (highest)
     if (normCode === normalizedQuery) return 1000;
-    if (normalize(code.replace('-', '')) === normalizedQuery) return 990;
-
-    // 2. Code starts with query
+    if (normalize(item.code.replace('-', '')) === normalizedQuery) return 990;
     if (normCode.indexOf(normalizedQuery) === 0) return 900;
-
-    // 3. Code contains query
     if (normCode.indexOf(normalizedQuery) !== -1) return 800;
 
-    // 4. Fuzzy code match
     var dist = levenshtein(normalizedQuery, normCode);
     if (dist <= 2) return 700 - dist * 50;
 
-    // 5. Category exact match
     if (category === normalizedQuery) return 600;
     var catFullName = CATEGORY_NAMES[category] || '';
     if (catFullName && catFullName.indexOf(normalizedQuery) !== -1) return 550;
 
-    // 6. Synonym-expanded query matches text
     var expanded = expandSynonyms(rawQuery.toLowerCase());
     var normExpanded = normalize(expanded);
     if (normText.indexOf(normExpanded) !== -1) return 500;
 
-    // 7. Description contains query (word-level)
-    var descEl = card.querySelector('.denial-code-desc');
-    var desc = descEl ? descEl.textContent.toLowerCase() : '';
-    var normDesc = normalize(desc);
     if (normDesc.indexOf(normalizedQuery) !== -1) return 400;
 
-    // 8. Fuzzy word match in description
-    if (textContainsFuzzy(normalizedQuery, normDesc, 2)) return 300;
-
-    // 9. Fuzzy match anywhere
-    if (textContainsFuzzy(normalizedQuery, normText, 2)) return 200;
-
-    // 10. Partial word match
-    var words = rawQuery.toLowerCase().split(/\s+/);
+    var words = normDesc.split(/\s+/);
     for (var i = 0; i < words.length; i++) {
-      if (words[i].length >= 2 && normText.indexOf(normalize(words[i])) !== -1) {
-        return 100;
-      }
+      if (words[i].length > 0 && levenshtein(normalizedQuery, words[i]) <= 2) return 300;
+    }
+
+    if (normText.indexOf(normalizedQuery) !== -1) return 200;
+
+    var rawWords = rawQuery.toLowerCase().split(/\s+/);
+    for (var i = 0; i < rawWords.length; i++) {
+      if (rawWords[i].length >= 2 && normText.indexOf(normalize(rawWords[i])) !== -1) return 100;
     }
 
     return 0;
   }
 
-  function highlightText(element, query) {
-    if (!query || query.length < 2) return;
+  function highlightMatch(text, query) {
+    if (!query || query.length < 1) return escapeHtml(text);
+    var expanded = expandSynonyms(query.toLowerCase());
+    var terms = [query.toLowerCase()];
+    expanded.split(/\s+/).forEach(function(t) {
+      if (t.length >= 2 && terms.indexOf(t) === -1) terms.push(t);
+    });
+    var pattern = terms.map(function(t) {
+      return t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }).join('|');
+    if (!pattern) return escapeHtml(text);
+    var regex = new RegExp('(' + pattern + ')', 'gi');
+    var escaped = escapeHtml(text);
+    return escaped.replace(regex, '<mark>$1</mark>');
+  }
+
+  function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
+    return div.innerHTML;
+  }
+
+  // === AUTOCOMPLETE DROPDOWN ===
+  function renderDropdown(results, query) {
+    if (results.length === 0) {
+      renderEmptyState(query);
+      return;
+    }
+    var html = '<div class="search-dropdown-header">Denial Codes (' + results.length + ' result' + (results.length !== 1 ? 's' : '') + ')</div>';
+    results.forEach(function(item, idx) {
+      var badgeClass = '';
+      if (item.category === 'pr') badgeClass = ' badge-pr';
+      else if (item.category === 'oa') badgeClass = ' badge-oa';
+
+      var correctableHtml = item.hasCorrectable ? '<span class="search-result-correctable">Correctable</span>' : '';
+      var priorityHtml = item.isHighPriority ? '<span class="search-result-priority">High Priority</span>' : '';
+
+      html += '<a href="' + item.href + '" class="search-result-item" data-index="' + idx + '" role="option" id="search-result-' + idx + '" aria-selected="false">' +
+        '<span class="search-result-badge' + badgeClass + '">' + escapeHtml(item.code) + '</span>' +
+        '<span class="search-result-info">' +
+          '<span class="search-result-title">' + highlightMatch(item.categoryLabel, query) + '</span>' +
+          '<span class="search-result-desc">' + highlightMatch(item.desc.length > 80 ? item.desc.substring(0, 80) + '...' : item.desc, query) + '</span>' +
+        '</span>' +
+        '<span class="search-result-meta">' +
+          '<span class="search-result-category">' + escapeHtml(item.category.toUpperCase()) + '</span>' +
+          correctableHtml + priorityHtml +
+        '</span>' +
+      '</a>';
+    });
+
+    searchDropdown.innerHTML = html;
+    showDropdown();
+    dropdownItems = searchDropdown.querySelectorAll('.search-result-item');
+    dropdownIndex = -1;
+  }
+
+  function renderEmptyState(query) {
+    searchDropdown.innerHTML =
+      '<div class="search-empty">' +
+        '<div class="search-empty-title">No denial codes found</div>' +
+        '<div class="search-empty-desc">No results for "' + escapeHtml(query) + '"</div>' +
+        '<div class="search-empty-tips">' +
+          '<span class="search-empty-tip">Check spelling</span>' +
+          '<span class="search-empty-tip">Try searching by code (CO-96)</span>' +
+          '<span class="search-empty-tip">Try searching by keyword</span>' +
+        '</div>' +
+        '<div class="search-empty-tips" style="margin-top:8px;">' +
+          '<span class="search-empty-tip">Example: Duplicate</span>' +
+          '<span class="search-empty-tip">Example: Eligibility</span>' +
+          '<span class="search-empty-tip">Example: Modifier</span>' +
+        '</div>' +
+      '</div>';
+    showDropdown();
+    dropdownItems = [];
+    dropdownIndex = -1;
+  }
+
+  function showDropdown() {
+    searchDropdown.classList.add('visible');
+    searchWrapper.setAttribute('aria-expanded', 'true');
+    isDropdownVisible = true;
+  }
+
+  function hideDropdown() {
+    searchDropdown.classList.remove('visible');
+    searchWrapper.setAttribute('aria-expanded', 'false');
+    isDropdownVisible = false;
+    dropdownIndex = -1;
+    dropdownItems = [];
+    searchInput.removeAttribute('aria-activedescendant');
+  }
+
+  function setActiveItem(index) {
+    dropdownItems.forEach(function(item, i) {
+      item.classList.toggle('active', i === index);
+      item.setAttribute('aria-selected', i === index ? 'true' : 'false');
+    });
+    if (index >= 0 && index < dropdownItems.length) {
+      dropdownItems[index].scrollIntoView({ block: 'nearest' });
+      searchInput.setAttribute('aria-activedescendant', 'search-result-' + index);
+    } else {
+      searchInput.removeAttribute('aria-activedescendant');
+    }
+    dropdownIndex = index;
+  }
+
+  // === CORE SEARCH + FILTER ===
+  function filterAndSortCards() {
+    var rawQuery = searchInput.value.trim();
+    var normalizedQuery = normalize(rawQuery);
+    var [sortField, sortDirection] = sortOrderSelect.value.split('-');
+    var isAscending = sortDirection === 'asc';
+
+    // Compute relevance scores
+    var scored = [];
+    searchIndex.forEach(function(item) {
+      var relevance = normalizedQuery ? computeRelevance(item, normalizedQuery, rawQuery) : -1;
+      scored.push({ item: item, relevance: relevance });
+    });
+
+    // Filter by active category filter + search relevance
+    var filtered = scored.filter(function(s) {
+      var matchesFilter = activeFilter === 'all' || s.item.category === activeFilter;
+      var matchesSearch = !normalizedQuery || s.relevance > 0;
+      return matchesFilter && matchesSearch;
+    });
+
+    // Sort: relevance first, then by sort field
+    filtered.sort(function(a, b) {
+      if (normalizedQuery) {
+        if (a.relevance !== b.relevance) return b.relevance - a.relevance;
+      }
+      var valA, valB;
+      if (sortField === 'code') {
+        valA = a.item.code.toLowerCase();
+        valB = b.item.code.toLowerCase();
+      } else if (sortField === 'category') {
+        valA = a.item.category.toLowerCase();
+        valB = b.item.category.toLowerCase();
+      }
+      if (valA < valB) return isAscending ? -1 : 1;
+      if (valA > valB) return isAscending ? 1 : -1;
+      return 0;
+    });
+
+    var filteredCards = filtered.map(function(f) { return f.item.card; });
+
+    // Show/hide cards
+    cards.forEach(function(card) {
+      card.style.display = filteredCards.indexOf(card) !== -1 ? '' : 'none';
+    });
+
+    // Show/hide sections
+    sections.forEach(function(section) {
+      var cat = section.getAttribute('data-category').toLowerCase();
+      var grid = section.querySelector('.denial-codes-grid');
+      var sectionCards = grid ? grid.querySelectorAll('.denial-code-card') : [];
+      var hasVisible = false;
+      sectionCards.forEach(function(c) { if (c.style.display !== 'none') hasVisible = true; });
+      var matchesFilter = activeFilter === 'all' || activeFilter === cat;
+      section.style.display = matchesFilter && hasVisible ? '' : 'none';
+    });
+
+    // Highlight matched text on cards
+    clearHighlights();
+    if (normalizedQuery && rawQuery.length >= 2) {
+      filtered.forEach(function(f) {
+        if (f.relevance >= 300) highlightTextOnCard(f.item.card, rawQuery);
+      });
+    }
+
+    // Show suggestion for close matches
+    var suggestionEl = document.getElementById('searchSuggestion');
+    if (suggestionEl) {
+      if (filtered.length === 0 && normalizedQuery.length >= 2) {
+        var bestMatch = null;
+        var bestDist = Infinity;
+        scored.forEach(function(s) {
+          var d = levenshtein(normalizedQuery, s.item.normCode);
+          if (d < bestDist) { bestDist = d; bestMatch = s; }
+        });
+        if (bestMatch && bestDist <= 4) {
+          suggestionEl.innerHTML = 'Did you mean <strong>' + escapeHtml(bestMatch.item.code) + '</strong>?';
+          suggestionEl.style.display = 'inline-block';
+        } else {
+          suggestionEl.style.display = 'none';
+        }
+      } else {
+        suggestionEl.style.display = 'none';
+      }
+    }
+
+    updateCounts();
+
+    // Render autocomplete dropdown if query is long enough
+    if (rawQuery.length >= 1 && normalizedQuery.length >= 1) {
+      var topResults = filtered.slice(0, 12);
+      renderDropdown(topResults, rawQuery);
+    } else {
+      hideDropdown();
+    }
+  }
+
+  function highlightTextOnCard(card, query) {
     var expanded = expandSynonyms(query.toLowerCase());
     var allTerms = [query.toLowerCase()];
     expanded.split(/\s+/).forEach(function(t) {
@@ -1910,15 +2426,14 @@
     }).join('|');
     if (!pattern) return;
     var regex = new RegExp('(' + pattern + ')', 'gi');
-
-    var targets = element.querySelectorAll('.denial-code-desc, .denial-code-category');
+    var targets = card.querySelectorAll('.denial-code-desc, .denial-code-category');
     targets.forEach(function(el) {
       var original = el.getAttribute('data-original-text');
       if (!original) {
         original = el.innerHTML;
         el.setAttribute('data-original-text', original);
       }
-      el.innerHTML = original.replace(regex, '<mark style="background:#facc15;color:#000;border-radius:2px;padding:0 2px;">$1</mark>');
+      el.innerHTML = original.replace(regex, '<mark>$1</mark>');
     });
   }
 
@@ -1941,100 +2456,145 @@
     noResults.style.display = visible === 0 ? 'block' : 'none';
   }
 
-  function filterAndSortCards() {
-    var rawQuery = searchInput.value.trim();
-    var normalizedQuery = normalize(rawQuery);
-    var [sortField, sortDirection] = sortOrderSelect.value.split('-');
-    var isAscending = sortDirection === 'asc';
-
-    // Compute relevance scores
-    var scored = [];
-    cards.forEach(function(card) {
-      var relevance = normalizedQuery ? computeRelevance(card, normalizedQuery, rawQuery) : -1;
-      scored.push({ card: card, relevance: relevance });
-    });
-
-    // Filter by active category filter + search relevance
-    var filtered = scored.filter(function(item) {
-      var matchesFilter = activeFilter === 'all' || item.card.getAttribute('data-category').toLowerCase() === activeFilter;
-      var matchesSearch = !normalizedQuery || item.relevance > 0;
-      return matchesFilter && matchesSearch;
-    });
-
-    // Sort: relevance first (when searching), then by sort field
-    filtered.sort(function(a, b) {
-      if (normalizedQuery) {
-        if (a.relevance !== b.relevance) return b.relevance - a.relevance;
-      }
-      var valA, valB;
-      if (sortField === 'code') {
-        valA = a.card.getAttribute('data-code').toLowerCase();
-        valB = b.card.getAttribute('data-code').toLowerCase();
-      } else if (sortField === 'category') {
-        valA = a.card.getAttribute('data-category').toLowerCase();
-        valB = b.card.getAttribute('data-category').toLowerCase();
-      }
-      if (valA < valB) return isAscending ? -1 : 1;
-      if (valA > valB) return isAscending ? 1 : -1;
-      return 0;
-    });
-
-    var filteredCards = filtered.map(function(f) { return f.card; });
-
-    // Show/hide cards
-    cards.forEach(function(card) {
-      card.style.display = filteredCards.indexOf(card) !== -1 ? '' : 'none';
-    });
-
-    // Show/hide sections
-    sections.forEach(function(section) {
-      var cat = section.getAttribute('data-category').toLowerCase();
-      var grid = section.querySelector('.denial-codes-grid');
-      var sectionCards = grid ? grid.querySelectorAll('.denial-code-card') : [];
-      var hasVisible = false;
-      sectionCards.forEach(function(c) { if (c.style.display !== 'none') hasVisible = true; });
-      var matchesFilter = activeFilter === 'all' || activeFilter === cat;
-      section.style.display = matchesFilter && hasVisible ? '' : 'none';
-    });
-
-    // Highlight matched text
-    clearHighlights();
-    if (normalizedQuery && rawQuery.length >= 2) {
-      filtered.forEach(function(item) {
-        if (item.relevance >= 300) highlightText(item.card, rawQuery);
-      });
-    }
-
-    // Show suggestion for close matches
-    var suggestionEl = document.getElementById('searchSuggestion');
-    if (suggestionEl) {
-      if (filtered.length === 0 && normalizedQuery.length >= 2) {
-        var bestMatch = null;
-        var bestDist = Infinity;
-        scored.forEach(function(item) {
-          var normCode = normalize(item.card.getAttribute('data-code') || '');
-          var d = levenshtein(normalizedQuery, normCode);
-          if (d < bestDist) { bestDist = d; bestMatch = item; }
-        });
-        if (bestMatch && bestDist <= 4) {
-          var matchCode = bestMatch.card.getAttribute('data-code');
-          suggestionEl.innerHTML = 'Did you mean <strong>' + matchCode + '</strong>?';
-          suggestionEl.style.display = 'inline-block';
-        } else {
-          suggestionEl.style.display = 'none';
-        }
-      } else {
-        suggestionEl.style.display = 'none';
-      }
-    }
-
-    updateCounts();
-  }
-
+  // === EVENT HANDLERS ===
   searchInput.addEventListener('input', function() {
     clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(filterAndSortCards, 80);
+    // Show/hide clear button
+    searchClear.classList.toggle('visible', searchInput.value.length > 0);
+    // Restart placeholder rotation if empty
+    if (searchInput.value.length === 0) {
+      startPlaceholderRotation();
+    } else {
+      stopPlaceholderRotation();
+    }
+    debounceTimer = setTimeout(filterAndSortCards, 250);
   });
+
+  searchInput.addEventListener('focus', function() {
+    isInputFocused = true;
+    stopPlaceholderRotation();
+    searchContainer.classList.add('focused');
+    // Re-render dropdown if there's text
+    if (searchInput.value.trim().length >= 1) {
+      filterAndSortCards();
+    }
+  });
+
+  searchInput.addEventListener('blur', function() {
+    isInputFocused = false;
+    searchContainer.classList.remove('focused');
+    // Delay hiding dropdown to allow click
+    setTimeout(function() {
+      if (!searchWrapper.contains(document.activeElement)) {
+        hideDropdown();
+      }
+    }, 200);
+    startPlaceholderRotation();
+  });
+
+  searchClear.addEventListener('click', function(e) {
+    e.preventDefault();
+    searchInput.value = '';
+    searchClear.classList.remove('visible');
+    hideDropdown();
+    filterAndSortCards();
+    searchInput.focus();
+    startPlaceholderRotation();
+  });
+
+  // === KEYBOARD NAVIGATION ===
+  searchInput.addEventListener('keydown', function(e) {
+    if (!isDropdownVisible) {
+      // Handle slash shortcut when not focused
+      if (e.key === '/' && document.activeElement !== searchInput) {
+        e.preventDefault();
+        searchInput.focus();
+      }
+      return;
+    }
+
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault();
+        if (dropdownItems.length > 0) {
+          setActiveItem(dropdownIndex < dropdownItems.length - 1 ? dropdownIndex + 1 : 0);
+        }
+        break;
+      case 'ArrowUp':
+        e.preventDefault();
+        if (dropdownItems.length > 0) {
+          setActiveItem(dropdownIndex > 0 ? dropdownIndex - 1 : dropdownItems.length - 1);
+        }
+        break;
+      case 'Enter':
+        e.preventDefault();
+        if (dropdownIndex >= 0 && dropdownIndex < dropdownItems.length) {
+          var href = dropdownItems[dropdownIndex].getAttribute('href');
+          if (href) window.location.href = href;
+        } else if (dropdownItems.length === 1) {
+          var href = dropdownItems[0].getAttribute('href');
+          if (href) window.location.href = href;
+        }
+        break;
+      case 'Escape':
+        e.preventDefault();
+        hideDropdown();
+        break;
+      case 'Tab':
+        hideDropdown();
+        break;
+      case 'Home':
+        if (dropdownItems.length > 0) {
+          e.preventDefault();
+          setActiveItem(0);
+        }
+        break;
+      case 'End':
+        if (dropdownItems.length > 0) {
+          e.preventDefault();
+          setActiveItem(dropdownItems.length - 1);
+        }
+        break;
+    }
+  });
+
+  // Global slash shortcut
+  document.addEventListener('keydown', function(e) {
+    if (e.key === '/' && document.activeElement !== searchInput && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      var tag = document.activeElement.tagName.toLowerCase();
+      if (tag !== 'input' && tag !== 'textarea' && tag !== 'select') {
+        e.preventDefault();
+        searchInput.focus();
+      }
+    }
+  });
+
+  // Click on dropdown items
+  searchDropdown.addEventListener('mousedown', function(e) {
+    var item = e.target.closest('.search-result-item');
+    if (item) {
+      e.preventDefault();
+      var href = item.getAttribute('href');
+      if (href) window.location.href = href;
+    }
+  });
+
+  // Hover on dropdown items
+  searchDropdown.addEventListener('mouseover', function(e) {
+    var item = e.target.closest('.search-result-item');
+    if (item) {
+      var idx = parseInt(item.getAttribute('data-index'), 10);
+      if (!isNaN(idx)) setActiveItem(idx);
+    }
+  });
+
+  // Close dropdown on outside click
+  document.addEventListener('click', function(e) {
+    if (!searchWrapper.contains(e.target)) {
+      hideDropdown();
+    }
+  });
+
   sortOrderSelect.addEventListener('change', filterAndSortCards);
 
   filterTabs.forEach(function(tab) {
@@ -2043,6 +2603,8 @@
       tab.classList.add('active');
       activeFilter = tab.getAttribute('data-filter');
       searchInput.value = '';
+      searchClear.classList.remove('visible');
+      hideDropdown();
       filterAndSortCards();
     });
   });

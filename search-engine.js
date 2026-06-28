@@ -39,55 +39,138 @@
     return matrix[b.length][a.length];
   }
 
-  // ─── FUZZY SCORE ───
-  // Returns a score 0–100 (higher = better match)
+  // ─── RELEVANCE SCORING ───
+  // Returns a score 0–1000+ (higher = better match)
+  // This is the core ranking algorithm that determines result order.
+  function scoreItem(item, nq, rawQuery) {
+    var nTitle = normalize(item.title);
+    var nDesc = normalize(item.desc || '');
+    var nCode = normalize(item.code || '');
+    var nKeywords = normalize(item.keywords || '');
+    var noSpace = nq.replace(/\s/g, '');
+    var score = 0;
+
+    // ── PRIORITY 1: Exact title match (+1000) ──
+    if (nTitle === nq) { score = 1000; return score; }
+
+    // ── PRIORITY 2: Exact code match (+950) ──
+    if (nCode) {
+      var codeNoSpace = nCode.replace(/[\s\-]/g, '');
+      if (nCode === nq || codeNoSpace === nq || codeNoSpace === noSpace) {
+        score = 950; return score;
+      }
+      // Code variant: "co96" matches "co-96"
+      var codeParts = nCode.match(/^([a-z]+)[\s\-]?(\d+)$/);
+      if (codeParts && noSpace === codeParts[1] + codeParts[2]) {
+        score = 940; return score;
+      }
+    }
+
+    // ── PRIORITY 3: Title starts-with (+850) ──
+    if (nTitle.indexOf(nq) === 0) { score = 850; return score; }
+
+    // ── PRIORITY 4: Exact keyword match (+800) ──
+    if (nKeywords) {
+      var kwParts = nKeywords.split(/[\s,]+/);
+      for (var k = 0; k < kwParts.length; k++) {
+        if (kwParts[k] === nq) { score = 800; return score; }
+      }
+    }
+
+    // ── PRIORITY 5: Synonym / keyword contains exact match (+750) ──
+    if (nKeywords && nKeywords.indexOf(nq) !== -1) {
+      // Check if query is a standalone word in keywords
+      var kwRegex = new RegExp('(?:^|[\\s,])' + nq.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?:[\\s,]|$)');
+      if (kwRegex.test(nKeywords)) { score = 750; return score; }
+    }
+
+    // ── PRIORITY 6: Title contains query (+700) ──
+    if (nTitle.indexOf(nq) !== -1) { score = 700; return score; }
+
+    // ── PRIORITY 7: Description starts-with (+650) ──
+    if (nDesc && nDesc.indexOf(nq) === 0) { score = 650; return score; }
+
+    // ── PRIORITY 8: Description contains (+550) ──
+    if (nDesc && nDesc.indexOf(nq) !== -1) { score = 550; return score; }
+
+    // ── PRIORITY 9: Keywords contain query as substring (+500) ──
+    if (nKeywords && nKeywords.indexOf(nq) !== -1) { score = 500; return score; }
+
+    // ── PRIORITY 10: Word-level match in title (+450) ──
+    var tWords = nTitle.split(' ');
+    var allWordsFound = true;
+    for (var w = 0; w < tWords.length; w++) {
+      if (tWords[w].indexOf(nq) === -1 && nq.indexOf(tWords[w]) === -1) {
+        allWordsFound = false; break;
+      }
+    }
+    if (allWordsFound && tWords.length > 1) { score = 450; return score; }
+
+    // ── PRIORITY 11: Word-level match in keywords (+400) ──
+    if (nKeywords) {
+      var kwWords = nKeywords.split(/[\s,]+/);
+      var kwMatch = true;
+      var qWords = nq.split(' ');
+      for (var qw = 0; qw < qWords.length; qw++) {
+        var found = false;
+        for (var kw = 0; kw < kwWords.length; kw++) {
+          if (kwWords[kw].indexOf(qWords[qw]) !== -1 || qWords[qw].indexOf(kwWords[kw]) !== -1) {
+            found = true; break;
+          }
+        }
+        if (!found) { kwMatch = false; break; }
+      }
+      if (kwMatch && qWords.length > 1) { score = 400; return score; }
+    }
+
+    // ── PRIORITY 12: Fuzzy title match (Levenshtein) (+100 to +300) ──
+    if (nq.length >= 3) {
+      var dist = levenshtein(nq, nTitle);
+      var maxLen = Math.max(nq.length, nTitle.length);
+      var similarity = 1 - (dist / maxLen);
+      if (similarity > 0.7) {
+        score = Math.round(similarity * 300);
+        return score;
+      }
+    }
+
+    // ── PRIORITY 13: Fuzzy keyword match (+50 to +200) ──
+    if (nq.length >= 3 && nKeywords) {
+      var kwDist = levenshtein(nq, nKeywords);
+      var kwMax = Math.max(nq.length, nKeywords.length);
+      var kwSim = 1 - (kwDist / kwMax);
+      if (kwSim > 0.6) {
+        score = Math.round(kwSim * 200);
+        return score;
+      }
+    }
+
+    // ── PRIORITY 14: Partial character match (+50 to +150) ──
+    var matches = 0;
+    var nqi = 0;
+    for (var ci = 0; ci < nTitle.length && nqi < nq.length; ci++) {
+      if (nTitle[ci] === nq[nqi]) { matches++; nqi++; }
+    }
+    if (matches > 0 && matches === nq.length) { score = 150; return score; }
+    if (matches > 1) { score = Math.round((matches / nq.length) * 100); return score; }
+
+    return 0;
+  }
+
+  // Legacy wrapper for backward compatibility
   function fuzzyScore(query, target) {
     var nq = normalize(query);
     var nt = normalize(target);
     if (!nq || !nt) return 0;
-
-    // Exact match
     if (nt === nq) return 100;
-
-    // Starts with
     if (nt.indexOf(nq) === 0) return 95;
-
-    // Contains
     if (nt.indexOf(nq) !== -1) return 85;
-
-    // Word starts with (for multi-word targets)
-    var qWords = nq.split(' ');
-    var tWords = nt.split(' ');
-    var wordMatch = true;
-    for (var i = 0; i < qWords.length; i++) {
-      var found = false;
-      for (var j = 0; j < tWords.length; j++) {
-        if (tWords[j].indexOf(qWords[i]) === 0 || tWords[j].indexOf(qWords[i]) !== -1) {
-          found = true;
-          break;
-        }
-      }
-      if (!found) { wordMatch = false; break; }
-    }
-    if (wordMatch && qWords.length > 1) return 80;
-
-    // Levenshtein (typo tolerance) — only for short queries
     if (nq.length >= 2) {
       var dist = levenshtein(nq, nt);
       var maxLen = Math.max(nq.length, nt.length);
       var similarity = 1 - (dist / maxLen);
       if (similarity > 0.6) return Math.round(similarity * 70);
     }
-
-    // Partial character match
-    var matches = 0;
-    var nqi = 0;
-    for (i = 0; i < nt.length && nqi < nq.length; i++) {
-      if (nt[i] === nq[nqi]) { matches++; nqi++; }
-    }
-    if (matches > 0 && matches === nq.length) return 60;
-    if (matches > 1) return Math.round((matches / nq.length) * 50);
-
     return 0;
   }
 
@@ -129,65 +212,28 @@
     var results = [];
     var seen = {};
 
-    // Generate all query variants for normalization
     var nq = normalize(query);
-
-    // Also try: remove spaces from query (for "co 96" -> "co96")
     var noSpace = nq.replace(/\s/g, '');
-    // Try: split into code-like patterns (e.g., "co96" -> "co-96")
-    var codeMatch = noSpace.match(/^([a-z]+)(\d+)$/);
 
     for (var i = 0; i < SEARCH_INDEX.length; i++) {
       var item = SEARCH_INDEX[i];
       if (seen[item.id]) continue;
 
-      var bestScore = 0;
-      var bestField = '';
+      // Use the new relevance scoring algorithm
+      var score = scoreItem(item, nq, query);
 
-      // Fields to search against
-      var fields = [
-        { val: item.title, weight: 1.5 },
-        { val: item.desc, weight: 1.0 },
-        { val: item.code || '', weight: 1.8 },
-        { val: item.keywords || '', weight: 1.2 }
-      ];
-
-      for (var f = 0; f < fields.length; f++) {
-        var field = fields[f];
-        if (!field.val) continue;
-
-        // Direct score
-        var score = fuzzyScore(query, field.val) * field.weight;
-        if (score > bestScore) { bestScore = score; bestField = field.val; }
-
-        // Normalized score (strip hyphens etc)
-        var normalizedField = normalize(field.val);
-        score = fuzzyScore(query, normalizedField) * field.weight;
-        if (score > bestScore) { bestScore = score; bestField = field.val; }
-
-        // Space-removed score
-        var noSpaceField = normalizedField.replace(/\s/g, '');
-        score = fuzzyScore(noSpace, noSpaceField) * field.weight;
-        if (score > bestScore) { bestScore = score; bestField = field.val; }
-
-        // Code variant: "co96" -> check against "co-96" format
-        if (codeMatch && item.code) {
-          var normalizedCode = normalize(item.code);
-          if (normalizedCode === noSpace) { score = 98 * field.weight; }
-          else {
-            var itemCodeNoSpace = normalizedCode.replace(/[\s\-]/g, '');
-            if (itemCodeNoSpace === noSpace) { score = 98 * field.weight; }
-          }
-          if (score > bestScore) { bestScore = score; bestField = item.code; }
-        }
+      // Also check space-removed variant (e.g., "co 96" -> "co96")
+      if (score < 800 && noSpace !== nq) {
+        var spaceScore = scoreItem(item, noSpace, query);
+        if (spaceScore > score) score = spaceScore;
       }
 
       // Threshold for inclusion
-      if (bestScore >= 30) {
+      if (score >= 30) {
         results.push({
           item: item,
-          score: bestScore,
-          field: bestField
+          score: score,
+          field: item.title
         });
         seen[item.id] = true;
       }
@@ -202,21 +248,23 @@
   // ─── GROUP BY CATEGORY ───
   function groupResults(results) {
     var groups = {};
-    var order = ['denial-code', 'tool', 'specialty', 'faq', 'page'];
 
     results.forEach(function(r) {
       var cat = r.item.cat;
-      if (!groups[cat]) groups[cat] = [];
-      groups[cat].push(r);
+      if (!groups[cat]) groups[cat] = { cat: cat, label: CAT_LABELS[cat] || cat, items: [], bestScore: 0 };
+      groups[cat].items.push(r);
+      if (r.score > groups[cat].bestScore) groups[cat].bestScore = r.score;
     });
 
-    // Sort groups by predefined order
+    // Sort groups by their best item's score (highest first)
+    // This ensures the category containing the best overall match appears first
     var sorted = [];
-    order.forEach(function(cat) {
-      if (groups[cat]) {
-        sorted.push({ cat: cat, label: CAT_LABELS[cat] || cat, items: groups[cat] });
+    for (var cat in groups) {
+      if (groups.hasOwnProperty(cat)) {
+        sorted.push(groups[cat]);
       }
-    });
+    }
+    sorted.sort(function(a, b) { return b.bestScore - a.bestScore; });
 
     return sorted;
   }
