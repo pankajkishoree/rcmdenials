@@ -16,7 +16,7 @@ Pre-submission coding compliance — validates ICD-CPT linkage, NCCI edits, modi
 ### Modifier Validator
 Validate CPT modifiers against payer-specific rules. Supports 25, 59, 76, 77, LT, RT, and all standard modifiers with commercial payer rule sets.
 
-### Timely Filing Calculator
+### Insurance Timely Filing Calculator
 Calculate filing and appeal deadlines by payer. Enter the date of service, payer, and claim type to get exact deadlines for initial filing, appeals, and corrected claims.
 
 ### AI Decision Tree Engine
@@ -75,7 +75,7 @@ rcmdenials/
 │       ├── ncciRules.js
 │       └── payerRules.js
 │
-├── timely-filing-calculator/       # Timely Filing Calculator
+├── insurance-timely-filing-calculator/       # Insurance Timely Filing Calculator
 │   └── index.html
 │
 ├── ai-decision-tree/               # AI Decision Tree Engine
