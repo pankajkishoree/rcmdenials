@@ -31,7 +31,7 @@ var PAYER_DB = [
   {
     id: 'AETNA', name: 'Aetna', abbr: 'AET',
     payerId: '60054', type: 'Commercial', states: ['All'],
-    timelyFiling: { initial: 180, appeal: 180, corrected: 180 },
+    timelyFiling: { { initial: 180, appeal: 180, corrected: 180 } ,
     departments: {
       Claims:     { phone: '(800) 624-0756', fax: '(860) 273-0123', address: 'PO Box 981106, El Paso, TX 79998', portal: 'https://www.aetna.com/provider' },
       Appeals:    { phone: '(800) 537-9384', fax: '(860) 975-3644', address: 'PO Box 14079, Lexington, KY 40512', portal: 'https://www.aetna.com/provider/appeals' },
@@ -53,7 +53,7 @@ var PAYER_DB = [
   {
     id: 'CIGNA', name: 'Cigna Healthcare', abbr: 'CGN',
     payerId: '62308', type: 'Commercial', states: ['All'],
-    timelyFiling: { initial: 90, appeal: 180, corrected: 90 },
+    timelyFiling: { { initial: 180, appeal: 180, corrected: 180 } ,
     departments: {
       Claims:     { phone: '(800) 244-6224', fax: '(800) 936-5967', address: 'PO Box 182223, Chattanooga, TN 37422', portal: 'https://cignaforhcp.cigna.com' },
       Appeals:    { phone: '(800) 244-6224', fax: '(800) 936-5969', address: 'PO Box 188011, Chattanooga, TN 37422', portal: 'https://cignaforhcp.cigna.com/appeals' },
@@ -74,9 +74,9 @@ var PAYER_DB = [
     holdTime: '22 min', bestTime: '8–11 AM EST', callback: 'No', verified: '2024-11-20'
   },
   {
-    id: 'UHC', name: 'UnitedHealthcare', abbr: 'UHC',
+    id: 'UHC', name: 'UnitedHealthcare (UHC)', abbr: 'UHC',
     payerId: '87726', type: 'Commercial', states: ['All'],
-    timelyFiling: { initial: 365, appeal: 180, corrected: 365 },
+    timelyFiling: { { initial: 180, appeal: 180, corrected: 180 } ,
     departments: {
       Claims:     { phone: '(877) 842-3210', fax: '(800) 695-1273', address: 'PO Box 740800, Atlanta, GA 30374', portal: 'https://uhcprovider.com' },
       Appeals:    { phone: '(866) 842-3278', fax: '(801) 994-1082', address: 'PO Box 30432, Salt Lake City, UT 84130', portal: 'https://uhcprovider.com/appeals' },
@@ -99,7 +99,7 @@ var PAYER_DB = [
   {
     id: 'HUMANA', name: 'Humana', abbr: 'HUM',
     payerId: '61101', type: 'Commercial', states: ['All'],
-    timelyFiling: { initial: 365, appeal: 60, corrected: 365 },
+    timelyFiling: { { initial: 180, appeal: 180, corrected: 180 } ,
     departments: {
       Claims:     { phone: '(800) 448-6262', fax: '(800) 448-6263', address: 'PO Box 14601, Lexington, KY 40512', portal: 'https://www.humana.com/provider' },
       Appeals:    { phone: '(800) 448-6262 opt 2', fax: '(800) 448-6264', address: 'PO Box 14546, Lexington, KY 40512', portal: 'https://www.humana.com/provider/appeals' },
@@ -120,8 +120,8 @@ var PAYER_DB = [
   },
   {
     id: 'MEDICARE', name: 'Medicare (CMS)', abbr: 'CMS',
-    payerId: '00001', type: 'Medicare', states: ['All'],
-    timelyFiling: { initial: 365, appeal: 120, corrected: 365 },
+    payerId: 'CMS', type: 'Medicare', states: ['All'],
+    timelyFiling: { { initial: 365, appeal: 120, corrected: 365 } ,
     departments: {
       Claims:     { phone: '(800) 633-4227', fax: '(800) 633-4228', address: '7500 Security Blvd, Baltimore, MD 21244', portal: 'https://www.cms.gov/provider' },
       Appeals:    { phone: '(800) 633-4227 opt 2', fax: '(800) 633-4229', address: 'ALJ Hearings, 5107 Leesburg Pike, Falls Church, VA 22041', portal: 'https://www.hhs.gov/dab' },
@@ -143,8 +143,8 @@ var PAYER_DB = [
   },
   {
     id: 'MEDICAID-TX', name: 'Texas Medicaid (TMHP)', abbr: 'TMHP',
-    payerId: 'TMHP1', type: 'Medicaid', states: ['TX'],
-    timelyFiling: { initial: 95, appeal: 120, corrected: 95 },
+    payerId: 'TXMED', type: 'Medicaid', states: ['TX'],
+    timelyFiling: { { initial: 95, appeal: 60, corrected: 95 } ,
     departments: {
       Claims:     { phone: '(800) 925-9126', fax: '(512) 514-4229', address: 'PO Box 200555, Austin, TX 78720', portal: 'https://www.tmhp.com' },
       Appeals:    { phone: '(800) 925-9126 opt 3', fax: '(512) 514-4230', address: 'PO Box 200908, Austin, TX 78720', portal: 'https://www.tmhp.com/appeals' },
@@ -187,8 +187,8 @@ var PAYER_DB = [
   },
   {
     id: 'MOLINA', name: 'Molina Healthcare', abbr: 'MOL',
-    payerId: '25133', type: 'Managed Care', states: ['CA','FL','ID','IL','MI','MS','NM','NY','OH','SC','TX','UT','VA','WA','WI'],
-    timelyFiling: { initial: 180, appeal: 60, corrected: 180 },
+    payerId: 'State-specific', type: 'Managed Care', states: ['CA','FL','ID','IL','MI','MS','NM','NY','OH','SC','TX','UT','VA','WA','WI'],
+    timelyFiling: { { initial: 180, appeal: 60, corrected: 180 } ,
     departments: {
       Claims:     { phone: '(888) 562-5442', fax: '(877) 240-0584', address: 'PO Box 22809, Long Beach, CA 90801', portal: 'https://provider.molinahealthcare.com' },
       Appeals:    { phone: '(888) 562-5442 opt 3', fax: '(877) 240-0585', address: 'PO Box 22812, Long Beach, CA 90801', portal: 'https://provider.molinahealthcare.com/appeals' },
@@ -209,8 +209,8 @@ var PAYER_DB = [
   },
   {
     id: 'MAGELLAN', name: 'Magellan Health', abbr: 'MAG',
-    payerId: '59355', type: 'Managed Care', states: ['All'],
-    timelyFiling: { initial: 90, appeal: 60, corrected: 90 },
+    payerId: '75163', type: 'Managed Care', states: ['All'],
+    timelyFiling: { { initial: 180, appeal: 180, corrected: 180 } ,
     departments: {
       Claims:     { phone: '(800) 788-4005', fax: '(866) 880-7999', address: 'PO Box 1367, Avondale, AZ 85323', portal: 'https://www.magellanprovider.com' },
       Appeals:    { phone: '(800) 788-4005 opt 2', fax: '(866) 880-7998', address: 'Appeals Dept, Avondale, AZ 85323', portal: 'https://www.magellanprovider.com/appeals' },
@@ -230,9 +230,9 @@ var PAYER_DB = [
     holdTime: '10 min', bestTime: '8–10 AM MST', callback: 'Yes', verified: '2024-10-20'
   },
   {
-    id: 'TRICARE', name: 'TRICARE (Defense Health Agency)', abbr: 'TRI',
-    payerId: 'TRIC1', type: 'Tricare', states: ['All'],
-    timelyFiling: { initial: 365, appeal: 90, corrected: 365 },
+    id: 'TRICARE', name: 'TRICARE (Military Health)', abbr: 'TRI',
+    payerId: 'HNFS: HNFS01 | WPS: 39180 | Humana Military: 61101', type: 'Tricare', states: ['All'],
+    timelyFiling: { { initial: 365, appeal: 180, corrected: 365 } ,
     departments: {
       Claims:     { phone: '(800) 444-5445', fax: '(800) 444-5446', address: 'PO Box 7928, Madison, WI 53707', portal: 'https://tricare.mil/provider' },
       Appeals:    { phone: '(800) 444-5445 opt 2', fax: '(800) 444-5447', address: 'Appeals Dept, Madison, WI 53707', portal: 'https://tricare.mil/provider/appeals' },
@@ -257,8 +257,8 @@ var PAYER_DB = [
   // ════════════════════════════════════════════════════════════
   {
     id: 'KAISER', name: 'Kaiser Permanente', abbr: 'KPR',
-    payerId: '10010', type: 'Commercial', states: ['CA','CO','GA','HI','MD','OR','VA','WA','DC'],
-    timelyFiling: { initial: 90, appeal: 60, corrected: 90 },
+    payerId: 'Region-specific', type: 'Commercial', states: ['CA','CO','GA','HI','MD','OR','VA','WA','DC'],
+    timelyFiling: { { initial: 90, appeal: 180, corrected: 90 } ,
     departments: {
       Claims:     { phone: '(800) 464-4000', fax: '(800) 432-1022', address: 'PO Box 23210, Oakland, CA 94623', portal: 'https://healthy.kaiser.org/for-providers' },
       Appeals:    { phone: '(800) 464-4000 opt 3', fax: '(800) 432-1023', address: 'Appeals Dept, Oakland, CA 94623', portal: 'https://healthy.kaiser.org/for-providers/appeals' },
@@ -300,9 +300,9 @@ var PAYER_DB = [
     holdTime: '18 min', bestTime: '8–10 AM PST', callback: 'Yes', verified: '2024-11-15'
   },
   {
-    id: 'HIGHMARK', name: 'Highmark Blue Cross Blue Shield', abbr: 'HMBC',
-    payerId: '61060', type: 'Commercial', states: ['PA','WV','DE'],
-    timelyFiling: { initial: 180, appeal: 180, corrected: 180 },
+    id: 'HIGHMARK', name: 'Highmark BCBS', abbr: 'HMBC',
+    payerId: 'PA: HIGHM | WV: HIGHWV | DE: HIGHDE', type: 'Commercial', states: ['PA','WV','DE'],
+    timelyFiling: { { initial: 180, appeal: 180, corrected: 180 } ,
     departments: {
       Claims:     { phone: '(800) 553-7683', fax: '(800) 553-7684', address: 'PO Box 89090, Camp Hill, PA 17011', portal: 'https://www.highmarkprovider.com' },
       Appeals:    { phone: '(800) 553-7683 opt 2', fax: '(800) 553-7685', address: 'Appeals Dept, Camp Hill, PA 17011', portal: 'https://www.highmarkprovider.com/appeals' },
@@ -323,8 +323,8 @@ var PAYER_DB = [
   },
   {
     id: 'BSCLCA', name: 'Blue Shield of California', abbr: 'BSCA',
-    payerId: '60054', type: 'Commercial', states: ['CA'],
-    timelyFiling: { initial: 180, appeal: 180, corrected: 180 },
+    payerId: '94333', type: 'Commercial', states: ['CA'],
+    timelyFiling: { { initial: 180, appeal: 180, corrected: 180 } ,
     departments: {
       Claims:     { phone: '(800) 541-7846', fax: '(800) 432-1028', address: 'PO Box 21692, Los Angeles, CA 90021', portal: 'https://www.blueshieldca.com/providers' },
       Appeals:    { phone: '(800) 541-7846 opt 2', fax: '(800) 432-1029', address: 'Appeals Dept, Los Angeles, CA 90021', portal: 'https://www.blueshieldca.com/providers/appeals' },
@@ -366,9 +366,9 @@ var PAYER_DB = [
     holdTime: '17 min', bestTime: '8–10 AM EST', callback: 'Yes', verified: '2024-12-08'
   },
   {
-    id: 'FLORIDABLUE', name: 'Florida Blue', abbr: 'FLB',
-    payerId: '61060', type: 'Commercial', states: ['FL'],
-    timelyFiling: { initial: 180, appeal: 180, corrected: 180 },
+    id: 'FLORIDABLUE', name: 'Florida Blue (BCBS FL)', abbr: 'FLB',
+    payerId: 'FLBCBS', type: 'Commercial', states: ['FL'],
+    timelyFiling: { { initial: 180, appeal: 180, corrected: 180 } ,
     departments: {
       Claims:     { phone: '(800) 352-2583', fax: '(800) 451-2848', address: 'PO Box 1798, Jacksonville, FL 32231', portal: 'https://www.floridablue.com/providers' },
       Appeals:    { phone: '(800) 352-2583 opt 2', fax: '(800) 451-2849', address: 'Appeals Dept, Jacksonville, FL 32231', portal: 'https://www.floridablue.com/providers/appeals' },
@@ -481,8 +481,8 @@ var PAYER_DB = [
   // ════════════════════════════════════════════════════════════
   {
     id: 'MEDICAID', name: 'Medicaid (State Programs)', abbr: 'MCD',
-    payerId: 'MCD01', type: 'Medicaid', states: ['All'],
-    timelyFiling: { initial: 95, appeal: 120, corrected: 95 },
+    payerId: 'State-specific', type: 'Medicaid', states: ['All'],
+    timelyFiling: { { initial: 95, appeal: 60, corrected: 95 } ,
     departments: {
       Claims:     { phone: '(800) 633-4227', fax: '(800) 633-4233', address: '7500 Security Blvd, Baltimore, MD 21244', portal: 'https://www.medicaid.gov' },
       Appeals:    { phone: '(800) 633-4227 opt 2', fax: '(800) 633-4234', address: 'Appeals Dept, Baltimore, MD 21244', portal: 'https://www.medicaid.gov/appeals' },
@@ -502,9 +502,9 @@ var PAYER_DB = [
     holdTime: '25 min', bestTime: '7–9 AM Local', callback: 'No', verified: '2024-12-25'
   },
   {
-    id: 'VA', name: 'Veterans Affairs (VA)', abbr: 'VA',
-    payerId: 'VA001', type: 'Government', states: ['All'],
-    timelyFiling: { initial: 365, appeal: 180, corrected: 365 },
+    id: 'VA', name: 'VA Community Care (Veterans Affairs)', abbr: 'VA',
+    payerId: 'VACC01', type: 'Government', states: ['All'],
+    timelyFiling: { { initial: 180, appeal: 180, corrected: 180 } ,
     departments: {
       Claims:     { phone: '(877) 345-3370', fax: '(877) 345-3371', address: 'VA Medical Center, 100 Emancipation Hwy, Hampton, VA 23667', portal: 'https://www.va.gov/health-care/about-va-health-benefits' },
       Appeals:    { phone: '(877) 345-3370 opt 2', fax: '(877) 345-3372', address: 'Appeals Dept, Washington, DC 20420', portal: 'https://www.va.gov/decide' },
@@ -551,8 +551,8 @@ var PAYER_DB = [
   // ════════════════════════════════════════════════════════════
   {
     id: 'WELLCARE', name: 'WellCare (Centene)', abbr: 'WLC',
-    payerId: '61060', type: 'Medicaid', states: ['AL','AZ','CA','FL','GA','IL','KY','LA','MI','MS','MO','NJ','NY','OH','SC','TN','TX'],
-    timelyFiling: { initial: 180, appeal: 60, corrected: 180 },
+    payerId: 'State-specific', type: 'Medicaid', states: ['AL','AZ','CA','FL','GA','IL','KY','LA','MI','MS','MO','NJ','NY','OH','SC','TN','TX'],
+    timelyFiling: { { initial: 180, appeal: 60, corrected: 180 } ,
     departments: {
       Claims:     { phone: '(800) 633-4227', fax: '(800) 432-8910', address: 'PO Box 31490, Tampa, FL 33631', portal: 'https://www.wellcare.com/providers' },
       Appeals:    { phone: '(800) 633-4227 opt 3', fax: '(800) 432-8911', address: 'Appeals Dept, Tampa, FL 33631', portal: 'https://www.wellcare.com/providers/appeals' },
@@ -572,9 +572,9 @@ var PAYER_DB = [
     holdTime: '15 min', bestTime: '9–11 AM EST', callback: 'Yes', verified: '2024-12-05'
   },
   {
-    id: 'CENTENE', name: 'Centene / Ambetter', abbr: 'CNT',
-    payerId: '61060', type: 'Managed Care', states: ['All'],
-    timelyFiling: { initial: 180, appeal: 60, corrected: 180 },
+    id: 'CENTENE', name: 'Centene Corporation', abbr: 'CNT',
+    payerId: 'State-plan specific', type: 'Managed Care', states: ['All'],
+    timelyFiling: { { initial: 180, appeal: 60, corrected: 180 } ,
     departments: {
       Claims:     { phone: '(800) 228-9927', fax: '(800) 228-9928', address: 'PO Box 660409, Dallas, TX 75266', portal: 'https://www.centene.com/providers' },
       Appeals:    { phone: '(800) 228-9927 opt 3', fax: '(800) 228-9929', address: 'Appeals Dept, Dallas, TX 75266', portal: 'https://www.centene.com/providers/appeals' },
@@ -617,8 +617,8 @@ var PAYER_DB = [
   },
   {
     id: 'CARESOURCE', name: 'CareSource', abbr: 'CSRC',
-    payerId: '61060', type: 'Medicaid', states: ['IN','KY','OH','WV','GA','IL','MI','MO','NC','SC','TN'],
-    timelyFiling: { initial: 180, appeal: 60, corrected: 180 },
+    payerId: 'KY: CRSKM | OH: CRSOH | IN: CRSIN', type: 'Medicaid', states: ['IN','KY','OH','WV','GA','IL','MI','MO','NC','SC','TN'],
+    timelyFiling: { { initial: 365, appeal: 60, corrected: 365 } ,
     departments: {
       Claims:     { phone: '(800) 488-0134', fax: '(800) 488-0135', address: 'PO Box 260010, Columbus, OH 43226', portal: 'https://www.caresource.com/providers' },
       Appeals:    { phone: '(800) 488-0134 opt 3', fax: '(800) 488-0136', address: 'Appeals Dept, Columbus, OH 43226', portal: 'https://www.caresource.com/providers/appeals' },
@@ -639,8 +639,8 @@ var PAYER_DB = [
   },
   {
     id: 'AMERIHEALTH', name: 'AmeriHealth Caritas', abbr: 'AHC',
-    payerId: '61060', type: 'Medicaid', states: ['DE','DC','FL','IN','KY','LA','MD','MI','MS','NJ','NC','OH','PA','SC','VA'],
-    timelyFiling: { initial: 180, appeal: 60, corrected: 180 },
+    payerId: 'State-specific', type: 'Medicaid', states: ['DE','DC','FL','IN','KY','LA','MD','MI','MS','NJ','NC','OH','PA','SC','VA'],
+    timelyFiling: { { initial: 180, appeal: 60, corrected: 180 } ,
     departments: {
       Claims:     { phone: '(800) 345-1141', fax: '(800) 345-1142', address: 'PO Box 84100, Philadelphia, PA 19182', portal: 'https://www.amerhealthcaritas.com/providers' },
       Appeals:    { phone: '(800) 345-1141 opt 3', fax: '(800) 345-1143', address: 'Appeals Dept, Philadelphia, PA 19182', portal: 'https://www.amerhealthcaritas.com/providers/appeals' },
@@ -1017,8 +1017,8 @@ var PAYER_DB = [
   }
   {
     id: 'OSCAR', name: 'Oscar Health', abbr: 'OSCR',
-    payerId: '52298', type: 'Commercial', states: ["CA", "FL", "IL", "NJ", "NY", "TX", "WI"],
-    timelyFiling: { initial: 180, appeal: 180, corrected: 180 },
+    payerId: '13551', type: 'Commercial', states: ["CA", "FL", "IL", "NJ", "NY", "TX", "WI"],
+    timelyFiling: { { initial: 180, appeal: 180, corrected: 180 } ,
     departments: {
       'Claims': { phone: '(855) 672-2777', fax: '(855) 672-2778', address: 'PO Box 207003, Austin, TX 78720', portal: 'https://www.hioscar.com/provider' },
       'Appeals': { phone: '(855) 672-2777 opt 2', fax: '(855) 672-2779', address: 'Appeals Dept, Austin, TX 78720', portal: 'https://www.hioscar.com/provider/appeals' },
@@ -1466,9 +1466,9 @@ var PAYER_DB = [
     holdTime: '20 min', bestTime: '8–10 AM EST', callback: 'No', verified: '2025-01-01'
   }
   {
-    id: 'RR-MEDICARE', name: 'Railroad Medicare', abbr: 'RRMC',
-    payerId: '52324', type: 'Government', states: ["All"],
-    timelyFiling: { initial: 365, appeal: 120, corrected: 365 },
+    id: 'RR-MEDICARE', name: 'Railroad Medicare (Palmetto GBA)', abbr: 'RRMC',
+    payerId: 'RRB', type: 'Government', states: ["All"],
+    timelyFiling: { { initial: 365, appeal: 120, corrected: 365 } ,
     departments: {
       'Claims': { phone: '(877) 201-4059', fax: '(877) 201-4060', address: 'PO Box 10066, Augusta, GA 30999', portal: 'https://www.cms.gov/railroad' },
       'Appeals': { phone: '(877) 201-4059 opt 2', fax: '(877) 201-4061', address: 'Appeals Dept, Augusta, GA 30999', portal: 'https://www.cms.gov/railroad/appeals' },
@@ -1503,9 +1503,9 @@ var PAYER_DB = [
     holdTime: '18 min', bestTime: '8–10 AM EST', callback: 'No', verified: '2025-01-01'
   }
   {
-    id: 'BEACON', name: 'Beacon Health Options', abbr: 'BHO',
-    payerId: '52326', type: 'Behavioral Health', states: ["All"],
-    timelyFiling: { initial: 180, appeal: 180, corrected: 180 },
+    id: 'BEACON', name: 'Beacon Health Options (Behavioral)', abbr: 'BHO',
+    payerId: 'Varies by state/plan', type: 'Behavioral Health', states: ["All"],
+    timelyFiling: { { initial: 180, appeal: 180, corrected: 180 } ,
     departments: {
       'Claims': { phone: '(800) 397-0276', fax: '(617) 772-1020', address: '1 Beacon Way, Boston, MA 02108', portal: 'https://www.beaconhealthoptions.com/provider' },
       'Appeals': { phone: '(800) 397-0276 opt 2', fax: '(617) 772-1021', address: 'Appeals Dept, Boston, MA 02108', portal: 'https://www.beaconhealthoptions.com/provider/appeals' },
@@ -1557,9 +1557,9 @@ var PAYER_DB = [
     holdTime: '13 min', bestTime: '9–11 AM CST', callback: 'Yes', verified: '2025-01-01'
   }
   {
-    id: 'MERITAIN', name: 'Meritain Health', abbr: 'MERI',
-    payerId: '52329', type: 'Commercial', states: ["All"],
-    timelyFiling: { initial: 180, appeal: 180, corrected: 180 },
+    id: 'MERITAIN', name: 'Meritain Health (Aetna TPA)', abbr: 'MERI',
+    payerId: '62308 or MERNE', type: 'Commercial', states: ["All"],
+    timelyFiling: { { initial: 180, appeal: 180, corrected: 180 } ,
     departments: {
       'Claims': { phone: '(800) 822-0300', fax: '(716) 887-5600', address: '4300 W Genesee St, Syracuse, NY 13219', portal: 'https://www.meritain.com/provider' },
       'Appeals': { phone: '(800) 822-0300 opt 2', fax: '(716) 887-5601', address: 'Appeals Dept, Syracuse, NY 13219', portal: 'https://www.meritain.com/provider/appeals' },
@@ -1575,9 +1575,9 @@ var PAYER_DB = [
     holdTime: '15 min', bestTime: '8–10 AM EST', callback: 'Yes', verified: '2025-01-01'
   }
   {
-    id: 'UMR', name: 'UMR', abbr: 'UMR',
-    payerId: '52330', type: 'Commercial', states: ["All"],
-    timelyFiling: { initial: 180, appeal: 180, corrected: 180 },
+    id: 'UMR', name: 'UMR (UHC Self-Funded TPA)', abbr: 'UMR',
+    payerId: '39026', type: 'Commercial', states: ["All"],
+    timelyFiling: { { initial: 180, appeal: 180, corrected: 180 } ,
     departments: {
       'Claims': { phone: '(800) 441-5501', fax: '(608) 784-5600', address: '1200 John Q Hammons Dr, Madison, WI 53717', portal: 'https://www.umr.com/provider' },
       'Appeals': { phone: '(800) 441-5501 opt 2', fax: '(608) 784-5601', address: 'Appeals Dept, Madison, WI 53717', portal: 'https://www.umr.com/provider/appeals' },
@@ -1611,9 +1611,9 @@ var PAYER_DB = [
     holdTime: '13 min', bestTime: '8–10 AM CST', callback: 'Yes', verified: '2025-01-01'
   }
   {
-    id: 'HEALTHCOMP', name: 'HealthComp', abbr: 'HCOMP',
-    payerId: '52332', type: 'Commercial', states: ["All"],
-    timelyFiling: { initial: 180, appeal: 180, corrected: 180 },
+    id: 'HEALTHCOMP', name: 'HealthSmart Benefit Solutions', abbr: 'HCOMP',
+    payerId: 'HLTHSMT', type: 'Commercial', states: ["All"],
+    timelyFiling: { { initial: 180, appeal: 180, corrected: 180 } ,
     departments: {
       'Claims': { phone: '(800) 446-7723', fax: '(813) 282-1200', address: '4211 W Boy Scout Blvd, Tampa, FL 33607', portal: 'https://www.healthcomp.com/provider' },
       'Appeals': { phone: '(800) 446-7723 opt 2', fax: '(813) 282-1201', address: 'Appeals Dept, Tampa, FL 33607', portal: 'https://www.healthcomp.com/provider/appeals' },
@@ -1753,6 +1753,302 @@ var PAYER_DB = [
       { action: 'Hold for Rep', detail: 'Claims Department' },
     ],
     holdTime: '12 min', bestTime: '8–10 AM CST', callback: 'Yes', verified: '2025-01-01'
+  }
+  {
+    id: 'MAC-NOVITAS', name: 'Novitas Solutions (Medicare MAC — JH & JL)', abbr: 'NOVT',
+    payerId: 'JH: 04112 | JL: 04212', type: 'Medicare MAC', states: ["AZ", "CO", "LA", "MS", "NM", "OK", "TX", "DE", "DC", "MD", "NJ", "PA"],
+    timelyFiling: { initial: 365, appeal: 180, corrected: 365 },
+    departments: {
+      'Claims': { phone: '(855) 252-8782', fax: '(717) 541-7820', address: 'Novitas Solutions, Inc.
+PO Box 3157
+Mechanicsburg, PA 17055', portal: 'https://www.novitas-solutions.com' },
+      'Appeals': { phone: '(855) 252-8782 Opt 2', fax: '(717) 541-7821', address: 'Novitas Solutions
+PO Box 3095
+Mechanicsburg, PA 17055-1813', portal: 'https://www.novitas-solutions.com/appeals' },
+    },
+    ivr: [
+      { action: 'Call Provider Line', detail: '(855) 252-8782' },
+      { action: 'Press 2', detail: 'For Claims' },
+      { action: 'Enter NPI', detail: '10-digit NPI' },
+      { action: 'Press 1', detail: 'Claims Status' },
+      { action: 'Hold for Rep', detail: 'Claims Department' },
+    ],
+    holdTime: '18 min', bestTime: '8–10 AM EST', callback: 'Yes', verified: '2025-06-28'
+  }
+  {
+    id: 'MAC-CGS', name: 'CGS Administrators (Medicare MAC — J15)', abbr: 'CGS',
+    payerId: 'J15A: 01182 | J15B: 01192', type: 'Medicare MAC', states: ["KY", "OH"],
+    timelyFiling: { initial: 365, appeal: 180, corrected: 365 },
+    departments: {
+      'Claims': { phone: '(866) 590-6727', fax: '(615) 782-4400', address: 'CGS Administrators, LLC
+PO Box 20017
+Nashville, TN 37202', portal: 'https://www.cgsmedicare.com' },
+      'Appeals': { phone: '(866) 590-6727 Opt 2', fax: '(615) 782-4401', address: 'CGS Part A: PO Box 20018, Nashville, TN 37202
+CGS Part B: PO Box 20019, Nashville, TN 37202', portal: 'https://www.cgsmedicare.com/appeals' },
+    },
+    ivr: [
+      { action: 'Call Provider Line', detail: '(866) 590-6727' },
+      { action: 'Press 1', detail: 'English' },
+      { action: 'Press 2', detail: 'Claims' },
+      { action: 'Enter NPI', detail: '10-digit NPI' },
+      { action: 'Hold for Rep', detail: 'Claims Department' },
+    ],
+    holdTime: '16 min', bestTime: '9–11 AM EST', callback: 'Yes', verified: '2025-06-28'
+  }
+  {
+    id: 'MAC-FCSO', name: 'First Coast Service Options (Medicare MAC — JN)', abbr: 'FCSO',
+    payerId: 'JN: 09102', type: 'Medicare MAC', states: ["FL"],
+    timelyFiling: { initial: 365, appeal: 180, corrected: 365 },
+    departments: {
+      'Claims': { phone: '(855) 252-8782', fax: '(904) 791-6070', address: 'First Coast Service Options
+PO Box 44021
+Jacksonville, FL 32231-4021', portal: 'https://www.fcso.com' },
+      'Appeals': { phone: '(904) 791-6068', fax: '(904) 791-6071', address: 'First Coast Service Options
+PO Box 44117
+Jacksonville, FL 32231-4117', portal: 'https://www.fcso.com/appeals' },
+    },
+    ivr: [
+      { action: 'Call Provider Line', detail: '(855) 252-8782' },
+      { action: 'Press 1', detail: 'English' },
+      { action: 'Press 2', detail: 'Claims' },
+      { action: 'Enter NPI', detail: '10-digit NPI' },
+      { action: 'Hold for Rep', detail: 'Claims Department' },
+    ],
+    holdTime: '15 min', bestTime: '8–10 AM EST', callback: 'Yes', verified: '2025-06-28'
+  }
+  {
+    id: 'MAC-NGS', name: 'National Government Services (Medicare MAC — JK & J6)', abbr: 'NGS',
+    payerId: 'JK: 13282 | J6: 00951', type: 'Medicare MAC', states: ["CT", "MA", "ME", "NH", "NY", "RI", "VT", "IL", "MN", "WI"],
+    timelyFiling: { initial: 365, appeal: 180, corrected: 365 },
+    departments: {
+      'Claims': { phone: '(877) 908-8431', fax: '(317) 455-8900', address: 'NGS
+PO Box 7078
+Indianapolis, IN 46207-7078', portal: 'https://www.ngsmedicare.com' },
+      'Appeals': { phone: '(877) 908-8431 Opt 2', fax: '(317) 455-8901', address: 'NGS Part B (JK): PO Box 7078, Indianapolis IN 46207
+NGS Part A (J6): PO Box 2765, Indianapolis IN 46207', portal: 'https://www.ngsmedicare.com/appeals' },
+    },
+    ivr: [
+      { action: 'Call Provider Line', detail: '(877) 908-8431' },
+      { action: 'Press 1', detail: 'English' },
+      { action: 'Press 2', detail: 'Claims' },
+      { action: 'Enter NPI', detail: '10-digit NPI' },
+      { action: 'Hold for Rep', detail: 'Claims Department' },
+    ],
+    holdTime: '17 min', bestTime: '8–10 AM EST', callback: 'Yes', verified: '2025-06-28'
+  }
+  {
+    id: 'MAC-NORIDIAN', name: 'Noridian Healthcare Solutions (Medicare MAC — JF & JE)', abbr: 'NORD',
+    payerId: 'JF: 05402 | JE: 05302', type: 'Medicare MAC', states: ["AK", "AZ", "ID", "MT", "NV", "OR", "WA", "WY", "CA", "HI"],
+    timelyFiling: { initial: 365, appeal: 180, corrected: 365 },
+    departments: {
+      'Claims': { phone: '(855) 609-9960', fax: '(701) 280-2300', address: 'Noridian Healthcare Solutions
+PO Box 6704
+Fargo, ND 58108-6704', portal: 'https://www.noridianmedicare.com' },
+      'Appeals': { phone: '(855) 609-9960 Opt 2', fax: '(701) 280-2301', address: 'Noridian Part B: PO Box 6705, Fargo, ND 58108
+Noridian Part A: PO Box 6706, Fargo, ND 58108', portal: 'https://www.noridianmedicare.com/appeals' },
+    },
+    ivr: [
+      { action: 'Call Provider Line', detail: '(855) 609-9960' },
+      { action: 'Press 1', detail: 'English' },
+      { action: 'Press 2', detail: 'Claims' },
+      { action: 'Enter NPI', detail: '10-digit NPI' },
+      { action: 'Hold for Rep', detail: 'Claims Department' },
+    ],
+    holdTime: '14 min', bestTime: '9–11 AM PST', callback: 'Yes', verified: '2025-06-28'
+  }
+  {
+    id: 'MAC-PALMETTO', name: 'Palmetto GBA (Medicare MAC — JJ & JM)', abbr: 'PALT',
+    payerId: 'JJ: 10112 | JM: 11202', type: 'Medicare MAC', states: ["AL", "GA", "TN", "NC", "SC", "VA", "WV"],
+    timelyFiling: { initial: 365, appeal: 180, corrected: 365 },
+    departments: {
+      'Claims': { phone: '(800) 476-2614', fax: '(803) 736-4500', address: 'Palmetto GBA
+PO Box 100238
+Columbia, SC 29202-3238', portal: 'https://www.palmettogba.com' },
+      'Appeals': { phone: '(800) 476-2614 Opt 2', fax: '(803) 736-4501', address: 'Palmetto GBA Part A: PO Box 100300, Columbia SC 29202
+Palmetto GBA Part B: PO Box 100238, Columbia SC 29202', portal: 'https://www.palmettogba.com/appeals' },
+    },
+    ivr: [
+      { action: 'Call Provider Line', detail: '(800) 476-2614' },
+      { action: 'Press 1', detail: 'English' },
+      { action: 'Press 2', detail: 'Claims' },
+      { action: 'Enter NPI', detail: '10-digit NPI' },
+      { action: 'Hold for Rep', detail: 'Claims Department' },
+    ],
+    holdTime: '16 min', bestTime: '8–10 AM EST', callback: 'Yes', verified: '2025-06-28'
+  }
+  {
+    id: 'MAC-WPS', name: 'WPS Health Solutions (Medicare MAC — J5)', abbr: 'WPS',
+    payerId: 'J5: 05182', type: 'Medicare MAC', states: ["IA", "KS", "MO", "NE"],
+    timelyFiling: { initial: 365, appeal: 180, corrected: 365 },
+    departments: {
+      'Claims': { phone: '(866) 234-7331', fax: '(608) 221-5600', address: 'WPS Health Solutions
+PO Box 8248
+Madison, WI 53708-8248', portal: 'https://www.wpsmedicare.com' },
+      'Appeals': { phone: '(866) 518-3285', fax: '(608) 221-5601', address: 'WPS Part B: PO Box 8248, Madison WI 53708
+WPS Part A: PO Box 8246, Madison WI 53708', portal: 'https://www.wpsmedicare.com/appeals' },
+    },
+    ivr: [
+      { action: 'Call Provider Line', detail: '(866) 234-7331' },
+      { action: 'Press 1', detail: 'English' },
+      { action: 'Press 2', detail: 'Claims' },
+      { action: 'Enter NPI', detail: '10-digit NPI' },
+      { action: 'Hold for Rep', detail: 'Claims Department' },
+    ],
+    holdTime: '15 min', bestTime: '9–11 AM CST', callback: 'Yes', verified: '2025-06-28'
+  }
+  {
+    id: 'GEHA', name: 'GEHA (Government Employees Health Association)', abbr: 'GEHA',
+    payerId: '44054', type: 'Government', states: ["All"],
+    timelyFiling: { initial: 90, appeal: 180, corrected: 90 },
+    departments: {
+      'Claims': { phone: '(800) 821-6136', fax: '(816) 434-7800', address: 'GEHA
+310 NE Mulberry St
+Lee\'s Summit, MO 64086', portal: 'https://www.geha.com/providers' },
+      'Appeals': { phone: '(800) 821-6136 Opt 2', fax: '(816) 434-7801', address: 'GEHA
+PO Box 21542
+Kansas City, MO 64141', portal: 'https://www.geha.com/providers/appeals' },
+    },
+    ivr: [
+      { action: 'Call Provider Line', detail: '(800) 821-6136' },
+      { action: 'Press 1', detail: 'English' },
+      { action: 'Press 2', detail: 'Provider Services' },
+      { action: 'Enter NPI', detail: '10-digit NPI' },
+      { action: 'Press 1', detail: 'Claims Status' },
+      { action: 'Hold for Rep', detail: 'Claims Department' },
+    ],
+    holdTime: '12 min', bestTime: '8–10 AM CST', callback: 'Yes', verified: '2025-06-28'
+  }
+  {
+    id: 'FEP-BCBS', name: 'BCBS Federal Employee Program (FEP)', abbr: 'FEP',
+    payerId: '00630', type: 'Government', states: ["All"],
+    timelyFiling: { initial: 90, appeal: 180, corrected: 90 },
+    departments: {
+      'Claims': { phone: '(800) 411-2583', fax: '(312) 555-0100', address: 'Blue Cross Blue Shield Association
+225 N. Michigan Ave
+Chicago, IL 60601', portal: 'https://www.fepblue.org/providers' },
+      'Appeals': { phone: '(800) 411-2583 Opt 2', fax: '(312) 555-0101', address: 'BCBS FEP
+PO Box 1560
+Washington, DC 20013', portal: 'https://www.fepblue.org/providers/appeals' },
+    },
+    ivr: [
+      { action: 'Call Provider Line', detail: '(800) 411-2583' },
+      { action: 'Press 1', detail: 'English' },
+      { action: 'Press 2', detail: 'Provider Services' },
+      { action: 'Enter NPI', detail: '10-digit NPI' },
+      { action: 'Press 1', detail: 'Claims Status' },
+      { action: 'Hold for Rep', detail: 'Claims Department' },
+    ],
+    holdTime: '14 min', bestTime: '8–10 AM EST', callback: 'Yes', verified: '2025-06-28'
+  }
+  {
+    id: 'BRIGHT', name: 'Bright Health', abbr: 'BRGH',
+    payerId: '77036', type: 'Commercial', states: ["MN"],
+    timelyFiling: { initial: 180, appeal: 180, corrected: 180 },
+    departments: {
+      'Claims': { phone: '(844) 926-3798', fax: '(612) 225-0100', address: 'Bright Health
+2601 University Ave SE
+Minneapolis, MN 55414', portal: 'https://www.brighthealthcare.com/providers' },
+      'Appeals': { phone: '(844) 926-3798 Opt 2', fax: '(612) 225-0101', address: 'Bright Health
+PO Box 211508
+Eagan, MN 55121', portal: 'https://www.brighthealthcare.com/providers/appeals' },
+    },
+    ivr: [
+      { action: 'Call Provider Line', detail: '(844) 926-3798' },
+      { action: 'Press 1', detail: 'English' },
+      { action: 'Press 2', detail: 'Provider Services' },
+      { action: 'Enter NPI', detail: '10-digit NPI' },
+      { action: 'Press 1', detail: 'Claims Status' },
+      { action: 'Hold for Rep', detail: 'Claims Department' },
+    ],
+    holdTime: '14 min', bestTime: '9–11 AM CST', callback: 'Yes', verified: '2025-06-28'
+  }
+  {
+    id: 'MEDICAID-CA', name: 'Medicaid — California (Medi-Cal / DHCS)', abbr: 'MEDI',
+    payerId: 'CAL01', type: 'Medicaid', states: ["CA"],
+    timelyFiling: { initial: 365, appeal: 180, corrected: 365 },
+    departments: {
+      'Claims': { phone: '(916) 552-9200', fax: '(916) 552-9201', address: 'CA Dept of Health Care Services
+1501 Capitol Ave
+Sacramento, CA 95814', portal: 'https://www.medi-cal.ca.gov' },
+      'Appeals': { phone: '(800) 541-5555', fax: '(916) 552-9202', address: 'Medi-Cal FFS Claims
+PO Box 15023
+Sacramento, CA 95851', portal: 'https://www.medi-cal.ca.gov/appeals' },
+    },
+    ivr: [
+      { action: 'Call Provider Line', detail: '(916) 552-9200' },
+      { action: 'Press 1', detail: 'English' },
+      { action: 'Press 2', detail: 'Provider Relations' },
+      { action: 'Enter NPI', detail: '10-digit NPI' },
+      { action: 'Press 1', detail: 'Claims Status' },
+      { action: 'Hold for Rep', detail: 'Claims Department' },
+    ],
+    holdTime: '20 min', bestTime: '8–10 AM PST', callback: 'No', verified: '2025-06-28'
+  }
+  {
+    id: 'AETNA-BETTER', name: 'Aetna Better Health (Medicaid)', abbr: 'AETM',
+    payerId: 'State-specific', type: 'Medicaid', states: ["PA", "NJ", "TX", "FL", "OH", "MD", "IL"],
+    timelyFiling: { initial: 180, appeal: 60, corrected: 180 },
+    departments: {
+      'Claims': { phone: '(800) 424-4524', fax: '(860) 273-0130', address: 'Aetna Better Health
+151 Farmington Ave
+Hartford, CT 06156', portal: 'https://www.aetnabetterhealth.com' },
+      'Appeals': { phone: '(800) 424-4524 Opt 2', fax: '(860) 273-0131', address: 'Aetna Better Health
+PO Box 981106
+El Paso, TX 79998', portal: 'https://www.aetnabetterhealth.com/appeals' },
+    },
+    ivr: [
+      { action: 'Call Provider Line', detail: '(800) 424-4524' },
+      { action: 'Press 1', detail: 'English' },
+      { action: 'Press 2', detail: 'Provider Services' },
+      { action: 'Enter NPI', detail: '10-digit NPI' },
+      { action: 'Press 1', detail: 'Claims Status' },
+      { action: 'Hold for Rep', detail: 'Claims Department' },
+    ],
+    holdTime: '16 min', bestTime: '8–10 AM EST', callback: 'Yes', verified: '2025-06-28'
+  }
+  {
+    id: 'CIGNA-BH', name: 'Cigna Behavioral Health', abbr: 'CGNBH',
+    payerId: '62308', type: 'Behavioral Health', states: ["All"],
+    timelyFiling: { initial: 180, appeal: 180, corrected: 180 },
+    departments: {
+      'Claims': { phone: '(800) 274-7603', fax: '(952) 988-2600', address: 'Cigna Behavioral Health
+11095 Viking Drive
+Eden Prairie, MN 55344', portal: 'https://cignaforhcp.cigna.com' },
+      'Appeals': { phone: '(800) 274-7603 Opt 2', fax: '(952) 988-2601', address: 'Cigna Behavioral Health
+PO Box 188003
+Chattanooga, TN 37422', portal: 'https://cignaforhcp.cigna.com/appeals' },
+    },
+    ivr: [
+      { action: 'Call Provider Line', detail: '(800) 274-7603' },
+      { action: 'Press 1', detail: 'English' },
+      { action: 'Press 2', detail: 'Provider Services' },
+      { action: 'Enter NPI', detail: '10-digit NPI' },
+      { action: 'Press 1', detail: 'Claims Status' },
+      { action: 'Hold for Rep', detail: 'Behavioral Health Claims' },
+    ],
+    holdTime: '14 min', bestTime: '9–11 AM CST', callback: 'Yes', verified: '2025-06-28'
+  }
+  {
+    id: 'OPTUM-WC', name: 'Optum (UHC) — Workers Comp & Auto', abbr: 'OPTWC',
+    payerId: 'OPTMWC', type: 'Workers Comp', states: ["All"],
+    timelyFiling: { initial: 365, appeal: 180, corrected: 365 },
+    departments: {
+      'Claims': { phone: '(800) 873-4575', fax: '(563) 326-5600', address: 'Optum Workers\' Comp
+11000 Optum Circle
+Eden Prairie, MN 55344', portal: 'https://www.optum.com/providers' },
+      'Appeals': { phone: '(800) 873-4575 Opt 2', fax: '(563) 326-5601', address: 'Optum Workers\' Comp
+PO Box 2710
+Clinton, IA 52733', portal: 'https://www.optum.com/providers/appeals' },
+    },
+    ivr: [
+      { action: 'Call Provider Line', detail: '(800) 873-4575' },
+      { action: 'Press 1', detail: 'English' },
+      { action: 'Press 2', detail: 'Provider Services' },
+      { action: 'Enter Claim #', detail: 'Workers comp claim number' },
+      { action: 'Press 1', detail: 'Claims Status' },
+      { action: 'Hold for Rep', detail: 'Workers Comp Claims' },
+    ],
+    holdTime: '14 min', bestTime: '8–10 AM CST', callback: 'Yes', verified: '2025-06-28'
   }
 ];
 
