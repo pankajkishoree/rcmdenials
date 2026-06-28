@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   TOOL.JS — Coding Compliance Checker UI Orchestrator
+   TOOL.JS — AI CPT & ICD-10 Coding Checker UI Orchestrator
    ═══════════════════════════════════════════════════════════ */
 'use strict';
 

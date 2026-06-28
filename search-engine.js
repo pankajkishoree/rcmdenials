@@ -444,7 +444,7 @@
         '<div class="global-search-empty">' +
           '<div class="global-search-empty-icon">🔍</div>' +
           '<div class="global-search-empty-title">No results found for "' + query + '"</div>' +
-          '<div class="global-search-empty-hint">Try searching for denial codes (CO-96), specialties (Cardiology), or tools (Modifier Validator)</div>' +
+          '<div class="global-search-empty-hint">Try searching for denial codes (CO-96), specialties (Cardiology), or tools (CPT Modifier Validator)</div>' +
         '</div>';
       dropdown.classList.add('visible');
       searchBox.classList.add('open');

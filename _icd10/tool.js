@@ -387,7 +387,7 @@ var ICD10Tool = (function() {
     detailOverlay.classList.remove('open');
     document.body.style.overflow = '';
     history.pushState(null, '', window.location.pathname);
-    document.title = 'ICD-10 Code Search — Free ICD-10-CM Lookup Tool | RCM Denials';
+    document.title = 'ICD-10 Code Lookup — Free ICD-10-CM Search Tool | RCM Denials';
   }
 
   function searchChapter(startCode) {
