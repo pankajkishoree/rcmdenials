@@ -261,7 +261,7 @@ var panel=document.getElementById('branchPanel');
 function renderScenarios(){
   var html='';
   DECISION_TREE.forEach(function(s){
-    html+='<div class="scenario-card" onclick="selectScenario(\''+s.id+'\')" role="button" tabindex="0">';
+    html+='<div class="scenario-card" onclick="selectScenario(\''+s.id+'\',this)" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){selectScenario(\''+s.id+'\',this);event.preventDefault();}" role="button" tabindex="0">';
     html+='<div class="scenario-card-icon">'+s.icon+'</div>';
     html+='<div class="scenario-card-name">'+s.name+'</div>';
     html+='<div class="scenario-card-desc">'+s.desc+'</div>';
@@ -275,11 +275,11 @@ function renderScenarios(){
   grid.innerHTML=html;
 }
 
-function selectScenario(id){
+function selectScenario(id,el){
   var s=DECISION_TREE.find(function(x){return x.id===id;});
   if(!s)return;
   document.querySelectorAll('.scenario-card').forEach(function(c){c.classList.remove('active');});
-  event.currentTarget.classList.add('active');
+  if(el)el.classList.add('active');
 
   var html='<div style="margin-bottom:20px"><h2 style="font-size:20px;font-weight:700;color:var(--text-primary);margin:0 0 8px">'+s.icon+' '+s.name+'</h2>';
   html+='<p style="font-size:14px;color:var(--text-secondary);margin:0">'+s.desc+'</p></div>';

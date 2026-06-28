@@ -506,5 +506,16 @@
 <script src="_claim-risk-review/rule-engine.js"></script>
 <script src="_claim-risk-review/ai-engine.js"></script>
 <script src="_claim-risk-review/tool.js"></script>
+<script>
+(function(){
+  var btn=document.getElementById('btnTheme');
+  if(btn){btn.addEventListener('click',function(){
+    var h=document.documentElement,c=h.getAttribute('data-theme'),
+    n=c==='dark'?'light':'dark';h.setAttribute('data-theme',n);
+    localStorage.setItem('rcm_theme',n);btn.textContent=n==='dark'?'🌙':'☀️';
+  });var cur=document.documentElement.getAttribute('data-theme');
+  btn.textContent=cur==='dark'?'🌙':'☀️';}
+})();
+</script>
 </body>
 </html>

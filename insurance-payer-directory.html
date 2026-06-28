@@ -320,7 +320,7 @@ function showPayerDetail(id){
 
   html+='<div class="dept-tabs" id="deptTabs">';
   Object.keys(p.departments).forEach(function(d){
-    html+='<div class="dept-tab'+(d===currentDept?' active':'')+'" onclick="switchDept(\''+p.id+'\',\''+d+'\')">'+d+'</div>';
+    html+='<div class="dept-tab'+(d===currentDept?' active':'')+'" onclick="switchDept(\''+p.id+'\',\''+d+'\',this)">'+d+'</div>';
   });
   html+='</div>';
   html+='<div id="deptContact"></div>';
@@ -344,10 +344,10 @@ function getFilteredPayers(){
   });
 }
 
-function switchDept(payerId,dept){
+function switchDept(payerId,dept,el){
   currentDept=dept;
   document.querySelectorAll('.dept-tab').forEach(function(t){t.classList.remove('active');});
-  event.currentTarget.classList.add('active');
+  if(el)el.classList.add('active');
   renderDeptContact(payerId,dept);
 }
 
