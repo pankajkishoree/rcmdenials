@@ -8661,7 +8661,9 @@
     if (normCode.indexOf(normalizedQuery) !== -1) return 800;
 
     var dist = levenshtein(normalizedQuery, normCode);
-    if (dist <= 2) return 700 - dist * 50;
+    var maxCodeLen = Math.max(normalizedQuery.length, normCode.length);
+    var allowedDist = maxCodeLen <= 3 ? 1 : 2;
+    if (dist <= allowedDist) return 700 - dist * 50;
 
     if (category === normalizedQuery) return 600;
     var catFullName = CATEGORY_NAMES[category] || '';
@@ -8675,7 +8677,11 @@
 
     var words = normDesc.split(/\s+/);
     for (var i = 0; i < words.length; i++) {
-      if (words[i].length > 0 && levenshtein(normalizedQuery, words[i]) <= 2) return 300;
+      if (words[i].length > 0) {
+        var wordDist = levenshtein(normalizedQuery, words[i]);
+        var wordMaxLen = Math.max(normalizedQuery.length, words[i].length);
+        if (wordMaxLen <= 5 ? wordDist <= 1 : wordDist <= 2) return 300;
+      }
     }
 
     if (normText.indexOf(normalizedQuery) !== -1) return 200;
@@ -8838,6 +8844,22 @@
     });
 
     var filteredCards = filtered.map(function(f) { return f.item.card; });
+
+    // Reorder cards in DOM by relevance when searching, then show/hide
+    if (normalizedQuery) {
+      sections.forEach(function(section) {
+        var grid = section.querySelector('.denial-codes-grid');
+        if (!grid) return;
+        var sectionFiltered = filtered.filter(function(f) {
+          return f.item.card.parentNode === grid;
+        });
+        if (sectionFiltered.length > 0) {
+          sectionFiltered.forEach(function(f) {
+            grid.appendChild(f.item.card);
+          });
+        }
+      });
+    }
 
     // Show/hide cards
     cards.forEach(function(card) {

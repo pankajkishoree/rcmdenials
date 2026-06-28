@@ -128,7 +128,8 @@
       var dist = levenshtein(nq, nTitle);
       var maxLen = Math.max(nq.length, nTitle.length);
       var similarity = 1 - (dist / maxLen);
-      if (similarity > 0.7) {
+      var fuzzyThreshold = maxLen <= 5 ? 0.75 : 0.7;
+      if (similarity > fuzzyThreshold) {
         score = Math.round(similarity * 300);
         return score;
       }
@@ -139,7 +140,8 @@
       var kwDist = levenshtein(nq, nKeywords);
       var kwMax = Math.max(nq.length, nKeywords.length);
       var kwSim = 1 - (kwDist / kwMax);
-      if (kwSim > 0.6) {
+      var kwThreshold = kwMax <= 10 ? 0.7 : 0.6;
+      if (kwSim > kwThreshold) {
         score = Math.round(kwSim * 200);
         return score;
       }
