@@ -1,0 +1,30 @@
+# Cloudflare Pages _redirects
+# 301 Permanent Redirects — Preserve SEO value from old URLs
+
+# Tool Page Redirects (old → new SEO-friendly URLs)
+/claim-risk-review.html          /ai-claim-denial-predictor.html          301!
+/claim-risk-review               /ai-claim-denial-predictor               301!
+
+/coding-compliance-checker.html  /ai-cpt-icd10-coding-checker.html       301!
+/coding-compliance-checker       /ai-cpt-icd10-coding-checker             301!
+
+/modifier-validator.html         /cpt-modifier-validator.html             301!
+/modifier-validator              /cpt-modifier-validator                  301!
+
+/ai-decision-tree.html           /ai-claim-denial-resolution-assistant.html  301!
+/ai-decision-tree                /ai-claim-denial-resolution-assistant       301!
+
+/ai-denial-checklist.html        /medical-claim-denial-checklist.html     301!
+/ai-denial-checklist             /medical-claim-denial-checklist          301!
+
+/payer-directory.html            /insurance-payer-directory.html          301!
+/payer-directory                 /insurance-payer-directory               301!
+
+/batch-claims-tracker.html       /medical-claims-tracker.html             301!
+/batch-claims-tracker            /medical-claims-tracker                  301!
+
+/post-call-summary.html          /ai-medical-call-notes-generator.html    301!
+/post-call-summary               /ai-medical-call-notes-generator         301!
+
+/icd10.html                      /icd-10-code-lookup.html                301!
+/icd10                           /icd-10-code-lookup                     301!

@@ -3838,7 +3838,7 @@ button:focus-visible,
 
 /* Tools Section */
 .tools-section {
-  padding: 0 24px 64px;
+  padding: 40px 24px 64px;
 }
 .tools-grid {
   max-width: 1200px;

@@ -43,7 +43,7 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://rcmdenials.com/modifier-validator</loc>
+    <loc>https://rcmdenials.com/cpt-modifier-validator</loc>
     <lastmod>2026-06-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
@@ -51,13 +51,13 @@
 
   <!-- Tool Pages (Root-Level URLs) -->
   <url>
-    <loc>https://rcmdenials.com/claim-risk-review</loc>
+    <loc>https://rcmdenials.com/ai-claim-denial-predictor</loc>
     <lastmod>2026-06-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
-    <loc>https://rcmdenials.com/coding-compliance-checker</loc>
+    <loc>https://rcmdenials.com/ai-cpt-icd10-coding-checker</loc>
     <lastmod>2026-06-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
@@ -69,37 +69,37 @@
     <priority>0.95</priority>
   </url>
   <url>
-    <loc>https://rcmdenials.com/ai-decision-tree</loc>
+    <loc>https://rcmdenials.com/ai-claim-denial-resolution-assistant</loc>
     <lastmod>2026-06-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
-    <loc>https://rcmdenials.com/ai-denial-checklist</loc>
+    <loc>https://rcmdenials.com/medical-claim-denial-checklist</loc>
     <lastmod>2026-06-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
-    <loc>https://rcmdenials.com/payer-directory</loc>
+    <loc>https://rcmdenials.com/insurance-payer-directory</loc>
     <lastmod>2026-06-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
-    <loc>https://rcmdenials.com/batch-claims-tracker</loc>
+    <loc>https://rcmdenials.com/medical-claims-tracker</loc>
     <lastmod>2026-06-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://rcmdenials.com/post-call-summary</loc>
+    <loc>https://rcmdenials.com/ai-medical-call-notes-generator</loc>
     <lastmod>2026-06-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://rcmdenials.com/icd10</loc>
+    <loc>https://rcmdenials.com/icd-10-code-lookup</loc>
     <lastmod>2026-06-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
