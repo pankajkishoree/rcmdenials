@@ -28,3 +28,6 @@
 
 /icd10.html                      /icd-10-code-lookup.html                301!
 /icd10                           /icd-10-code-lookup                     301!
+
+# Domain Redirects
+https://www.rcmdenials.com/* https://rcmdenials.com/:splat 301!

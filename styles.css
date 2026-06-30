@@ -3772,7 +3772,7 @@ button:focus-visible,
 /* ── FOOTER COLUMN LAYOUT ── */
 .site-footer-links {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 32px;
   flex: 1;
 }
@@ -5255,3 +5255,54 @@ button:focus-visible,
   }
 }
 
+
+/* SEO Section Styles */
+.seo-content-section {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 24px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    font-size: 15px;
+}
+.seo-h2 {
+    font-size: 24px;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+}
+.seo-h3 {
+    font-size: 20px;
+    color: var(--text-primary);
+    margin-top: 24px;
+    margin-bottom: 12px;
+}
+.seo-p {
+    margin-bottom: 16px;
+}
+.seo-p-last {
+    margin-bottom: 40px;
+}
+
+/* Footer Contact Info */
+.footer-contact-info {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+.footer-contact-link {
+    color: var(--text-muted);
+    text-decoration: none;
+}
+.footer-social-links {
+    display: flex;
+    gap: 12px;
+    font-size: 16px;
+}
+.footer-social-link {
+    color: var(--text-muted);
+    text-decoration: none;
+}
+.footer-social-link:hover {
+    color: var(--brand-400);
+}

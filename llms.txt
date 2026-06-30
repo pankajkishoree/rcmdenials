@@ -1,0 +1,24 @@
+# RCM Denials
+
+> AI-powered Medical Billing & Claim Denial Management Platform
+
+RCM Denials provides tools and intelligence feeds for healthcare revenue cycle management (RCM) teams, billing managers, and compliance officers to streamline medical billing, resolve claim denials, and track payer policy changes.
+
+## Features & Tools
+- AI Claim Denial Predictor
+- AI CPT & ICD-10 Coding Checker
+- CPT Modifier Validator
+- Insurance Timely Filing Calculator
+- AI Claim Denial Resolution Assistant
+- Payer Policy Change Log
+- Medical Claim Denial Checklist
+- Insurance Payer Directory
+- Medical Claims Tracker
+- AI Medical Call Notes Generator
+
+## Resources
+- Specialties directory
+- Comprehensive ICD-10 and CPT denial codes directory
+
+Website: https://rcmdenials.com
+Contact: https://rcmdenials.com/contact.html
