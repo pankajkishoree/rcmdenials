@@ -140,7 +140,8 @@ body {
   background: var(--bg-base);
   color: var(--text-primary);
   line-height: 1.5;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   transition: background var(--t-base) var(--ease-out),
               color var(--t-base) var(--ease-out);
 }
@@ -3628,7 +3629,7 @@ button:focus-visible,
 .faq-search-wrap input:focus { border-color: var(--brand-400); }
 .faq-search-wrap input::placeholder { color: var(--text-muted); }
 .faq-search-wrap::before {
-  content: '\\1F50D';
+  content: '\1F50D';
   position: absolute;
   left: 14px;
   top: 50%;
