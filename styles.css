@@ -4014,11 +4014,11 @@ button:focus-visible,
   padding: 40px 24px 64px;
 }
 .tools-grid {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 24px;
+    max-width: 1536px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
 }
 
 /* Tool Card */
@@ -4222,6 +4222,9 @@ button:focus-visible,
 }
 
 /* Homepage responsive */
+@media (max-width: 1023px) {
+  .tools-grid { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+}
 @media (max-width: 768px) {
   .home-nav { display: none; }
   .hero { padding: 28px 16px 20px; }
