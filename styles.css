@@ -4634,15 +4634,30 @@ button:focus-visible,
 .category-icon { font-size: 24px; }
 .category-title { font-size: 18px; font-weight: 700; color: var(--text-primary); margin: 0; }
 .category-count { background: var(--bg-elevated); padding: 3px 10px; border-radius: 12px; font-size: 12px; color: var(--text-muted); border: 1px solid var(--border); }
-.denial-codes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin: 0; }
+/* Denial Codes Grid - Responsive (xl: 5, lg: 4, md: 3, sm/mobile: 2) */
+.denial-codes-grid { 
+  display: grid; 
+  grid-template-columns: repeat(5, minmax(0, 1fr)); 
+  gap: 16px; 
+  margin: 0; 
+}
+@media (max-width: 1280px) {
+  .denial-codes-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+@media (max-width: 1023px) {
+  .denial-codes-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 767px) {
+  .denial-codes-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+}
 .denial-code-card { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-decoration: none; color: inherit; display: block; transition: all .2s ease; }
 .denial-code-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,.2); border-color: var(--brand-400); }
 .denial-code-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
 .denial-code-num { background: linear-gradient(135deg, var(--brand-500), var(--brand-700)); color: #fff; padding: 4px 12px; border-radius: 6px; font-weight: 700; font-size: 14px; }
 .denial-code-num.badge-pr { background: linear-gradient(135deg, #f59e0b, #d97706); }
 .denial-code-num.badge-oa { background: linear-gradient(135deg, #8b5cf6, #6d28d9); }
-.denial-code-category { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .5px; font-weight: 600; }
-.denial-code-desc { color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px; font-size: 14px; }
+.denial-code-category { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .5px; font-weight: 600; flex: 1; min-width: 0; word-wrap: break-word; }
+.denial-code-desc { color: var(--text-secondary); line-height: 1.6; margin-bottom: 12px; font-size: 14px; word-wrap: break-word; }
 .denial-code-meta { display: flex; gap: 12px; font-size: 12px; color: var(--text-muted); padding-top: 12px; border-top: 1px solid var(--border); }
 .meta-item { display: flex; align-items: center; gap: 4px; }
 .filter-tabs { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
