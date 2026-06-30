@@ -1,5 +1,5 @@
 ﻿/* ============================================================
-   RCM DENIALS � SHARED DATA
+   RCM DENIALS — SHARED DATA
    Used by all standalone tool pages
    ============================================================ */
 'use strict';

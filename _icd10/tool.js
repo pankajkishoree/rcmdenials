@@ -243,7 +243,7 @@ var ICD10Tool = (function() {
     var entry = ICD10Search.findByCode(code);
     if (!entry) return;
 
-    history.pushState({ code: code }, '', 'index.html?code=' + encodeURIComponent(code));
+    history.pushState({ code: code }, '', 'icd-10-code-lookup.html?code=' + encodeURIComponent(code));
     document.title = 'ICD-10 Code ' + code + ' — ' + entry.description + ' | RCM Denials';
 
     var cat = ICD10Search.getParentCategory(code);

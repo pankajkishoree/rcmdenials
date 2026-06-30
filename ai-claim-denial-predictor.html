@@ -10,8 +10,8 @@
   <meta name="apple-mobile-web-app-title" content="RCM Denials" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>AI Claim Denial Predictor — Free Denial Prevention Tool | RCM Denials</title>
-  <meta name="description" content="Free AI-powered claim risk review tool. Check claims for denial risks before submission. Identify coding errors, missing modifiers, and compliance issues instantly." />
+  <title>AI Claim Denial Predictor | Free Risk Analysis Tool</title>
+  <meta name="description" content="Free AI-powered claim risk review tool. Check claims for denial risks before submission. Identify coding errors and compliance issues instantly." />
   <meta name="keywords" content="claim risk review, denial prevention, claim denial risk, pre-submission check, medical claim review, denial prediction, claim scrubbing" />
   <meta name="robots" content="index, follow" />
 
@@ -90,6 +90,8 @@
         <a href="ai-claim-denial-resolution-assistant.html">Decision Tree</a>
         <a href="medical-claim-denial-checklist.html">Checklist</a>
         <a href="insurance-payer-directory.html">Insurance Payer Directory</a>
+        <a href="medical-necessity-checklist-by-cpt.html">Necessity Checklist</a>
+        <a href="fee-schedule-lookup.html">Fee Schedule</a>
       </nav>
       <div class="static-header-actions">
         <button class="btn-icon" id="btnTheme" title="Toggle Theme">🌙</button>
@@ -506,16 +508,5 @@
 <script src="_claim-risk-review/rule-engine.js"></script>
 <script src="_claim-risk-review/ai-engine.js"></script>
 <script src="_claim-risk-review/tool.js"></script>
-<script>
-(function(){
-  var btn=document.getElementById('btnTheme');
-  if(btn){btn.addEventListener('click',function(){
-    var h=document.documentElement,c=h.getAttribute('data-theme'),
-    n=c==='dark'?'light':'dark';h.setAttribute('data-theme',n);
-    localStorage.setItem('rcm_theme',n);btn.textContent=n==='dark'?'🌙':'☀️';
-  });var cur=document.documentElement.getAttribute('data-theme');
-  btn.textContent=cur==='dark'?'🌙':'☀️';}
-})();
-</script>
 </body>
 </html>

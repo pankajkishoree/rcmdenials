@@ -10,8 +10,8 @@
   <meta name="apple-mobile-web-app-title" content="RCM Denials" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>Medical Claim Denial Checklist — Free Denial Resolution Tool | RCM Denials</title>
-  <meta name="description" content="Free medical claim denial checklist generator. Get step-by-step resolution checklists for any claim denial. Includes payer-specific guidance and appeal templates." />
+  <title>Medical Claim Denial Checklist | Free Resolution Tool</title>
+  <meta name="description" content="Free medical claim denial checklist generator. Get step-by-step resolution checklists for any denial with payer-specific guidance." />
   <meta name="keywords" content="denial checklist, denial resolution, claim denial help, appeal checklist, payer call checklist, denial management tool" />
   <meta name="robots" content="index, follow" />
 
@@ -116,6 +116,8 @@
         <a href="insurance-payer-directory.html">Insurance Payer Directory</a>
         <a href="medical-claims-tracker.html">Batch Tracker</a>
         <a href="ai-medical-call-notes-generator.html">AI Medical Call Notes Generator</a>
+        <a href="medical-necessity-checklist-by-cpt.html">Necessity Checklist</a>
+        <a href="fee-schedule-lookup.html">Fee Schedule</a>
       </nav>
       <div class="static-header-actions"><button class="btn-icon" id="btnTheme" title="Toggle Theme">🌙</button></div>
     </div>
@@ -351,11 +353,14 @@ function toggleQ(key){
 
 function updateProgress(){
   var total=0,done=0;
+  var ci=0;
   Object.keys(categories).forEach(function(cat){
-    categories[cat].forEach(function(q,i){
+    categories[cat].forEach(function(q,qi){
       total++;
-      if(answers[cat+'-'+i]&&answers[cat+'-'+i].done)done++;
+      var key=ci+'-'+qi;
+      if(answers[key]&&answers[key].done)done++;
     });
+    ci++;
   });
   var pct=total>0?Math.round(done/total*100):0;
   document.getElementById('progressLabel').textContent=done+' of '+total+' questions completed';

@@ -11,7 +11,7 @@
   <meta name="apple-mobile-web-app-title" content="RCM Denials" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>CPT Modifier Validator — Free Modifier Checker | RCM Denials</title>
+  <title>CPT Modifier Validator | Free Modifier Checker</title>
   <meta name="description" content="Free CPT modifier validation tool. Check modifier-25, -59, -26 rules, NCCI edits, and payer-specific rules before claim submission. Prevent modifier denials." />
   <meta name="keywords" content="modifier validator, CPT modifier validation, NCCI edits, medical billing modifier, claim validation, denial prevention, modifier 25, modifier 59" />
   <meta name="robots" content="index, follow" />
@@ -98,6 +98,8 @@
       <a href="denial-codes">Denial Codes</a>
           <a href="specialties">Specialties</a>
           <a href="cpt-modifier-validator.html" class="active">CPT Modifier Validator</a>
+          <a href="medical-necessity-checklist-by-cpt.html">Necessity Checklist</a>
+          <a href="fee-schedule-lookup.html">Fee Schedule</a>
           <a href="about.html">About</a>
           <a href="faq.html">FAQ</a>
           <a href="contact.html">Contact</a>
@@ -425,16 +427,5 @@
   <script src="_modifier-validator/data/ncciRules.js"></script>
   <script src="_modifier-validator/data/validationEngine.js"></script>
   <script src="_modifier-validator/app.js"></script>
-  <script>
-  (function(){
-    var btn=document.getElementById('btnTheme');
-    if(btn){btn.addEventListener('click',function(){
-      var h=document.documentElement,c=h.getAttribute('data-theme'),
-      n=c==='dark'?'light':'dark';h.setAttribute('data-theme',n);
-      localStorage.setItem('rcm_theme',n);btn.textContent=n==='dark'?'🌙':'☀️';
-    });var cur=document.documentElement.getAttribute('data-theme');
-    btn.textContent=cur==='dark'?'🌙':'☀️';}
-  })();
-  </script>
 </body>
 </html>

@@ -10,7 +10,7 @@
   <meta name="apple-mobile-web-app-title" content="RCM Denials" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>Medical Claims Tracker — Free Claims Management Tool | RCM Denials</title>
+  <title>Medical Claims Tracker | Free Claims Management</title>
   <meta name="description" content="Free medical claims tracking tool. Import, sort, filter, and manage multiple claims at once. Track claim status, denials, and payments in one dashboard." />
   <meta name="keywords" content="medical claims tracker, claims management, claim tracking, multiple claims, claims dashboard, claim status tracker" />
   <meta name="robots" content="index, follow" />
@@ -114,6 +114,8 @@
         <a href="insurance-payer-directory.html">Insurance Payer Directory</a>
         <a href="medical-claims-tracker.html" class="active">Batch Tracker</a>
         <a href="ai-medical-call-notes-generator.html">AI Medical Call Notes Generator</a>
+        <a href="medical-necessity-checklist-by-cpt.html">Necessity Checklist</a>
+        <a href="fee-schedule-lookup.html">Fee Schedule</a>
       </nav>
       <div class="static-header-actions"><button class="btn-icon" id="btnTheme" title="Toggle Theme">🌙</button></div>
     </div>
@@ -288,7 +290,7 @@ PAYER_DB.forEach(function(p){var o=document.createElement('option');o.value=p.ab
 function save(){localStorage.setItem('rcm_batch_claims',JSON.stringify(claims));}
 
 function addClaim(){
-  var c={id:'cl-'+Date.now(),claim:'CLM-'+Math.random().toString(36).substr(2,8).toUpperCase(),payer:'',payerId:'',denial:'',amount:'$0.00',status:'pending',dos:new Date().toISOString().split('T')[0],notes:''};
+  var c={id:'cl-'+Date.now(),claim:'CLM-'+Math.random().toString(36).substr(2,8).toUpperCase(),payer:'',denial:'',amount:'$0.00',status:'pending',dos:new Date().toISOString().split('T')[0],notes:''};
   claims.unshift(c);save();renderTable();editClaim(c.id);
 }
 
@@ -317,7 +319,7 @@ function getFiltered(){
   return claims.filter(function(c){
     var ms=!search||c.claim.toLowerCase().indexOf(search)>-1||c.payer.toLowerCase().indexOf(search)>-1||c.denial.toLowerCase().indexOf(search)>-1;
     var mf=!status||c.status===status;
-    var mp=!payer||c.payerId===payer||c.payer.toLowerCase().indexOf(payer.toLowerCase())>-1;
+    var mp=!payer||c.payer.toLowerCase().indexOf(payer.toLowerCase())>-1;
     return ms&&mf&&mp;
   });
 }
@@ -362,8 +364,9 @@ function renderTable(){
 
 function exportCSV(){
   var filtered=getFiltered();
+  function esc(v){return '"'+String(v||'').replace(/"/g,'""')+'"';}
   var csv='Claim#,Payer,Denial Code,Amount,Status,DOS,Notes\n';
-  filtered.forEach(function(c){csv+='"'+c.claim+'","'+c.payer+'","'+c.denial+'","'+c.amount+'","'+c.status+'","'+c.dos+'","'+(c.notes||'')+'"\n';});
+  filtered.forEach(function(c){csv+=esc(c.claim)+','+esc(c.payer)+','+esc(c.denial)+','+esc(c.amount)+','+esc(c.status)+','+esc(c.dos)+','+esc(c.notes)+'\n';});
   var blob=new Blob([csv],{type:'text/csv'});
   var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='batch-claims.csv';a.click();
 }

@@ -140,7 +140,6 @@ var CWC = (function() {
         state.result = ComplianceEngine.analyze(inputs);
         renderResults(state.result);
       } catch(e) {
-        console.error('Compliance analysis error:', e);
         showNotification('Analysis error: ' + e.message, 'error');
       } finally {
         if (loading) loading.classList.remove('active');

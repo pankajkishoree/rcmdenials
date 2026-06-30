@@ -10,7 +10,7 @@ var ICD10Search = (function() {
   function init(callback) {
     if (ready) { if (callback) callback(); return; }
     db = typeof ICD10_DB !== 'undefined' ? ICD10_DB : null;
-    if (!db) { console.error('ICD10_DB not loaded'); return; }
+    if (!db) { return; }
     buildIndex();
     ready = true;
     if (callback) callback();

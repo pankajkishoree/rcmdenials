@@ -1,12 +1,4 @@
 /*
- * Cloudflare Pages _headers
- * RCM Denials — Security & SEO Headers
- */
-
-/icd10/*.js
-  Cache-Control: no-cache, no-store, must-revalidate
-
-https://rcmdenials.com/*
   # ── Security Headers ──────────────────────────────────────
   # HSTS: force HTTPS for 1 year, include subdomains, preload-eligible
   Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
@@ -28,3 +20,6 @@ https://rcmdenials.com/*
 
   # XSS Protection (legacy browsers)
   X-XSS-Protection: 1; mode=block
+
+/_icd10/*.js
+  Cache-Control: no-cache, no-store, must-revalidate

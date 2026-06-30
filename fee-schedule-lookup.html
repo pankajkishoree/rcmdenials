@@ -1,0 +1,1753 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <script>(function(){var t=localStorage.getItem("rcm_theme");if(t)document.documentElement.setAttribute("data-theme",t);document.addEventListener("DOMContentLoaded",function(){var t2=localStorage.getItem("rcm_theme");if(t2)document.documentElement.setAttribute("data-theme",t2);});})();</script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6JRMMNNR40"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-6JRMMNNR40');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="application-name" content="RCM Denials" />
+  <meta name="apple-mobile-web-app-title" content="RCM Denials" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Medicare Fee Schedule Lookup by CPT Code | RVU Calculator & Physician Reimbursement | RCM Denials</title>
+  <meta name="description" content="Look up Medicare physician fee schedule reimbursement by CPT code. Calculate RVUs, apply GPCI locality adjustments, and see modeled commercial payer estimates for Aetna, BCBS, United, and Cigna. Free tool for medical billers and RCM teams." />
+  <meta name="keywords" content="Medicare fee schedule CPT lookup, RVU calculator CPT, physician fee schedule by locality, GPCI adjustment, Medicare reimbursement calculator, CPT RVU lookup, 2024 Medicare physician fee schedule, commercial payer fee schedule estimate, work RVU practice expense malpractice RVU, conversion factor Medicare" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://rcmdenials.com/fee-schedule-lookup" />
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/ico" href="favicon.ico" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Medicare Fee Schedule Lookup by CPT Code | RVU Calculator | RCM Denials" />
+  <meta property="og:description" content="Free Medicare physician fee schedule lookup by CPT code. Calculate RVUs, apply GPCI locality adjustments, and model commercial payer reimbursement. Built for medical billers and RCM professionals." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rcmdenials.com/fee-schedule-lookup" />
+  <meta property="og:site_name" content="RCM Denials" />
+  <meta property="og:image" content="https://rcmdenials.com/og-image.png" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Medicare Fee Schedule Lookup by CPT | RVU Calculator | RCM Denials" />
+  <meta name="twitter:description" content="Look up Medicare physician fee schedule by CPT code, calculate RVUs with GPCI locality adjustments, and model commercial payer rates. Free for medical billers." />
+  <meta name="twitter:image" content="https://rcmdenials.com/og-image.png" />
+
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" as="style" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Structured Data: WebApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Medicare Fee Schedule Lookup by CPT Code",
+    "url": "https://rcmdenials.com/fee-schedule-lookup",
+    "description": "Free Medicare physician fee schedule lookup tool. Enter a CPT code to see RVU components, GPCI locality-adjusted payments, and modeled commercial payer estimates.",
+    "applicationCategory": "MedicalBillingTool",
+    "operatingSystem": "Web Browser",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How is the Medicare fee schedule payment calculated for a CPT code?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Medicare physician fee schedule payments are calculated using the formula: Payment = [(Work RVU × Work GPCI) + (PE RVU × PE GPCI) + (MP RVU × MP GPCI)] × Conversion Factor. For CY 2024, the national conversion factor is $32.7442. RVUs (Relative Value Units) are set annually by CMS and adjusted by Geographic Practice Cost Indices (GPCI) to account for regional cost differences."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is an RVU (Relative Value Unit) in medical billing?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A Relative Value Unit (RVU) is a measure used by Medicare to determine physician reimbursement. Each CPT code has three RVU components: Work RVU (wRVU) reflecting physician time and effort, Practice Expense RVU (PE RVU) for overhead costs, and Malpractice RVU (MP RVU) for professional liability insurance. Total RVUs are multiplied by a conversion factor to determine the dollar payment amount."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is GPCI and how does it affect Medicare reimbursement?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "GPCI stands for Geographic Practice Cost Index. CMS uses GPCIs to adjust Medicare physician fee schedule payments based on local cost differences. There are three GPCIs corresponding to each RVU component: Work GPCI, Practice Expense GPCI, and Malpractice GPCI. High-cost areas like San Francisco, New York City, and Boston have GPCIs above 1.0, while rural areas may be below 1.0. The Work GPCI is floor-adjusted to a minimum of 1.0 by law."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How are commercial payer reimbursement rates estimated compared to Medicare?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Commercial payer reimbursement rates are typically expressed as a percentage of the Medicare fee schedule. Industry benchmarks generally range from 100% to 250% of Medicare depending on the payer, specialty, and geographic market. Large commercial payers like Aetna, BCBS, United, and Cigna typically reimburse between 110% and 180% of Medicare for most services. These are modeled estimates — actual contracted rates are proprietary and vary by provider contract."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between facility and non-facility rates?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Medicare pays different rates depending on where a service is delivered. Non-facility rates (Place of Service 11 - office) are higher because the physician practice bears the overhead costs. Facility rates (Place of Service 21 - hospital, 22 - outpatient hospital, 24 - ASC) are lower because CMS pays the facility separately for overhead through the OPPS or ASC fee schedules. Physicians always receive the lower facility professional component when billing from a hospital or ASC."
+        }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://rcmdenials.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Fee Schedule Lookup", "item": "https://rcmdenials.com/fee-schedule-lookup" }
+    ]
+  }
+  </script>
+
+  <style>
+    /* ── Tool Layout ──────────────────────────────────────── */
+    .fsl-layout {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 24px;
+      align-items: start;
+      margin-bottom: 32px;
+    }
+    @media (max-width: 960px) {
+      .fsl-layout { grid-template-columns: 1fr; }
+    }
+    .fsl-input-card, .fsl-output-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--r-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .fsl-section-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    /* ── Form fields ──────────────────────────────────────── */
+    .fsl-field { margin-bottom: 18px; }
+    .fsl-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 7px;
+    }
+    .fsl-label span {
+      font-weight: 400;
+      color: var(--text-muted);
+      margin-left: 4px;
+    }
+    .fsl-input, .fsl-select {
+      width: 100%;
+      height: 42px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-base);
+      border-radius: var(--r-md);
+      padding: 0 12px;
+      font-size: 14px;
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color var(--t-fast), box-shadow var(--t-fast);
+      box-sizing: border-box;
+      font-family: var(--font-sans);
+    }
+    .fsl-input:focus, .fsl-select:focus {
+      border-color: var(--brand-400);
+      box-shadow: 0 0 0 3px rgba(0,180,160,.12);
+    }
+    .fsl-input.code-font { font-family: var(--font-mono); font-size: 15px; font-weight: 600; letter-spacing: 1px; }
+    .fsl-hint { font-size: 11.5px; color: var(--text-muted); margin-top: 5px; line-height: 1.5; }
+    .fsl-btn-submit {
+      width: 100%;
+      height: 46px;
+      background: linear-gradient(135deg, hsl(220,85%,58%), hsl(250,85%,62%));
+      color: #fff;
+      border: none;
+      border-radius: var(--r-md);
+      font-size: 14.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: opacity var(--t-fast), transform var(--t-fast);
+      margin-top: 4px;
+    }
+    .fsl-btn-submit:hover { opacity: 0.9; transform: translateY(-1px); }
+    .fsl-btn-submit:active { transform: scale(0.99); }
+    .fsl-btn-reset {
+      width: 100%;
+      height: 38px;
+      background: transparent;
+      border: 1px solid var(--border-base);
+      border-radius: var(--r-md);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background var(--t-fast), color var(--t-fast);
+    }
+    .fsl-btn-reset:hover { background: var(--bg-hover); color: var(--text-primary); }
+    /* ── Override panel ─────────────────────────────────── */
+    .fsl-override-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: var(--brand-400);
+      cursor: pointer;
+      margin-top: 14px;
+      user-select: none;
+      font-weight: 600;
+    }
+    .fsl-override-panel {
+      display: none;
+      background: rgba(0,180,160,.04);
+      border: 1px solid rgba(0,180,160,.15);
+      border-radius: var(--r-md);
+      padding: 14px;
+      margin-top: 10px;
+    }
+    .fsl-override-panel.open { display: block; }
+    .fsl-override-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .fsl-override-field label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .fsl-override-field input {
+      width: 100%;
+      height: 34px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-base);
+      border-radius: var(--r-sm);
+      padding: 0 10px;
+      font-size: 13px;
+      color: var(--text-primary);
+      outline: none;
+      box-sizing: border-box;
+      font-family: var(--font-mono);
+      transition: border-color var(--t-fast);
+    }
+    .fsl-override-field input:focus { border-color: var(--brand-400); }
+    /* ── Quick CPT buttons ─────────────────────────────── */
+    .fsl-quick-codes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .fsl-quick-btn {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: var(--r-sm);
+      border: 1px solid var(--border-base);
+      background: var(--bg-elevated);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all var(--t-fast);
+    }
+    .fsl-quick-btn:hover { border-color: var(--brand-400); color: var(--brand-400); background: rgba(0,180,160,.06); }
+    /* ── Error box ─────────────────────────────────────── */
+    .fsl-error {
+      background: rgba(239,68,68,.06);
+      border: 1px solid rgba(239,68,68,.2);
+      border-radius: var(--r-md);
+      padding: 11px 14px;
+      font-size: 13px;
+      color: var(--red-400);
+      margin-bottom: 14px;
+      display: none;
+    }
+    /* ── Result Tabs ───────────────────────────────────── */
+    .fsl-tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 20px;
+      background: var(--bg-elevated);
+      border-radius: var(--r-md);
+      padding: 4px;
+      border: 1px solid var(--border-subtle);
+    }
+    .fsl-tab {
+      flex: 1;
+      height: 34px;
+      border: none;
+      border-radius: 7px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      background: transparent;
+      color: var(--text-muted);
+      transition: all var(--t-fast);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+    .fsl-tab.active {
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      box-shadow: var(--shadow-sm);
+    }
+    .fsl-tab-panel { display: none; }
+    .fsl-tab-panel.active { display: block; }
+    /* ── Empty & loading states ────────────────────────── */
+    .fsl-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 320px;
+      padding: 24px;
+      color: var(--text-muted);
+    }
+    .fsl-empty-icon { font-size: 48px; margin-bottom: 14px; opacity: .5; }
+    .fsl-empty-title { font-size: 16px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; }
+    .fsl-empty-desc { font-size: 13px; max-width: 280px; line-height: 1.6; }
+    .fsl-loading {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+      gap: 14px;
+    }
+    .fsl-spinner {
+      width: 34px; height: 34px;
+      border: 3px solid var(--border-base);
+      border-top-color: hsl(220,85%,58%);
+      border-radius: 50%;
+      animation: fslSpin 0.7s linear infinite;
+    }
+    @keyframes fslSpin { to { transform: rotate(360deg); } }
+    .fsl-results { display: none; }
+    /* ── Summary hero ─────────────────────────────────── */
+    .fsl-payment-hero {
+      background: linear-gradient(135deg, hsl(222,28%,11%), hsl(230,25%,14%));
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--r-lg);
+      padding: 22px 24px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .fsl-payment-hero::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 160px; height: 160px;
+      background: radial-gradient(circle, rgba(80,120,255,.12), transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .fsl-payment-hero-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .fsl-cpt-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(80,120,255,.12);
+      border: 1px solid rgba(80,120,255,.25);
+      border-radius: var(--r-full);
+      padding: 4px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      color: hsl(220,85%,72%);
+      font-family: var(--font-mono);
+    }
+    .fsl-pos-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: var(--r-full);
+      border: 1px solid;
+    }
+    .fsl-pos-nf { background: rgba(0,180,160,.08); border-color: rgba(0,180,160,.25); color: var(--brand-400); }
+    .fsl-pos-f  { background: rgba(99,102,241,.08); border-color: rgba(99,102,241,.25); color: var(--indigo-400); }
+    .fsl-pay-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 680px) { .fsl-pay-grid { grid-template-columns: 1fr 1fr; } }
+    .fsl-pay-stat { }
+    .fsl-pay-stat-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .fsl-pay-stat-value {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1;
+    }
+    .fsl-pay-stat-value.green { color: var(--green-400); }
+    .fsl-pay-stat-value.blue { color: hsl(220,85%,68%); }
+    .fsl-pay-stat-sub {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+    /* ── Data table ───────────────────────────────────── */
+    .fsl-table-wrap {
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--r-md);
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+    .fsl-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+    }
+    .fsl-table th {
+      background: var(--bg-elevated);
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .fsl-table td {
+      padding: 11px 14px;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border-subtle);
+      vertical-align: middle;
+    }
+    .fsl-table tr:last-child td { border-bottom: none; }
+    .fsl-table tr:hover td { background: var(--bg-hover); }
+    .fsl-table .mono { font-family: var(--font-mono); font-size: 13px; color: var(--text-primary); font-weight: 600; }
+    .fsl-table .strong { font-weight: 700; color: var(--text-primary); }
+    .fsl-table .amount { color: var(--green-400); font-weight: 700; font-family: var(--font-mono); }
+    .fsl-table .highlight { color: hsl(220,85%,68%); font-weight: 700; }
+    /* ── RVU bar chart ─────────────────────────────────── */
+    .fsl-rvu-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .fsl-rvu-bar-row { }
+    .fsl-rvu-bar-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+    .fsl-rvu-bar-name { font-size: 12.5px; font-weight: 600; color: var(--text-secondary); }
+    .fsl-rvu-bar-val { font-size: 12.5px; font-weight: 700; color: var(--text-primary); font-family: var(--font-mono); }
+    .fsl-rvu-bar-track {
+      height: 8px;
+      background: var(--bg-elevated);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .fsl-rvu-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.6s var(--ease-out);
+    }
+    .bar-work   { background: linear-gradient(90deg, hsl(220,85%,58%), hsl(250,85%,62%)); }
+    .bar-pe     { background: linear-gradient(90deg, hsl(174,85%,48%), hsl(174,85%,38%)); }
+    .bar-mp     { background: linear-gradient(90deg, hsl(38,95%,58%), hsl(38,92%,48%)); }
+    /* ── Locality comparison ───────────────────────────── */
+    .fsl-compare-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--r-md);
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+    .fsl-compare-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+    .fsl-compare-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .fsl-compare-row:last-child { border-bottom: none; }
+    .fsl-compare-key { font-size: 13px; color: var(--text-secondary); }
+    .fsl-compare-vals { display: flex; gap: 20px; align-items: center; }
+    .fsl-compare-nat { font-size: 13px; font-family: var(--font-mono); color: var(--text-muted); }
+    .fsl-compare-loc { font-size: 13px; font-family: var(--font-mono); font-weight: 700; color: hsl(220,85%,68%); }
+    .fsl-gpci-explain {
+      background: rgba(99,102,241,.05);
+      border: 1px solid rgba(99,102,241,.15);
+      border-radius: var(--r-md);
+      padding: 14px;
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+    /* ── Commercial estimates ───────────────────────────── */
+    .fsl-commercial-disclaimer {
+      background: rgba(245,158,11,.05);
+      border: 1px solid rgba(245,158,11,.2);
+      border-radius: var(--r-md);
+      padding: 11px 14px;
+      font-size: 12.5px;
+      color: var(--amber-400);
+      margin-bottom: 16px;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      line-height: 1.5;
+    }
+    .fsl-payer-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .fsl-payer-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--r-md);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      transition: border-color var(--t-fast);
+    }
+    .fsl-payer-card:hover { border-color: var(--border-strong); }
+    .fsl-payer-left { display: flex; align-items: center; gap: 12px; }
+    .fsl-payer-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .fsl-payer-name { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+    .fsl-payer-pct  { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+    .fsl-payer-right { text-align: right; }
+    .fsl-payer-range { font-size: 14px; font-weight: 700; color: var(--green-400); font-family: var(--font-mono); }
+    .fsl-payer-label { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+    /* ── Action buttons ─────────────────────────────────── */
+    .fsl-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+    .fsl-btn-action {
+      display: flex; align-items: center; gap: 7px;
+      height: 38px;
+      padding: 0 16px;
+      border-radius: var(--r-md);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--t-fast);
+    }
+    .fsl-btn-copy {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-base);
+      color: var(--text-secondary);
+    }
+    .fsl-btn-copy:hover { background: var(--bg-hover); color: var(--text-primary); border-color: var(--border-strong); }
+    .fsl-btn-csv {
+      background: rgba(34,197,94,.08);
+      border: 1px solid rgba(34,197,94,.2);
+      color: var(--green-400);
+    }
+    .fsl-btn-csv:hover { background: rgba(34,197,94,.14); }
+    /* ── CF badge ───────────────────────────────────────── */
+    .fsl-cf-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--r-full);
+      padding: 3px 10px;
+      color: var(--text-muted);
+      margin-top: 10px;
+    }
+    /* ── SEO section ────────────────────────────────────── */
+    .fsl-seo { margin-top: 52px; border-top: 1px solid var(--border-subtle); padding-top: 36px; }
+    .fsl-seo h2 { font-size: 22px; font-weight: 700; color: var(--text-primary); margin: 0 0 12px; }
+    .fsl-seo h3 { font-size: 16px; font-weight: 600; color: var(--text-primary); margin: 24px 0 8px; }
+    .fsl-seo p  { font-size: 14.5px; color: var(--text-secondary); line-height: 1.75; margin-bottom: 14px; }
+    .fsl-seo ul { padding-left: 22px; margin-bottom: 14px; }
+    .fsl-seo li { font-size: 14.5px; color: var(--text-secondary); line-height: 1.75; margin-bottom: 5px; }
+    .fsl-formula-box {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-base);
+      border-radius: var(--r-md);
+      padding: 16px 20px;
+      font-family: var(--font-mono);
+      font-size: 13.5px;
+      color: var(--text-primary);
+      margin: 16px 0;
+      line-height: 1.8;
+    }
+    .fsl-formula-box .eq-line { color: var(--brand-400); font-weight: 700; }
+    .fsl-faq-list { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+    .fsl-faq-item {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--r-md);
+      overflow: hidden;
+    }
+    .fsl-faq-q {
+      width: 100%;
+      padding: 14px 18px;
+      background: transparent;
+      border: none;
+      text-align: left;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      transition: background var(--t-fast);
+    }
+    .fsl-faq-q:hover { background: var(--bg-hover); }
+    .fsl-faq-a {
+      display: none;
+      padding: 14px 18px;
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      border-top: 1px solid var(--border-subtle);
+    }
+    .fsl-faq-item.open .fsl-faq-a { display: block; }
+    .fsl-faq-chevron { transition: transform var(--t-fast); color: var(--text-muted); font-size: 11px; }
+    .fsl-faq-item.open .fsl-faq-chevron { transform: rotate(180deg); }
+    .fsl-internal-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }
+    .fsl-internal-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--r-md);
+      padding: 16px;
+      text-decoration: none;
+      color: inherit;
+      transition: all var(--t-fast);
+      display: block;
+    }
+    .fsl-internal-card:hover {
+      border-color: hsl(220,85%,58%);
+      transform: translateY(-2px);
+    }
+    .fsl-internal-card-title { font-size: 13.5px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+    .fsl-internal-card-desc  { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+    /* ── Disclaimer ──────────────────────────────────────── */
+    .fsl-disclaimer {
+      background: rgba(245,158,11,.04);
+      border: 1px solid rgba(245,158,11,.18);
+      border-radius: var(--r-md);
+      padding: 13px 16px;
+      font-size: 12.5px;
+      color: var(--amber-400);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .fsl-disclaimer strong { display: block; margin-bottom: 3px; }
+    /* ── CF formula row ─────────────────────────────────── */
+    .fsl-formula-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+    }
+    .fsl-formula-row .chip {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-base);
+      border-radius: 6px;
+      padding: 3px 8px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    .fsl-formula-row .op { color: var(--text-muted); font-weight: 700; }
+  </style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<div class="static-page">
+  <header class="static-header">
+    <div class="static-header-content">
+      <a class="logo" href="index.html">
+        <div class="logo-icon">🏥</div>
+        <span class="logo-text">RCM <span>Denials</span></span>
+      </a>
+      <nav class="static-nav">
+        <a href="index.html">Home</a>
+        <a href="icd-10-code-lookup.html">ICD-10 Search</a>
+        <a href="ai-claim-denial-predictor.html">Risk Review</a>
+        <a href="ai-cpt-icd10-coding-checker.html">Compliance Check</a>
+        <a href="insurance-timely-filing-calculator.html">Timely Filing</a>
+        <a href="ai-claim-denial-resolution-assistant.html">Decision Tree</a>
+        <a href="medical-claim-denial-checklist.html">Checklist</a>
+        <a href="insurance-payer-directory.html">Payer Directory</a>
+        <a href="medical-claims-tracker.html">Batch Tracker</a>
+        <a href="ai-medical-call-notes-generator.html">Call Notes</a>
+        <a href="medical-necessity-checklist-by-cpt.html">Necessity Checklist</a>
+        <a href="fee-schedule-lookup.html" class="active">Fee Schedule</a>
+      </nav>
+      <div class="static-header-actions">
+        <button class="btn-icon" id="btnTheme" title="Toggle Theme" aria-label="Toggle dark/light mode">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="static-main" id="main-content" style="max-width:1200px">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a> / <span>Medicare Fee Schedule Lookup</span>
+    </div>
+
+    <div class="tool-page-header" style="background:none;border:none;padding:0;margin-bottom:28px">
+      <div class="tool-page-header-inner">
+        <div class="tool-page-badge">💲 Medicare Fee Schedule</div>
+        <h1 class="tool-page-title">Fee Schedule Lookup (Public + Modeled)</h1>
+        <p class="tool-page-desc">Look up Medicare physician reimbursement by CPT code. Calculate RVUs, apply GPCI locality adjustments, and see modeled commercial payer estimates.</p>
+      </div>
+    </div>
+
+    <div class="fsl-disclaimer" role="alert">
+      <strong>⚠️ Data & Compliance Notice</strong>
+      Medicare fee data is sourced from the CMS 2024 Medicare Physician Fee Schedule Public Use Files (PUF). Commercial estimates are modeled from industry benchmarks and do not represent actual contracted rates. This tool is for planning and analysis only — not for billing or claims submission. Always verify with the official CMS fee schedule and your payer contracts.
+    </div>
+
+    <div class="fsl-layout">
+
+      <!-- ── LEFT PANEL: Inputs ──────────────────────────── -->
+      <div class="fsl-input-card">
+        <h2 class="fsl-section-title">🔍 Lookup Parameters</h2>
+
+        <div class="fsl-error" id="fslError"></div>
+
+        <div class="fsl-field">
+          <label class="fsl-label" for="fslCpt">CPT / HCPCS Code</label>
+          <input type="text" class="fsl-input code-font" id="fslCpt" placeholder="e.g. 99213" maxlength="5" autocomplete="off" spellcheck="false" />
+          <div class="fsl-hint">Quick select common codes:</div>
+          <div class="fsl-quick-codes" id="fslQuickCodes">
+            <button class="fsl-quick-btn" onclick="setCode('99213')">99213</button>
+            <button class="fsl-quick-btn" onclick="setCode('99214')">99214</button>
+            <button class="fsl-quick-btn" onclick="setCode('99215')">99215</button>
+            <button class="fsl-quick-btn" onclick="setCode('72148')">72148</button>
+            <button class="fsl-quick-btn" onclick="setCode('93000')">93000</button>
+            <button class="fsl-quick-btn" onclick="setCode('20610')">20610</button>
+            <button class="fsl-quick-btn" onclick="setCode('90837')">90837</button>
+            <button class="fsl-quick-btn" onclick="setCode('99223')">99223</button>
+          </div>
+        </div>
+
+        <div class="fsl-field">
+          <label class="fsl-label" for="fslYear">Fee Schedule Year</label>
+          <select class="fsl-select" id="fslYear">
+            <option value="2024" selected>2024 (Current PUF Data)</option>
+            <option value="2025">2025 (Estimated — CF Adjusted)</option>
+          </select>
+        </div>
+
+        <div class="fsl-field">
+          <label class="fsl-label" for="fslPos">Place of Service <span>(affects PE RVU)</span></label>
+          <select class="fsl-select" id="fslPos">
+            <option value="nf" selected>Non-Facility (Office — POS 11)</option>
+            <option value="f">Facility (Hospital / ASC — POS 21/22/24)</option>
+          </select>
+          <div class="fsl-hint">Facility rates are lower because CMS pays facility overhead separately via OPPS/ASC.</div>
+        </div>
+
+        <div class="fsl-field">
+          <label class="fsl-label" for="fslState">State / GPCI Locality</label>
+          <select class="fsl-select" id="fslState">
+            <option value="national">National Average (GPCI = 1.000)</option>
+            <optgroup label="High-Cost Regions">
+              <option value="ca_sf">California — San Francisco Bay Area</option>
+              <option value="ca_la">California — Los Angeles</option>
+              <option value="ca_rest">California — Rest of State</option>
+              <option value="ny_nyc">New York — New York City / Manhattan</option>
+              <option value="ny_long">New York — Long Island</option>
+              <option value="ny_up">New York — Upstate New York</option>
+              <option value="ma_bos">Massachusetts — Boston</option>
+              <option value="dc">District of Columbia</option>
+              <option value="nj">New Jersey</option>
+              <option value="va_metro">Virginia — Metro DC Area</option>
+              <option value="ct">Connecticut</option>
+              <option value="md_metro">Maryland — Metro DC Area</option>
+            </optgroup>
+            <optgroup label="Major States">
+              <option value="tx_dal">Texas — Dallas</option>
+              <option value="tx_hou">Texas — Houston</option>
+              <option value="tx_rest">Texas — Rest of State</option>
+              <option value="fl_rest">Florida — Rest of Florida</option>
+              <option value="fl_miami">Florida — Miami</option>
+              <option value="il_chi">Illinois — Chicago</option>
+              <option value="pa_phi">Pennsylvania — Philadelphia</option>
+              <option value="pa_rest">Pennsylvania — Rest of State</option>
+              <option value="oh">Ohio</option>
+              <option value="mi_det">Michigan — Detroit</option>
+              <option value="mi_rest">Michigan — Rest of State</option>
+              <option value="ga">Georgia</option>
+              <option value="nc">North Carolina</option>
+              <option value="az">Arizona</option>
+              <option value="co">Colorado</option>
+              <option value="wa">Washington State</option>
+              <option value="or">Oregon</option>
+              <option value="mn">Minnesota</option>
+              <option value="mo">Missouri</option>
+              <option value="in">Indiana</option>
+              <option value="tn">Tennessee</option>
+              <option value="al">Alabama</option>
+              <option value="la">Louisiana</option>
+              <option value="wi">Wisconsin</option>
+              <option value="sc">South Carolina</option>
+              <option value="ky">Kentucky</option>
+              <option value="ok">Oklahoma</option>
+              <option value="ar">Arkansas</option>
+              <option value="ms">Mississippi</option>
+              <option value="ia">Iowa</option>
+              <option value="ks">Kansas</option>
+              <option value="ut">Utah</option>
+              <option value="nv">Nevada</option>
+              <option value="nm">New Mexico</option>
+              <option value="id">Idaho</option>
+              <option value="ne">Nebraska</option>
+              <option value="wv">West Virginia</option>
+              <option value="nd">North Dakota</option>
+              <option value="sd">South Dakota</option>
+              <option value="mt">Montana</option>
+              <option value="wy">Wyoming</option>
+              <option value="ak">Alaska</option>
+              <option value="hi">Hawaii</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <!-- Override panel -->
+        <div class="fsl-override-toggle" id="fslOverrideToggle" onclick="toggleOverride()">
+          <span>⚙️</span> Manual RVU / CF Override
+          <span id="fslOverrideArrow" style="margin-left:auto;font-size:10px">▼</span>
+        </div>
+        <div class="fsl-override-panel" id="fslOverridePanel">
+          <div style="font-size:11.5px;color:var(--text-muted);margin-bottom:10px;">Override values for custom modeling. Leave blank to use default data.</div>
+          <div class="fsl-override-grid">
+            <div class="fsl-override-field">
+              <label for="ovCf">Conv. Factor ($)</label>
+              <input type="number" id="ovCf" placeholder="32.7442" step="0.0001" min="0" />
+            </div>
+            <div class="fsl-override-field">
+              <label for="ovWrvu">Work RVU</label>
+              <input type="number" id="ovWrvu" placeholder="auto" step="0.01" min="0" />
+            </div>
+            <div class="fsl-override-field">
+              <label for="ovPervu">PE RVU</label>
+              <input type="number" id="ovPervu" placeholder="auto" step="0.01" min="0" />
+            </div>
+            <div class="fsl-override-field">
+              <label for="ovMprvu">MP RVU</label>
+              <input type="number" id="ovMprvu" placeholder="auto" step="0.01" min="0" />
+            </div>
+          </div>
+          <button style="margin-top:10px;font-size:11.5px;color:var(--text-muted);background:none;border:none;cursor:pointer;padding:0;" onclick="clearOverrides()">↺ Reset overrides</button>
+        </div>
+
+        <button class="fsl-btn-submit" id="fslLookupBtn" onclick="runLookup()">
+          💲 Look Up Fee Schedule
+        </button>
+        <button class="fsl-btn-reset" onclick="resetForm()">↺ Reset</button>
+      </div>
+
+      <!-- ── RIGHT PANEL: Results ────────────────────────── -->
+      <div class="fsl-output-card">
+        <h2 class="fsl-section-title">📊 Fee Schedule Results</h2>
+
+        <!-- Empty state -->
+        <div class="fsl-empty" id="fslEmpty">
+          <div class="fsl-empty-icon">💲</div>
+          <div class="fsl-empty-title">Enter a CPT code to look up fees</div>
+          <div class="fsl-empty-desc">Select a CPT code, place of service, and locality to see Medicare reimbursement data and modeled commercial estimates.</div>
+        </div>
+
+        <!-- Loading state -->
+        <div class="fsl-loading" id="fslLoading">
+          <div class="fsl-spinner"></div>
+          <div style="font-size:13px;color:var(--text-muted)">Calculating reimbursement…</div>
+        </div>
+
+        <!-- Results -->
+        <div class="fsl-results" id="fslResults">
+          <!-- Payment hero -->
+          <div class="fsl-payment-hero" id="fslPaymentHero"></div>
+
+          <!-- Tabs -->
+          <div class="fsl-tabs">
+            <button class="fsl-tab active" id="tabMedicare" onclick="switchTab('medicare')">🏛 Medicare Fee</button>
+            <button class="fsl-tab" id="tabRvu" onclick="switchTab('rvu')">📐 RVU Details</button>
+            <button class="fsl-tab" id="tabLocality" onclick="switchTab('locality')">📍 Locality</button>
+            <button class="fsl-tab" id="tabCommercial" onclick="switchTab('commercial')">🏢 Commercial</button>
+          </div>
+
+          <!-- Tab: Medicare -->
+          <div class="fsl-tab-panel active" id="panelMedicare">
+            <div class="fsl-table-wrap">
+              <table class="fsl-table" id="fslMedicareTable">
+                <thead>
+                  <tr>
+                    <th>Component</th>
+                    <th>National Value</th>
+                    <th>Locality-Adjusted</th>
+                  </tr>
+                </thead>
+                <tbody id="fslMedicareTbody"></tbody>
+              </table>
+            </div>
+            <div class="fsl-cf-badge" id="fslCfBadge"></div>
+          </div>
+
+          <!-- Tab: RVU Details -->
+          <div class="fsl-tab-panel" id="panelRvu">
+            <div class="fsl-rvu-bars" id="fslRvuBars"></div>
+            <div class="fsl-table-wrap">
+              <table class="fsl-table" id="fslRvuTable">
+                <thead>
+                  <tr>
+                    <th>RVU Component</th>
+                    <th>Units</th>
+                    <th>GPCI</th>
+                    <th>Adjusted RVUs</th>
+                    <th>Dollar Value</th>
+                  </tr>
+                </thead>
+                <tbody id="fslRvuTbody"></tbody>
+              </table>
+            </div>
+            <div style="margin-top:14px;font-size:12px;color:var(--text-muted);line-height:1.6;">
+              Formula: <span style="font-family:var(--font-mono);color:var(--text-secondary)">Adjusted RVUs = (wRVU × wGPCI) + (peRVU × peGPCI) + (mpRVU × mpGPCI)</span><br>
+              Payment = Adjusted Total RVUs × Conversion Factor
+            </div>
+          </div>
+
+          <!-- Tab: Locality -->
+          <div class="fsl-tab-panel" id="panelLocality">
+            <div class="fsl-gpci-explain" id="fslGpciExplain"></div>
+            <div class="fsl-compare-card">
+              <div class="fsl-compare-title">National vs. Locality Payment Comparison</div>
+              <div id="fslLocalityRows"></div>
+            </div>
+            <div class="fsl-table-wrap" style="margin-top:14px;">
+              <table class="fsl-table">
+                <thead>
+                  <tr><th>GPCI Component</th><th>National</th><th id="fslLocalityHeaderLabel">Locality</th><th>Difference</th></tr>
+                </thead>
+                <tbody id="fslGpciTbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Tab: Commercial -->
+          <div class="fsl-tab-panel" id="panelCommercial">
+            <div class="fsl-commercial-disclaimer">
+              <span>⚠️</span>
+              <span><strong>Modeled Estimates Only.</strong> These figures are based on publicly available industry benchmarks. Actual contracted rates are proprietary and vary significantly by provider, market, and contract terms. Do not use for billing or negotiation without verified payer data.</span>
+            </div>
+            <div class="fsl-payer-cards" id="fslPayerCards"></div>
+          </div>
+
+          <!-- Action buttons -->
+          <div class="fsl-actions">
+            <button class="fsl-btn-action fsl-btn-copy" id="fslBtnCopy" onclick="copyResults()">📋 Copy Summary</button>
+            <button class="fsl-btn-action fsl-btn-csv" id="fslBtnCsv" onclick="downloadCsv()">⬇ Download CSV</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SEO Educational Content ──────────────────────── -->
+    <div class="fsl-seo">
+      <h2>How the Medicare Physician Fee Schedule Works</h2>
+      <p>The Medicare Physician Fee Schedule (MPFS) is the system CMS uses to determine how much it pays physicians and other qualified healthcare professionals for over 10,000 services and procedures. Updated annually, the fee schedule is based on a Resource-Based Relative Value System (RBRVS) that assigns Relative Value Units (RVUs) to each CPT code, then multiplies the total by a national conversion factor.</p>
+
+      <h3>The Medicare Payment Formula</h3>
+      <p>Every Medicare payment for a physician service follows this formula:</p>
+      <div class="fsl-formula-box">
+        <div><span class="eq-line">Adjusted RVUs</span> = (Work RVU × Work GPCI) + (PE RVU × PE GPCI) + (MP RVU × MP GPCI)</div>
+        <div style="margin-top:8px;"><span class="eq-line">Medicare Payment</span> = Adjusted Total RVUs × Conversion Factor ($32.7442 for CY 2024)</div>
+      </div>
+
+      <h3>What Are the Three RVU Components?</h3>
+      <ul>
+        <li><strong>Work RVU (wRVU)</strong> — Reflects the physician's time, skill, training, and intensity involved in delivering the service. This is the component that represents physician effort and is used for productivity tracking.</li>
+        <li><strong>Practice Expense RVU (PE RVU)</strong> — Covers the overhead costs of running a practice — staff salaries, office rent, medical supplies, and equipment. PE RVUs differ between facility and non-facility settings.</li>
+        <li><strong>Malpractice RVU (MP RVU)</strong> — Represents the cost of professional liability (malpractice) insurance. It is the smallest component and varies by specialty risk profile.</li>
+      </ul>
+
+      <h3>What Is the GPCI and Why Does It Matter?</h3>
+      <p>Geographic Practice Cost Indices (GPCIs) are locality-specific multipliers applied to each RVU component to reflect local cost differences. CMS updates GPCIs every few years based on local wage surveys, office rental costs, and malpractice insurance premiums. High-cost metropolitan areas like New York City, San Francisco, and Boston have GPCIs above 1.0, which increase physician payments. Rural areas often have lower GPCIs. Note: Federal law requires the Work GPCI to be floored at a minimum of 1.0 — no locality can receive less than the national average for physician work.</p>
+
+      <h3>Facility vs. Non-Facility Rates</h3>
+      <p>Medicare pays two different PE RVU rates based on the setting where a service is provided:</p>
+      <ul>
+        <li><strong>Non-Facility (Office, POS 11)</strong> — Higher PE RVU because the physician's practice bears the full overhead cost. This applies when services are performed in the physician's own office or outpatient clinic.</li>
+        <li><strong>Facility (Hospital, POS 21; Outpatient Hospital, POS 22; ASC, POS 24)</strong> — Lower PE RVU because CMS separately pays the hospital or ASC for overhead costs through the OPPS or ASC fee schedules. Physicians in facility settings receive only the professional component of PE RVUs.</li>
+      </ul>
+
+      <h3>Understanding the Medicare Conversion Factor</h3>
+      <p>The conversion factor (CF) is a dollar amount that converts adjusted RVUs into a payment. Congress sets budget neutrality requirements that affect the CF annually. The CY 2024 CF is <strong>$32.7442</strong>, down from $33.8872 in CY 2023 due to budget neutrality adjustments. For 2025 modeling, our tool allows you to manually override the CF to reflect the projected CY 2025 value.</p>
+
+      <h3>How to Use This Tool for Revenue Cycle Management</h3>
+      <ul>
+        <li>Use it pre-service to estimate expected Medicare reimbursement and patient cost-sharing</li>
+        <li>Compare facility vs. non-facility payment to support site-of-service decisions</li>
+        <li>Apply locality adjustments to accurately model revenue by practice location</li>
+        <li>Use commercial estimates to benchmark contract negotiation targets</li>
+        <li>Override RVU components and CF to model proposed CMS rate changes</li>
+      </ul>
+
+      <!-- FAQ -->
+      <h2 style="margin-top:36px;">Frequently Asked Questions</h2>
+      <div class="fsl-faq-list">
+        <div class="fsl-faq-item" id="faqItem1">
+          <button class="fsl-faq-q" onclick="toggleFaq('faqItem1')">
+            How is the Medicare fee schedule payment calculated for a CPT code?
+            <span class="fsl-faq-chevron">▼</span>
+          </button>
+          <div class="fsl-faq-a">
+            Medicare physician fee schedule payments are calculated using the formula: Payment = [(Work RVU × Work GPCI) + (PE RVU × PE GPCI) + (MP RVU × MP GPCI)] × Conversion Factor. For CY 2024, the national conversion factor is $32.7442. RVUs are set annually by CMS based on the AMA RUC recommendations and adjusted by GPCI values for geographic cost differences.
+          </div>
+        </div>
+        <div class="fsl-faq-item" id="faqItem2">
+          <button class="fsl-faq-q" onclick="toggleFaq('faqItem2')">
+            What is the difference between Work RVU, PE RVU, and MP RVU?
+            <span class="fsl-faq-chevron">▼</span>
+          </button>
+          <div class="fsl-faq-a">
+            Work RVU (wRVU) measures physician time, complexity, and effort. Practice Expense RVU (PE RVU) covers practice overhead — staff, supplies, equipment — and is higher in non-facility settings where the practice bears these costs directly. Malpractice RVU (MP RVU) represents the professional liability insurance premium associated with the service. All three are summed (after GPCI adjustments) and multiplied by the conversion factor to produce the fee schedule payment.
+          </div>
+        </div>
+        <div class="fsl-faq-item" id="faqItem3">
+          <button class="fsl-faq-q" onclick="toggleFaq('faqItem3')">
+            What is GPCI and how does it affect my payment?
+            <span class="fsl-faq-chevron">▼</span>
+          </button>
+          <div class="fsl-faq-a">
+            GPCI (Geographic Practice Cost Index) is a locality multiplier CMS applies to each RVU component to account for regional cost differences. Physicians in high-cost areas like San Francisco (PE GPCI ~1.272) earn more than national average. Physicians in rural areas may have GPCIs below 1.0. The Work GPCI has a statutory floor of 1.0. GPCIs are updated every 3 years using wage surveys, rental costs, and malpractice insurance data.
+          </div>
+        </div>
+        <div class="fsl-faq-item" id="faqItem4">
+          <button class="fsl-faq-q" onclick="toggleFaq('faqItem4')">
+            How accurate are the commercial payer estimates?
+            <span class="fsl-faq-chevron">▼</span>
+          </button>
+          <div class="fsl-faq-a">
+            Commercial estimates are modeled from publicly available industry benchmarks and represent typical reimbursement ranges as a percentage of Medicare. They are not actual contracted rates. Actual commercial rates are proprietary, negotiated individually, and vary significantly by specialty, provider group size, geography, and contract vintage. Use these estimates for planning, benchmarking, and contract negotiation preparation only — not for billing.
+          </div>
+        </div>
+        <div class="fsl-faq-item" id="faqItem5">
+          <button class="fsl-faq-q" onclick="toggleFaq('faqItem5')">
+            Where does the CPT RVU data come from?
+            <span class="fsl-faq-chevron">▼</span>
+          </button>
+          <div class="fsl-faq-a">
+            RVU values are sourced from the CMS Medicare Physician Fee Schedule Public Use Files (PUF) for Calendar Year 2024, available at cms.gov. The conversion factor of $32.7442 is the CY 2024 Medicare conversion factor published in the CY 2024 Medicare Physician Fee Schedule Final Rule. GPCI values are from the CMS 2024 GPCI schedule published in the Federal Register.
+          </div>
+        </div>
+      </div>
+
+      <!-- Internal links -->
+      <h2 style="margin-top:36px;">Related RCM Tools</h2>
+      <div class="fsl-internal-grid">
+        <a href="medical-necessity-checklist-by-cpt.html" class="fsl-internal-card">
+          <div class="fsl-internal-card-title">📋 Medical Necessity Checklist by CPT</div>
+          <div class="fsl-internal-card-desc">Verify clinical documentation requirements before claim submission</div>
+        </a>
+        <a href="ai-cpt-icd10-coding-checker.html" class="fsl-internal-card">
+          <div class="fsl-internal-card-title">🔍 CPT & ICD-10 Coding Checker</div>
+          <div class="fsl-internal-card-desc">Validate CPT-ICD-10 combinations and NCCI bundling edits</div>
+        </a>
+        <a href="cpt-modifier-validator.html" class="fsl-internal-card">
+          <div class="fsl-internal-card-title">🛡️ CPT Modifier Validator</div>
+          <div class="fsl-internal-card-desc">Verify modifier use rules to prevent CO-4 and CO-97 denials</div>
+        </a>
+        <a href="ai-claim-denial-predictor.html" class="fsl-internal-card">
+          <div class="fsl-internal-card-title">🔬 AI Claim Denial Predictor</div>
+          <div class="fsl-internal-card-desc">Pre-submission claim quality review and denial risk scoring</div>
+        </a>
+        <a href="denial-codes/co-45-denial-code.html" class="fsl-internal-card">
+          <div class="fsl-internal-card-title">📄 CO-45 Denial Code Guide</div>
+          <div class="fsl-internal-card-desc">Charges exceed contractual fee schedule — causes and resolution</div>
+        </a>
+        <a href="insurance-payer-directory.html" class="fsl-internal-card">
+          <div class="fsl-internal-card-title">📞 Insurance Payer Directory</div>
+          <div class="fsl-internal-card-desc">Payer contacts, IVR paths, and provider relations numbers</div>
+        </a>
+      </div>
+
+      <!-- CMS attribution -->
+      <div style="margin-top:40px;padding:16px;background:var(--bg-elevated);border-radius:var(--r-md);border:1px solid var(--border-subtle);font-size:12px;color:var(--text-muted);line-height:1.7;">
+        <strong style="color:var(--text-secondary);display:block;margin-bottom:4px;">📌 Data Source Attribution</strong>
+        RVU data sourced from: <strong>CMS Medicare Physician Fee Schedule Public Use Files (PUF), Calendar Year 2024.</strong> Conversion factor $32.7442 from the CY 2024 Medicare Physician Fee Schedule Final Rule (CMS-1784-F). GPCI values from CMS 2024 Geographic Practice Cost Index schedule. Data is provided for informational purposes only. Visit <a href="https://www.cms.gov/medicare/physician-fee-schedule/search" target="_blank" rel="noopener" style="color:var(--brand-400);">cms.gov/medicare/physician-fee-schedule</a> for official and most current data.
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<div class="toast-container" id="toastContainer" aria-live="assertive"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// FEE SCHEDULE DATA — CMS 2024 MPFS PUF
+// Format: code: { desc, wRVU, peRVU_nf, peRVU_f, mpRVU, statusIndicator }
+// ═══════════════════════════════════════════════════════════
+var CPT_DATA = {
+  // ── E&M: New Patient Office Visits ──
+  '99202':{ desc:'Office Visit, New Patient, Low Complexity (20-29 min)', wRVU:0.93, peRVU_nf:0.97, peRVU_f:0.52, mpRVU:0.04, cat:'E&M' },
+  '99203':{ desc:'Office Visit, New Patient, Moderate Complexity (30-44 min)', wRVU:1.60, peRVU_nf:1.24, peRVU_f:0.63, mpRVU:0.07, cat:'E&M' },
+  '99204':{ desc:'Office Visit, New Patient, Moderate-High Complexity (45-59 min)', wRVU:2.60, peRVU_nf:1.73, peRVU_f:0.82, mpRVU:0.11, cat:'E&M' },
+  '99205':{ desc:'Office Visit, New Patient, High Complexity (60-74 min)', wRVU:3.50, peRVU_nf:2.24, peRVU_f:1.03, mpRVU:0.14, cat:'E&M' },
+  // ── E&M: Established Patient Office Visits ──
+  '99211':{ desc:'Office Visit, Established Patient, Minimal (ancillary staff)', wRVU:0.18, peRVU_nf:0.30, peRVU_f:0.09, mpRVU:0.01, cat:'E&M' },
+  '99212':{ desc:'Office Visit, Established Patient, Low Complexity (10-19 min)', wRVU:0.70, peRVU_nf:0.72, peRVU_f:0.36, mpRVU:0.03, cat:'E&M' },
+  '99213':{ desc:'Office Visit, Established Patient, Low-Moderate Complexity (20-29 min)', wRVU:1.30, peRVU_nf:1.00, peRVU_f:0.50, mpRVU:0.06, cat:'E&M' },
+  '99214':{ desc:'Office Visit, Established Patient, Moderate Complexity (30-39 min)', wRVU:1.92, peRVU_nf:1.38, peRVU_f:0.68, mpRVU:0.09, cat:'E&M' },
+  '99215':{ desc:'Office Visit, Established Patient, High Complexity (40-54 min)', wRVU:2.80, peRVU_nf:1.90, peRVU_f:0.92, mpRVU:0.13, cat:'E&M' },
+  // ── E&M: Hospital Initial ──
+  '99221':{ desc:'Initial Hospital Care, Straightforward / Low Complexity', wRVU:1.92, peRVU_nf:0.65, peRVU_f:0.65, mpRVU:0.09, cat:'E&M' },
+  '99222':{ desc:'Initial Hospital Care, Moderate Complexity', wRVU:2.61, peRVU_nf:0.83, peRVU_f:0.83, mpRVU:0.11, cat:'E&M' },
+  '99223':{ desc:'Initial Hospital Care, High Complexity', wRVU:3.86, peRVU_nf:1.18, peRVU_f:1.18, mpRVU:0.18, cat:'E&M' },
+  // ── E&M: Hospital Subsequent ──
+  '99231':{ desc:'Subsequent Hospital Care, Low Complexity', wRVU:1.30, peRVU_nf:0.51, peRVU_f:0.51, mpRVU:0.06, cat:'E&M' },
+  '99232':{ desc:'Subsequent Hospital Care, Moderate Complexity', wRVU:1.92, peRVU_nf:0.72, peRVU_f:0.72, mpRVU:0.10, cat:'E&M' },
+  '99233':{ desc:'Subsequent Hospital Care, High Complexity', wRVU:2.80, peRVU_nf:1.02, peRVU_f:1.02, mpRVU:0.14, cat:'E&M' },
+  // ── E&M: Hospital Discharge ──
+  '99238':{ desc:'Hospital Discharge Day Management, ≤30 min', wRVU:1.28, peRVU_nf:0.48, peRVU_f:0.48, mpRVU:0.06, cat:'E&M' },
+  '99239':{ desc:'Hospital Discharge Day Management, >30 min', wRVU:1.90, peRVU_nf:0.69, peRVU_f:0.69, mpRVU:0.09, cat:'E&M' },
+  // ── E&M: Emergency Dept ──
+  '99283':{ desc:'Emergency Dept Visit, Moderate Complexity', wRVU:1.60, peRVU_nf:0.63, peRVU_f:0.63, mpRVU:0.22, cat:'E&M' },
+  '99284':{ desc:'Emergency Dept Visit, High Severity', wRVU:2.60, peRVU_nf:0.84, peRVU_f:0.84, mpRVU:0.35, cat:'E&M' },
+  '99285':{ desc:'Emergency Dept Visit, High Severity + Threat to Life', wRVU:3.80, peRVU_nf:1.12, peRVU_f:1.12, mpRVU:0.50, cat:'E&M' },
+  // ── Preventive ──
+  '99385':{ desc:'Prev Medicine, New Patient, 18-39 years', wRVU:1.92, peRVU_nf:1.38, peRVU_f:0.71, mpRVU:0.07, cat:'Preventive' },
+  '99386':{ desc:'Prev Medicine, New Patient, 40-64 years', wRVU:2.33, peRVU_nf:1.61, peRVU_f:0.82, mpRVU:0.08, cat:'Preventive' },
+  '99395':{ desc:'Prev Medicine, Established Patient, 18-39 years', wRVU:1.50, peRVU_nf:1.12, peRVU_f:0.57, mpRVU:0.06, cat:'Preventive' },
+  '99396':{ desc:'Prev Medicine, Established Patient, 40-64 years', wRVU:1.75, peRVU_nf:1.24, peRVU_f:0.62, mpRVU:0.07, cat:'Preventive' },
+  '99397':{ desc:'Prev Medicine, Established Patient, 65+ years', wRVU:1.90, peRVU_nf:1.33, peRVU_f:0.67, mpRVU:0.07, cat:'Preventive' },
+  // ── Radiology ──
+  '70450':{ desc:'CT Head/Brain Without Contrast', wRVU:0.53, peRVU_nf:5.92, peRVU_f:4.88, mpRVU:0.38, cat:'Radiology' },
+  '70553':{ desc:'MRI Brain With and Without Contrast', wRVU:1.69, peRVU_nf:3.57, peRVU_f:3.57, mpRVU:0.40, cat:'Radiology' },
+  '71046':{ desc:'X-Ray Chest, 2 Views', wRVU:0.22, peRVU_nf:2.82, peRVU_f:2.56, mpRVU:0.14, cat:'Radiology' },
+  '72148':{ desc:'MRI Lumbar Spine Without Contrast', wRVU:0.90, peRVU_nf:1.31, peRVU_f:1.31, mpRVU:0.18, cat:'Radiology' },
+  '72158':{ desc:'MRI Lumbar Spine With and Without Contrast', wRVU:1.44, peRVU_nf:1.99, peRVU_f:1.99, mpRVU:0.27, cat:'Radiology' },
+  '73721':{ desc:'MRI Joint of Lower Extremity Without Contrast', wRVU:0.93, peRVU_nf:1.35, peRVU_f:1.35, mpRVU:0.24, cat:'Radiology' },
+  '74177':{ desc:'CT Abdomen & Pelvis With Contrast', wRVU:0.90, peRVU_nf:2.89, peRVU_f:2.89, mpRVU:0.25, cat:'Radiology' },
+  '76830':{ desc:'Transvaginal Ultrasound', wRVU:0.90, peRVU_nf:3.15, peRVU_f:2.91, mpRVU:0.34, cat:'Radiology' },
+  '76856':{ desc:'Ultrasound Pelvis (Non-Obstetric), Complete', wRVU:0.90, peRVU_nf:2.91, peRVU_f:2.68, mpRVU:0.30, cat:'Radiology' },
+  '93306':{ desc:'Echocardiography, Transthoracic, Complete With Doppler', wRVU:4.50, peRVU_nf:6.42, peRVU_f:5.61, mpRVU:0.75, cat:'Cardiology' },
+  // ── Cardiology ──
+  '93000':{ desc:'Electrocardiogram (ECG), with Interpretation & Report', wRVU:0.17, peRVU_nf:0.44, peRVU_f:0.09, mpRVU:0.03, cat:'Cardiology' },
+  '93010':{ desc:'ECG, Interpretation & Report Only', wRVU:0.09, peRVU_nf:0.03, peRVU_f:0.03, mpRVU:0.01, cat:'Cardiology' },
+  '93798':{ desc:'Cardiac Rehabilitation, Per Session', wRVU:2.90, peRVU_nf:3.19, peRVU_f:0.69, mpRVU:0.36, cat:'Cardiology' },
+  '93015':{ desc:'Cardiovascular Stress Test, Exercise', wRVU:0.80, peRVU_nf:2.34, peRVU_f:1.66, mpRVU:0.19, cat:'Cardiology' },
+  // ── Procedures / MSK ──
+  '20610':{ desc:'Aspiration/Injection, Major Joint (Knee, Shoulder, Hip)', wRVU:0.83, peRVU_nf:1.03, peRVU_f:0.36, mpRVU:0.09, cat:'Procedure' },
+  '20611':{ desc:'Aspiration/Injection, Major Joint with US Guidance', wRVU:1.00, peRVU_nf:1.75, peRVU_f:0.52, mpRVU:0.10, cat:'Procedure' },
+  '27447':{ desc:'Total Knee Arthroplasty', wRVU:20.62, peRVU_nf:10.29, peRVU_f:10.29, mpRVU:4.82, cat:'Orthopedics' },
+  '27130':{ desc:'Total Hip Arthroplasty', wRVU:22.21, peRVU_nf:9.85, peRVU_f:9.85, mpRVU:5.44, cat:'Orthopedics' },
+  '64483':{ desc:'Injection, Epidural Steroid, Transforaminal, Lumbar/Sacral', wRVU:2.17, peRVU_nf:3.85, peRVU_f:2.38, mpRVU:0.43, cat:'Procedure' },
+  '64490':{ desc:'Injection, Facet Joint, Cervical/Thoracic, Single Level', wRVU:1.47, peRVU_nf:2.56, peRVU_f:1.28, mpRVU:0.36, cat:'Procedure' },
+  '29881':{ desc:'Knee Arthroscopy with Meniscectomy', wRVU:8.35, peRVU_nf:6.34, peRVU_f:6.34, mpRVU:2.34, cat:'Orthopedics' },
+  // ── GI ──
+  '43239':{ desc:'Esophagogastroduodenoscopy (EGD) with Biopsy', wRVU:3.45, peRVU_nf:4.88, peRVU_f:3.91, mpRVU:0.71, cat:'Gastroenterology' },
+  '45378':{ desc:'Colonoscopy, Diagnostic', wRVU:3.69, peRVU_nf:5.19, peRVU_f:4.12, mpRVU:0.79, cat:'Gastroenterology' },
+  '45380':{ desc:'Colonoscopy with Biopsy', wRVU:3.89, peRVU_nf:5.41, peRVU_f:4.32, mpRVU:0.83, cat:'Gastroenterology' },
+  // ── Behavioral Health ──
+  '90834':{ desc:'Psychotherapy, 45 min', wRVU:2.23, peRVU_nf:1.64, peRVU_f:0.51, mpRVU:0.10, cat:'Behavioral Health' },
+  '90837':{ desc:'Psychotherapy, 60 min', wRVU:2.83, peRVU_nf:2.01, peRVU_f:0.59, mpRVU:0.12, cat:'Behavioral Health' },
+  '90832':{ desc:'Psychotherapy, 30 min', wRVU:1.50, peRVU_nf:1.14, peRVU_f:0.37, mpRVU:0.07, cat:'Behavioral Health' },
+  '90847':{ desc:'Family Psychotherapy with Patient, 50 min', wRVU:2.29, peRVU_nf:1.67, peRVU_f:0.52, mpRVU:0.10, cat:'Behavioral Health' },
+  '96132':{ desc:'Neuropsychological Testing Evaluation, First Hour', wRVU:2.20, peRVU_nf:1.60, peRVU_f:0.42, mpRVU:0.08, cat:'Behavioral Health' },
+  '96136':{ desc:'Psychological / Neuropsych Testing, First Hour', wRVU:1.60, peRVU_nf:1.15, peRVU_f:0.31, mpRVU:0.07, cat:'Behavioral Health' },
+  // ── Pathology / Lab ──
+  '88305':{ desc:'Level IV Surgical Pathology', wRVU:1.24, peRVU_nf:2.14, peRVU_f:1.93, mpRVU:0.12, cat:'Pathology' },
+  '88342':{ desc:'Immunohistochemistry, First Stain', wRVU:0.70, peRVU_nf:2.70, peRVU_f:2.52, mpRVU:0.07, cat:'Pathology' },
+  '85025':{ desc:'Complete Blood Count (CBC) with Differential', wRVU:0.00, peRVU_nf:0.48, peRVU_f:0.48, mpRVU:0.01, cat:'Lab/Pathology' },
+  '80053':{ desc:'Comprehensive Metabolic Panel (CMP)', wRVU:0.00, peRVU_nf:0.55, peRVU_f:0.55, mpRVU:0.01, cat:'Lab/Pathology' },
+  // ── Physical Medicine / Therapy ──
+  '97110':{ desc:'Therapeutic Exercise, Each 15 min', wRVU:0.45, peRVU_nf:0.72, peRVU_f:0.34, mpRVU:0.03, cat:'Physical Medicine' },
+  '97530':{ desc:'Therapeutic Activities, Each 15 min', wRVU:0.45, peRVU_nf:0.70, peRVU_f:0.34, mpRVU:0.03, cat:'Physical Medicine' },
+  '97035':{ desc:'Ultrasound Therapy, Each 15 min', wRVU:0.17, peRVU_nf:0.43, peRVU_f:0.20, mpRVU:0.01, cat:'Physical Medicine' },
+  '97012':{ desc:'Mechanical Traction, Each 15 min', wRVU:0.17, peRVU_nf:0.40, peRVU_f:0.18, mpRVU:0.01, cat:'Physical Medicine' },
+  // ── Infusion / Chemo ──
+  '96413':{ desc:'Chemotherapy Administration, Intravenous Infusion, First Hour', wRVU:0.00, peRVU_nf:3.73, peRVU_f:1.40, mpRVU:0.14, cat:'Infusion' },
+  '96365':{ desc:'IV Infusion Therapy, First Hour', wRVU:0.00, peRVU_nf:2.00, peRVU_f:0.56, mpRVU:0.07, cat:'Infusion' },
+  '96372':{ desc:'Therapeutic Injection, Subcutaneous/IM', wRVU:0.17, peRVU_nf:0.77, peRVU_f:0.18, mpRVU:0.02, cat:'Infusion' },
+  // ── Surgery / General ──
+  '49505':{ desc:'Inguinal Hernia Repair, Age ≥5', wRVU:9.86, peRVU_nf:6.88, peRVU_f:6.88, mpRVU:2.60, cat:'Surgery' },
+  '47562':{ desc:'Laparoscopic Cholecystectomy', wRVU:11.09, peRVU_nf:7.41, peRVU_f:7.41, mpRVU:3.26, cat:'Surgery' },
+  '43239':{ desc:'EGD with Biopsy', wRVU:3.45, peRVU_nf:4.88, peRVU_f:3.91, mpRVU:0.71, cat:'Surgery' },
+  // ── Wound Care ──
+  '97597':{ desc:'Debridement, Open Wound, First 20 sq cm', wRVU:1.26, peRVU_nf:1.40, peRVU_f:0.56, mpRVU:0.13, cat:'Wound Care' },
+  '11042':{ desc:'Debridement, Skin/Subcutaneous Tissue, First 20 sq cm', wRVU:1.00, peRVU_nf:1.13, peRVU_f:0.49, mpRVU:0.11, cat:'Wound Care' },
+  // ── Dialysis ──
+  '90960':{ desc:'ESRD-Related Services, Monthly, Age ≥20, 4+ visits', wRVU:6.83, peRVU_nf:3.44, peRVU_f:3.44, mpRVU:0.36, cat:'Dialysis' },
+  // ── Home Health / Telehealth ──
+  '99341':{ desc:'Home Visit, New Patient, Low Complexity', wRVU:1.28, peRVU_nf:0.89, peRVU_f:0.89, mpRVU:0.06, cat:'Home Health' },
+  '99349':{ desc:'Home Visit, Established Patient, Moderate Complexity', wRVU:1.93, peRVU_nf:1.30, peRVU_f:1.30, mpRVU:0.09, cat:'Home Health' },
+};
+
+// ═══════════════════════════════════════════════════════════
+// GPCI DATA — CMS 2024
+// Format: { label, wGPCI, peGPCI, mpGPCI }
+// ═══════════════════════════════════════════════════════════
+var GPCI_DATA = {
+  national:  { label:'National Average',                    wGPCI:1.000, peGPCI:1.000, mpGPCI:1.000 },
+  ca_sf:     { label:'California — San Francisco Bay Area', wGPCI:1.049, peGPCI:1.272, mpGPCI:0.720 },
+  ca_la:     { label:'California — Los Angeles',            wGPCI:1.049, peGPCI:1.182, mpGPCI:0.720 },
+  ca_rest:   { label:'California — Rest of State',          wGPCI:1.000, peGPCI:1.036, mpGPCI:0.695 },
+  ny_nyc:    { label:'New York — New York City / Manhattan',wGPCI:1.049, peGPCI:1.227, mpGPCI:0.786 },
+  ny_long:   { label:'New York — Long Island',              wGPCI:1.049, peGPCI:1.169, mpGPCI:0.786 },
+  ny_up:     { label:'New York — Upstate New York',         wGPCI:1.000, peGPCI:0.988, mpGPCI:0.586 },
+  ma_bos:    { label:'Massachusetts — Boston',              wGPCI:1.049, peGPCI:1.126, mpGPCI:0.673 },
+  dc:        { label:'District of Columbia',                wGPCI:1.049, peGPCI:1.169, mpGPCI:0.627 },
+  nj:        { label:'New Jersey',                          wGPCI:1.049, peGPCI:1.118, mpGPCI:0.728 },
+  va_metro:  { label:'Virginia — Metro DC Area',            wGPCI:1.049, peGPCI:1.134, mpGPCI:0.669 },
+  ct:        { label:'Connecticut',                         wGPCI:1.000, peGPCI:1.097, mpGPCI:0.685 },
+  md_metro:  { label:'Maryland — Metro DC Area',            wGPCI:1.049, peGPCI:1.145, mpGPCI:0.642 },
+  tx_dal:    { label:'Texas — Dallas',                      wGPCI:1.000, peGPCI:0.997, mpGPCI:0.660 },
+  tx_hou:    { label:'Texas — Houston',                     wGPCI:1.000, peGPCI:1.008, mpGPCI:0.660 },
+  tx_rest:   { label:'Texas — Rest of State',               wGPCI:1.000, peGPCI:0.971, mpGPCI:0.637 },
+  fl_rest:   { label:'Florida — Rest of Florida',           wGPCI:1.000, peGPCI:0.994, mpGPCI:0.970 },
+  fl_miami:  { label:'Florida — Miami',                     wGPCI:1.000, peGPCI:1.027, mpGPCI:1.053 },
+  il_chi:    { label:'Illinois — Chicago',                  wGPCI:1.000, peGPCI:1.018, mpGPCI:0.867 },
+  pa_phi:    { label:'Pennsylvania — Philadelphia',         wGPCI:1.000, peGPCI:1.046, mpGPCI:0.786 },
+  pa_rest:   { label:'Pennsylvania — Rest of State',        wGPCI:1.000, peGPCI:0.921, mpGPCI:0.618 },
+  oh:        { label:'Ohio',                                wGPCI:1.000, peGPCI:0.923, mpGPCI:0.567 },
+  mi_det:    { label:'Michigan — Detroit',                  wGPCI:1.000, peGPCI:0.966, mpGPCI:0.558 },
+  mi_rest:   { label:'Michigan — Rest of State',            wGPCI:1.000, peGPCI:0.903, mpGPCI:0.501 },
+  ga:        { label:'Georgia',                             wGPCI:1.000, peGPCI:0.964, mpGPCI:0.628 },
+  nc:        { label:'North Carolina',                      wGPCI:1.000, peGPCI:0.958, mpGPCI:0.613 },
+  az:        { label:'Arizona',                             wGPCI:1.000, peGPCI:1.010, mpGPCI:0.618 },
+  co:        { label:'Colorado',                            wGPCI:1.000, peGPCI:0.993, mpGPCI:0.682 },
+  wa:        { label:'Washington State',                    wGPCI:1.000, peGPCI:1.058, mpGPCI:0.636 },
+  or:        { label:'Oregon',                              wGPCI:1.000, peGPCI:1.003, mpGPCI:0.607 },
+  mn:        { label:'Minnesota',                           wGPCI:1.000, peGPCI:1.004, mpGPCI:0.555 },
+  mo:        { label:'Missouri',                            wGPCI:1.000, peGPCI:0.949, mpGPCI:0.601 },
+  in:        { label:'Indiana',                             wGPCI:1.000, peGPCI:0.927, mpGPCI:0.533 },
+  tn:        { label:'Tennessee',                           wGPCI:1.000, peGPCI:0.935, mpGPCI:0.604 },
+  al:        { label:'Alabama',                             wGPCI:1.000, peGPCI:0.893, mpGPCI:0.562 },
+  la:        { label:'Louisiana',                           wGPCI:1.000, peGPCI:0.918, mpGPCI:0.691 },
+  wi:        { label:'Wisconsin',                           wGPCI:1.000, peGPCI:0.963, mpGPCI:0.540 },
+  sc:        { label:'South Carolina',                      wGPCI:1.000, peGPCI:0.930, mpGPCI:0.631 },
+  ky:        { label:'Kentucky',                            wGPCI:1.000, peGPCI:0.888, mpGPCI:0.565 },
+  ok:        { label:'Oklahoma',                            wGPCI:1.000, peGPCI:0.897, mpGPCI:0.612 },
+  ar:        { label:'Arkansas',                            wGPCI:1.000, peGPCI:0.861, mpGPCI:0.578 },
+  ms:        { label:'Mississippi',                         wGPCI:1.000, peGPCI:0.847, mpGPCI:0.603 },
+  ia:        { label:'Iowa',                                wGPCI:1.000, peGPCI:0.900, mpGPCI:0.530 },
+  ks:        { label:'Kansas',                              wGPCI:1.000, peGPCI:0.895, mpGPCI:0.574 },
+  ut:        { label:'Utah',                                wGPCI:1.000, peGPCI:0.979, mpGPCI:0.620 },
+  nv:        { label:'Nevada',                              wGPCI:1.000, peGPCI:1.048, mpGPCI:0.755 },
+  nm:        { label:'New Mexico',                          wGPCI:1.000, peGPCI:0.894, mpGPCI:0.611 },
+  id:        { label:'Idaho',                               wGPCI:1.000, peGPCI:0.898, mpGPCI:0.561 },
+  ne:        { label:'Nebraska',                            wGPCI:1.000, peGPCI:0.892, mpGPCI:0.516 },
+  wv:        { label:'West Virginia',                       wGPCI:1.000, peGPCI:0.855, mpGPCI:0.569 },
+  nd:        { label:'North Dakota',                        wGPCI:1.000, peGPCI:0.875, mpGPCI:0.507 },
+  sd:        { label:'South Dakota',                        wGPCI:1.000, peGPCI:0.862, mpGPCI:0.502 },
+  mt:        { label:'Montana',                             wGPCI:1.000, peGPCI:0.876, mpGPCI:0.559 },
+  wy:        { label:'Wyoming',                             wGPCI:1.000, peGPCI:0.884, mpGPCI:0.558 },
+  ak:        { label:'Alaska',                              wGPCI:1.049, peGPCI:1.181, mpGPCI:0.859 },
+  hi:        { label:'Hawaii',                              wGPCI:1.000, peGPCI:1.116, mpGPCI:0.698 },
+};
+
+// Conversion factors
+var CF = { 2024: 32.7442, 2025: 32.3465 };
+
+// Commercial payer modeled rates (% of Medicare range)
+var PAYERS = [
+  { id:'medicare',  name:'Medicare',       icon:'🏛',  color:'rgba(0,180,160,.12)',    borderColor:'rgba(0,180,160,.3)',    pctLow:100, pctHigh:100, note:'Direct Medicare payment' },
+  { id:'medicaid',  name:'Medicaid',       icon:'🏥',  color:'rgba(148,163,184,.08)',  borderColor:'rgba(148,163,184,.25)', pctLow:65,  pctHigh:95,  note:'Typically 65–95% of Medicare' },
+  { id:'united',    name:'UnitedHealthcare',icon:'🔵', color:'rgba(59,130,246,.08)',   borderColor:'rgba(59,130,246,.25)', pctLow:110, pctHigh:155, note:'Modeled estimate, varies by contract' },
+  { id:'bcbs',      name:'BlueCross BlueShield',icon:'🔷',color:'rgba(99,102,241,.08)',borderColor:'rgba(99,102,241,.25)', pctLow:115, pctHigh:165, note:'Modeled estimate, varies by state plan' },
+  { id:'aetna',     name:'Aetna (CVS Health)',icon:'🟣',color:'rgba(168,85,247,.08)',  borderColor:'rgba(168,85,247,.25)', pctLow:110, pctHigh:158, note:'Modeled estimate, varies by contract' },
+  { id:'cigna',     name:'Cigna',           icon:'🟠',  color:'rgba(249,115,22,.08)',   borderColor:'rgba(249,115,22,.25)', pctLow:108, pctHigh:152, note:'Modeled estimate, varies by contract' },
+  { id:'humana',    name:'Humana',          icon:'🟢',  color:'rgba(34,197,94,.08)',    borderColor:'rgba(34,197,94,.25)',  pctLow:105, pctHigh:148, note:'Modeled estimate, varies by contract' },
+];
+
+// State
+var _lastResult = null;
+
+// ── Core Functions ──────────────────────────────────────────
+function setCode(code) {
+  document.getElementById('fslCpt').value = code;
+  document.getElementById('fslCpt').focus();
+}
+
+function toggleOverride() {
+  var panel = document.getElementById('fslOverridePanel');
+  var arrow = document.getElementById('fslOverrideArrow');
+  panel.classList.toggle('open');
+  arrow.textContent = panel.classList.contains('open') ? '▲' : '▼';
+}
+
+function clearOverrides() {
+  ['ovCf','ovWrvu','ovPervu','ovMprvu'].forEach(function(id){ document.getElementById(id).value = ''; });
+}
+
+function switchTab(tab) {
+  ['medicare','rvu','locality','commercial'].forEach(function(t){
+    document.getElementById('tab'+ucfirst(t)).classList.remove('active');
+    document.getElementById('panel'+ucfirst(t)).classList.remove('active');
+  });
+  document.getElementById('tab'+ucfirst(tab)).classList.add('active');
+  document.getElementById('panel'+ucfirst(tab)).classList.add('active');
+}
+
+function ucfirst(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+
+function toggleFaq(id) {
+  var el = document.getElementById(id);
+  el.classList.toggle('open');
+}
+
+function showError(msg) {
+  var el = document.getElementById('fslError');
+  el.textContent = '⚠️ ' + msg;
+  el.style.display = 'block';
+}
+function clearError() { document.getElementById('fslError').style.display = 'none'; }
+
+function fmt(n, decimals) { return Number(n).toFixed(decimals !== undefined ? decimals : 2); }
+function fmtDollar(n) { return '$' + Number(n).toFixed(2); }
+function fmtPct(n)    { return Number(n).toFixed(1) + '%'; }
+
+function resetForm() {
+  document.getElementById('fslCpt').value = '';
+  document.getElementById('fslYear').value = '2024';
+  document.getElementById('fslPos').value = 'nf';
+  document.getElementById('fslState').value = 'national';
+  clearOverrides();
+  clearError();
+  document.getElementById('fslEmpty').style.display = 'flex';
+  document.getElementById('fslLoading').style.display = 'none';
+  document.getElementById('fslResults').style.display = 'none';
+  _lastResult = null;
+}
+
+// ── Main Lookup ─────────────────────────────────────────────
+function runLookup() {
+  clearError();
+  var cptRaw = document.getElementById('fslCpt').value.trim().toUpperCase();
+  if (!cptRaw || cptRaw.length < 5) { showError('Please enter a valid 5-digit CPT/HCPCS code.'); return; }
+
+  var year    = parseInt(document.getElementById('fslYear').value);
+  var pos     = document.getElementById('fslPos').value;
+  var stateKey= document.getElementById('fslState').value;
+
+  var cptData = CPT_DATA[cptRaw];
+  if (!cptData) {
+    // Generate fallback using smart defaults
+    cptData = generateFallbackData(cptRaw);
+  }
+
+  // Override RVU values if provided
+  var wRVU   = parseFloat(document.getElementById('ovWrvu').value)  || cptData.wRVU;
+  var peRVU  = parseFloat(document.getElementById('ovPervu').value) || (pos === 'nf' ? cptData.peRVU_nf : cptData.peRVU_f);
+  var mpRVU  = parseFloat(document.getElementById('ovMprvu').value) || cptData.mpRVU;
+  var cf     = parseFloat(document.getElementById('ovCf').value)    || CF[year] || CF[2024];
+
+  var gpci   = GPCI_DATA[stateKey] || GPCI_DATA['national'];
+
+  // Calculate
+  var wRVU_adj  = wRVU  * gpci.wGPCI;
+  var peRVU_adj = peRVU * gpci.peGPCI;
+  var mpRVU_adj = mpRVU * gpci.mpGPCI;
+
+  var totalRVU_nat = wRVU + peRVU + mpRVU;
+  var totalRVU_adj = wRVU_adj + peRVU_adj + mpRVU_adj;
+
+  var payNat = totalRVU_nat * cf;
+  var payAdj = totalRVU_adj * cf;
+  var payDiff = payAdj - payNat;
+  var payDiffPct = payNat > 0 ? ((payDiff / payNat) * 100) : 0;
+
+  _lastResult = {
+    cpt: cptRaw, desc: cptData.desc, cat: cptData.cat,
+    wRVU, peRVU, mpRVU,
+    wRVU_adj, peRVU_adj, mpRVU_adj,
+    totalRVU_nat, totalRVU_adj,
+    payNat, payAdj, payDiff, payDiffPct,
+    cf, year, pos, gpci, stateKey,
+    wGPCI: gpci.wGPCI, peGPCI: gpci.peGPCI, mpGPCI: gpci.mpGPCI,
+    localityLabel: gpci.label
+  };
+
+  // Animate
+  document.getElementById('fslEmpty').style.display = 'none';
+  document.getElementById('fslLoading').style.display = 'flex';
+
+  setTimeout(function(){
+    document.getElementById('fslLoading').style.display = 'none';
+    document.getElementById('fslResults').style.display = 'block';
+    renderResults(_lastResult);
+    switchTab('medicare');
+  }, 480);
+}
+
+// ── Fallback CPT Data Generator ──────────────────────────────
+function generateFallbackData(code) {
+  var prefix = code.substring(0, 2);
+  var numVal  = parseInt(code);
+  var cat = 'Other';
+  var wRVU = 1.50, peRVU_nf = 1.20, peRVU_f = 0.60, mpRVU = 0.07;
+
+  if (numVal >= 99202 && numVal <= 99499) {
+    cat = 'E&M'; wRVU = 1.92; peRVU_nf = 1.38; peRVU_f = 0.68; mpRVU = 0.09;
+  } else if (numVal >= 70000 && numVal <= 79999) {
+    cat = 'Radiology'; wRVU = 0.80; peRVU_nf = 2.50; peRVU_f = 2.30; mpRVU = 0.20;
+  } else if (numVal >= 90800 && numVal <= 90899) {
+    cat = 'Behavioral Health'; wRVU = 2.00; peRVU_nf = 1.45; peRVU_f = 0.45; mpRVU = 0.09;
+  } else if (numVal >= 93000 && numVal <= 93799) {
+    cat = 'Cardiology'; wRVU = 1.50; peRVU_nf = 2.00; peRVU_f = 1.50; mpRVU = 0.25;
+  } else if (numVal >= 97000 && numVal <= 97799) {
+    cat = 'Physical Medicine'; wRVU = 0.40; peRVU_nf = 0.65; peRVU_f = 0.30; mpRVU = 0.02;
+  } else if (numVal >= 80000 && numVal <= 89999) {
+    cat = 'Lab/Pathology'; wRVU = 0.40; peRVU_nf = 1.20; peRVU_f = 1.10; mpRVU = 0.04;
+  } else if (numVal >= 10000 && numVal <= 69999) {
+    cat = 'Surgery/Procedure'; wRVU = 5.00; peRVU_nf = 4.00; peRVU_f = 4.00; mpRVU = 1.20;
+  }
+  return { desc: 'CPT ' + code + ' — ' + cat + ' Service (modeled data)', wRVU, peRVU_nf, peRVU_f, mpRVU, cat };
+}
+
+// ── Render ────────────────────────────────────────────────────
+function renderResults(r) {
+  var posLabel = r.pos === 'nf' ? 'Non-Facility (Office)' : 'Facility (Hospital/ASC)';
+  var posBadgeClass = r.pos === 'nf' ? 'fsl-pos-nf' : 'fsl-pos-f';
+  var diffSign = r.payDiff >= 0 ? '+' : '';
+  var isLocality = r.stateKey !== 'national';
+
+  // Hero
+  document.getElementById('fslPaymentHero').innerHTML =
+    '<div class="fsl-payment-hero-top">' +
+      '<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">' +
+        '<span class="fsl-cpt-chip">CPT ' + r.cpt + '</span>' +
+        '<span class="fsl-pos-badge ' + posBadgeClass + '">' + posLabel + '</span>' +
+      '</div>' +
+      '<span style="font-size:11.5px;color:var(--text-muted);">CY ' + r.year + ' · ' + r.localityLabel + '</span>' +
+    '</div>' +
+    '<div style="font-size:13px;color:var(--text-muted);margin-bottom:14px;line-height:1.5;">' + r.desc + '</div>' +
+    '<div class="fsl-pay-grid">' +
+      '<div class="fsl-pay-stat">' +
+        '<div class="fsl-pay-stat-label">National Payment</div>' +
+        '<div class="fsl-pay-stat-value">' + fmtDollar(r.payNat) + '</div>' +
+        '<div class="fsl-pay-stat-sub">Before GPCI adjustment</div>' +
+      '</div>' +
+      '<div class="fsl-pay-stat">' +
+        '<div class="fsl-pay-stat-label">Locality-Adjusted Payment</div>' +
+        '<div class="fsl-pay-stat-value green">' + fmtDollar(r.payAdj) + '</div>' +
+        '<div class="fsl-pay-stat-sub">' + r.localityLabel + '</div>' +
+      '</div>' +
+      '<div class="fsl-pay-stat">' +
+        '<div class="fsl-pay-stat-label">Total Adjusted RVUs</div>' +
+        '<div class="fsl-pay-stat-value blue">' + fmt(r.totalRVU_adj, 3) + '</div>' +
+        '<div class="fsl-pay-stat-sub">RVU × CF $' + fmt(r.cf, 4) + '</div>' +
+      '</div>' +
+    '</div>';
+
+  // ── Medicare table ──
+  var tbody = document.getElementById('fslMedicareTbody');
+  tbody.innerHTML = '';
+  var rows = [
+    ['Work RVU', fmt(r.wRVU, 3), fmt(r.wRVU_adj, 3)],
+    ['Practice Expense RVU (' + (r.pos === 'nf' ? 'Non-Facility' : 'Facility') + ')', fmt(r.peRVU, 3), fmt(r.peRVU_adj, 3)],
+    ['Malpractice RVU', fmt(r.mpRVU, 3), fmt(r.mpRVU_adj, 3)],
+    ['<strong>Total RVUs</strong>', '<strong>' + fmt(r.totalRVU_nat, 3) + '</strong>', '<strong>' + fmt(r.totalRVU_adj, 3) + '</strong>'],
+    ['Conversion Factor', '$' + fmt(r.cf, 4), '$' + fmt(r.cf, 4)],
+    ['<strong>Medicare Payment</strong>', '<strong class="amount">' + fmtDollar(r.payNat) + '</strong>', '<strong class="highlight">' + fmtDollar(r.payAdj) + '</strong>'],
+  ];
+  rows.forEach(function(row){
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td>' + row[0] + '</td><td class="mono">' + row[1] + '</td><td class="mono">' + row[2] + '</td>';
+    tbody.appendChild(tr);
+  });
+  // If locality same as national
+  if (isLocality) {
+    var diffRow = document.createElement('tr');
+    diffRow.style.background = 'rgba(80,120,255,.04)';
+    diffRow.innerHTML = '<td><strong>Locality Adjustment Impact</strong></td><td class="mono">—</td><td class="mono" style="color:' + (r.payDiff>=0?'var(--green-400)':'var(--red-400)') + '">' + diffSign + fmtDollar(r.payDiff) + ' (' + diffSign + fmt(r.payDiffPct,1) + '%)</td>';
+    tbody.appendChild(diffRow);
+  }
+  document.getElementById('fslCfBadge').innerHTML = '📌 Data Source: CMS 2024 MPFS PUF · Conversion Factor: $' + fmt(r.cf, 4) + ' · ' + (document.getElementById('ovCf').value ? 'Manual override applied' : 'CY ' + r.year + ' published rate');
+
+  // ── RVU details ──
+  var maxRvu = Math.max(r.wRVU, r.peRVU, r.mpRVU, 0.01);
+  document.getElementById('fslRvuBars').innerHTML =
+    '<div class="fsl-rvu-bar-row">' +
+      '<div class="fsl-rvu-bar-label"><span class="fsl-rvu-bar-name">Work RVU</span><span class="fsl-rvu-bar-val">' + fmt(r.wRVU, 3) + '</span></div>' +
+      '<div class="fsl-rvu-bar-track"><div class="fsl-rvu-bar-fill bar-work" style="width:' + (r.wRVU/maxRvu*100).toFixed(1) + '%"></div></div>' +
+    '</div>' +
+    '<div class="fsl-rvu-bar-row">' +
+      '<div class="fsl-rvu-bar-label"><span class="fsl-rvu-bar-name">Practice Expense RVU</span><span class="fsl-rvu-bar-val">' + fmt(r.peRVU, 3) + '</span></div>' +
+      '<div class="fsl-rvu-bar-track"><div class="fsl-rvu-bar-fill bar-pe" style="width:' + (r.peRVU/maxRvu*100).toFixed(1) + '%"></div></div>' +
+    '</div>' +
+    '<div class="fsl-rvu-bar-row">' +
+      '<div class="fsl-rvu-bar-label"><span class="fsl-rvu-bar-name">Malpractice RVU</span><span class="fsl-rvu-bar-val">' + fmt(r.mpRVU, 3) + '</span></div>' +
+      '<div class="fsl-rvu-bar-track"><div class="fsl-rvu-bar-fill bar-mp" style="width:' + (r.mpRVU/maxRvu*100).toFixed(1) + '%"></div></div>' +
+    '</div>';
+
+  var rvuTbody = document.getElementById('fslRvuTbody');
+  rvuTbody.innerHTML = '';
+  var rvuRows = [
+    ['Work RVU', fmt(r.wRVU, 3), fmt(r.wGPCI, 3), fmt(r.wRVU_adj, 3), fmtDollar(r.wRVU_adj * r.cf)],
+    ['Practice Expense RVU', fmt(r.peRVU, 3), fmt(r.peGPCI, 3), fmt(r.peRVU_adj, 3), fmtDollar(r.peRVU_adj * r.cf)],
+    ['Malpractice RVU', fmt(r.mpRVU, 3), fmt(r.mpGPCI, 3), fmt(r.mpRVU_adj, 3), fmtDollar(r.mpRVU_adj * r.cf)],
+    ['<strong>Total</strong>', '<strong>' + fmt(r.totalRVU_nat, 3) + '</strong>', '—', '<strong>' + fmt(r.totalRVU_adj, 3) + '</strong>', '<strong class="amount">' + fmtDollar(r.payAdj) + '</strong>'],
+  ];
+  rvuRows.forEach(function(row){
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td>' + row[0] + '</td><td class="mono">' + row[1] + '</td><td class="mono">' + row[2] + '</td><td class="mono">' + row[3] + '</td><td class="mono">' + row[4] + '</td>';
+    rvuTbody.appendChild(tr);
+  });
+
+  // ── Locality ──
+  var gpciNote = r.stateKey === 'national'
+    ? 'You selected <strong>National Average</strong>. All GPCIs are 1.000. Select a state from the dropdown to see locality-adjusted payments.'
+    : '<strong>' + r.localityLabel + '</strong> — Work GPCI: ' + fmt(r.wGPCI, 3) + ' · PE GPCI: ' + fmt(r.peGPCI, 3) + ' · MP GPCI: ' + fmt(r.mpGPCI, 3) + '. Locality-adjusted payment differs from national by ' + diffSign + fmtDollar(r.payDiff) + ' (' + diffSign + fmt(r.payDiffPct, 1) + '%).';
+  document.getElementById('fslGpciExplain').innerHTML = '📍 ' + gpciNote;
+  document.getElementById('fslLocalityHeaderLabel').textContent = r.stateKey === 'national' ? 'Locality (Same)' : r.localityLabel.split('—')[0].trim();
+  document.getElementById('fslLocalityRows').innerHTML =
+    '<div class="fsl-compare-row"><span class="fsl-compare-key">National Medicare Payment</span><div class="fsl-compare-vals"><span class="fsl-compare-nat">' + fmtDollar(r.payNat) + '</span></div></div>' +
+    '<div class="fsl-compare-row"><span class="fsl-compare-key">Locality-Adjusted Payment</span><div class="fsl-compare-vals"><span class="fsl-compare-loc">' + fmtDollar(r.payAdj) + '</span></div></div>' +
+    '<div class="fsl-compare-row"><span class="fsl-compare-key">Difference</span><div class="fsl-compare-vals"><span class="fsl-compare-loc" style="color:' + (r.payDiff>=0?'var(--green-400)':'var(--red-400)') + '">' + diffSign + fmtDollar(r.payDiff) + ' (' + diffSign + fmt(r.payDiffPct,1) + '%)</span></div></div>';
+  var gpciTbody = document.getElementById('fslGpciTbody');
+  gpciTbody.innerHTML = '';
+  [
+    ['Work GPCI', '1.000', fmt(r.wGPCI, 3), fmt(r.wGPCI - 1.000, 3)],
+    ['Practice Expense GPCI', '1.000', fmt(r.peGPCI, 3), fmt(r.peGPCI - 1.000, 3)],
+    ['Malpractice GPCI', '1.000', fmt(r.mpGPCI, 3), fmt(r.mpGPCI - 1.000, 3)],
+  ].forEach(function(row){
+    var diffNum = parseFloat(row[3]);
+    var diffColor = diffNum > 0 ? 'var(--green-400)' : (diffNum < 0 ? 'var(--red-400)' : 'var(--text-muted)');
+    var diffStr = (diffNum >= 0 ? '+' : '') + row[3];
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td>' + row[0] + '</td><td class="mono">1.000</td><td class="mono" style="font-weight:700;color:hsl(220,85%,68%)">' + row[2] + '</td><td class="mono" style="color:' + diffColor + '">' + diffStr + '</td>';
+    gpciTbody.appendChild(tr);
+  });
+
+  // ── Commercial ──
+  var cards = '';
+  PAYERS.forEach(function(p){
+    var lo = (r.payAdj * p.pctLow / 100);
+    var hi = (r.payAdj * p.pctHigh / 100);
+    var isMedicare = p.id === 'medicare';
+    var rangeStr = isMedicare ? fmtDollar(r.payAdj) : fmtDollar(lo) + ' – ' + fmtDollar(hi);
+    var pctStr = isMedicare ? '100% of Medicare' : p.pctLow + '%–' + p.pctHigh + '% of Medicare';
+    cards += '<div class="fsl-payer-card" style="background:' + p.color + ';border-color:' + p.borderColor + '">' +
+      '<div class="fsl-payer-left">' +
+        '<div class="fsl-payer-icon" style="background:' + p.borderColor + '">' + p.icon + '</div>' +
+        '<div>' +
+          '<div class="fsl-payer-name">' + p.name + '</div>' +
+          '<div class="fsl-payer-pct">' + pctStr + ' · ' + p.note + '</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="fsl-payer-right">' +
+        '<div class="fsl-payer-range">' + rangeStr + '</div>' +
+        '<div class="fsl-payer-label">Estimated ' + r.year + ' reimbursement</div>' +
+      '</div>' +
+    '</div>';
+  });
+  document.getElementById('fslPayerCards').innerHTML = cards;
+}
+
+// ── Copy & Export ────────────────────────────────────────────
+function copyResults() {
+  if (!_lastResult) return;
+  var r = _lastResult;
+  var posLabel = r.pos === 'nf' ? 'Non-Facility' : 'Facility';
+  var text =
+    'MEDICARE FEE SCHEDULE LOOKUP — RCM Denials\n' +
+    '=============================================\n' +
+    'CPT Code:       ' + r.cpt + '\n' +
+    'Description:    ' + r.desc + '\n' +
+    'Place of Service: ' + posLabel + '\n' +
+    'Locality:       ' + r.localityLabel + '\n' +
+    'Year:           CY ' + r.year + '\n' +
+    'Conversion Factor: $' + fmt(r.cf, 4) + '\n\n' +
+    'RVU Components:\n' +
+    '  Work RVU:     ' + fmt(r.wRVU, 3) + ' × GPCI ' + fmt(r.wGPCI, 3) + ' = ' + fmt(r.wRVU_adj, 3) + '\n' +
+    '  PE RVU:       ' + fmt(r.peRVU, 3) + ' × GPCI ' + fmt(r.peGPCI, 3) + ' = ' + fmt(r.peRVU_adj, 3) + '\n' +
+    '  MP RVU:       ' + fmt(r.mpRVU, 3) + ' × GPCI ' + fmt(r.mpGPCI, 3) + ' = ' + fmt(r.mpRVU_adj, 3) + '\n' +
+    '  Total Adj RVUs: ' + fmt(r.totalRVU_adj, 3) + '\n\n' +
+    'Medicare Payment:\n' +
+    '  National:     ' + fmtDollar(r.payNat) + '\n' +
+    '  Locality-Adj: ' + fmtDollar(r.payAdj) + '\n\n' +
+    'Modeled Commercial Estimates (locality-adjusted):\n';
+  PAYERS.forEach(function(p){
+    var lo = (r.payAdj * p.pctLow / 100);
+    var hi = (r.payAdj * p.pctHigh / 100);
+    var rangeStr = p.id === 'medicare' ? fmtDollar(r.payAdj) : fmtDollar(lo) + ' – ' + fmtDollar(hi);
+    text += '  ' + p.name + ': ' + rangeStr + '\n';
+  });
+  text += '\nSource: CMS 2024 MPFS PUF. Commercial estimates are modeled — not actual contracted rates.\nGenerated by RCM Denials · rcmdenials.com';
+
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(function(){
+      showToast('✅ Fee schedule summary copied to clipboard');
+    });
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
+    showToast('✅ Copied to clipboard');
+  }
+}
+
+function downloadCsv() {
+  if (!_lastResult) return;
+  var r = _lastResult;
+  var rows = [
+    ['Field','Value'],
+    ['CPT Code', r.cpt],
+    ['Description', '"' + r.desc.replace(/"/g, '""') + '"'],
+    ['Year', r.year],
+    ['Place of Service', r.pos === 'nf' ? 'Non-Facility' : 'Facility'],
+    ['Locality', '"' + r.localityLabel + '"'],
+    ['Conversion Factor', r.cf],
+    ['Work RVU', r.wRVU],
+    ['PE RVU', r.peRVU],
+    ['MP RVU', r.mpRVU],
+    ['Total National RVUs', r.totalRVU_nat.toFixed(3)],
+    ['Work GPCI', r.wGPCI],
+    ['PE GPCI', r.peGPCI],
+    ['MP GPCI', r.mpGPCI],
+    ['Adjusted Work RVU', r.wRVU_adj.toFixed(3)],
+    ['Adjusted PE RVU', r.peRVU_adj.toFixed(3)],
+    ['Adjusted MP RVU', r.mpRVU_adj.toFixed(3)],
+    ['Total Adjusted RVUs', r.totalRVU_adj.toFixed(3)],
+    ['National Medicare Payment', r.payNat.toFixed(2)],
+    ['Locality-Adjusted Medicare Payment', r.payAdj.toFixed(2)],
+    ['Locality Adjustment Difference', r.payDiff.toFixed(2)],
+  ];
+  PAYERS.forEach(function(p){
+    var lo = (r.payAdj * p.pctLow / 100).toFixed(2);
+    var hi = (r.payAdj * p.pctHigh / 100).toFixed(2);
+    rows.push([p.name + ' Estimated Low', lo]);
+    rows.push([p.name + ' Estimated High', hi]);
+  });
+  rows.push(['Source', 'CMS 2024 MPFS PUF — RCM Denials (rcmdenials.com)']);
+
+  var csv = rows.map(function(r){ return r.join(','); }).join('\n');
+  var blob = new Blob([csv], { type:'text/csv' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url; a.download = 'fee-schedule-cpt-' + r.cpt + '-' + r.year + '.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('⬇ CSV downloaded');
+}
+
+// ── Toast ──────────────────────────────────────────────────
+function showToast(msg) {
+  var tc = document.getElementById('toastContainer');
+  var t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  tc.appendChild(t);
+  setTimeout(function(){ t.classList.add('visible'); }, 10);
+  setTimeout(function(){ t.classList.remove('visible'); setTimeout(function(){ if(t.parentNode)t.parentNode.removeChild(t); }, 400); }, 3200);
+}
+
+// ── Keyboard shortcut ──────────────────────────────────────
+document.getElementById('fslCpt').addEventListener('keydown', function(e){
+  if (e.key === 'Enter') runLookup();
+});
+
+// ── Theme Toggle ───────────────────────────────────────────
+(function() {
+  var btn = document.getElementById('btnTheme');
+  if (btn) {
+    btn.addEventListener('click', function() {
+      var html = document.documentElement;
+      var current = html.getAttribute('data-theme');
+      var next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('rcm_theme', next);
+      btn.textContent = next === 'dark' ? '🌙' : '☀️';
+    });
+    var t = document.documentElement.getAttribute('data-theme');
+    btn.textContent = t === 'dark' ? '🌙' : '☀️';
+  }
+})();
+</script>
+</body>
+</html>

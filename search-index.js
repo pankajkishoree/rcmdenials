@@ -651,6 +651,7 @@ var SEARCH_INDEX = [
   { id:'tool-batch-tracker', title:'Medical Claims Tracker', desc:'Track and manage multiple claims with batch operations', url:'medical-claims-tracker.html', cat:'tool', icon:'🛠', keywords:'medical claims tracker batch manage multiple bulk operations claim tracking' },
   { id:'tool-post-call', title:'AI Medical Call Notes Generator', desc:'Generate professional AR call summary notes', url:'ai-medical-call-notes-generator.html', cat:'tool', icon:'🛠', keywords:'ai medical call notes generator post call summary notes ar documentation export' },
   { id:'tool-icd10', title:'ICD-10 Code Lookup', desc:'Searchable ICD-10-CM code database with descriptions', url:'icd-10-code-lookup.html', cat:'tool', icon:'🛠', keywords:'icd-10 code lookup diagnosis codes cm search database codes medical' },
+  { id:'tool-necessity-checklist', title:'Medical Necessity Checklist by CPT', desc:'Verify required clinical notes, reports, and supported diagnoses by CPT code', url:'medical-necessity-checklist-by-cpt.html', cat:'tool', icon:'🛠', keywords:'medical necessity checklist by cpt code clinical documentation requirements reports diagnoses prior auth limitations' },
 
   // ─── STATIC PAGES ───
   { id:'pg-home', title:'RCM Denials — Home', desc:'AI-powered denial management tools for healthcare AR teams', url:'index.html', cat:'page', icon:'🏠', keywords:'home rcm denials revenue cycle management denial management ai tools' },
@@ -691,5 +692,8 @@ var SEARCH_INDEX = [
   { id:'syn-ncci', title:'NCCI Edits', desc:'National Correct Coding Initiative edits preventing unbundling', url:'denial-codes/', cat:'page', icon:'🔗', keywords:'ncci national correct coding initiative edits bundling' },
   { id:'syn-mc', title:'Medicare', desc:'Federal health insurance for 65+ and disabled', url:'denial-codes/', cat:'page', icon:'🔗', keywords:'medicare federal government health insurance 65 elderly' },
   { id:'syn-md', title:'Medicaid', desc:'State-federal health insurance for low-income', url:'denial-codes/', cat:'page', icon:'🔗', keywords:'medicaid state federal low-income eligibility' },
-  { id:'syn-uv', title:'Utilization Review', desc:'Payer review of medical necessity', url:'denial-codes/', cat:'page', icon:'🔗', keywords:'utilization review medical necessity prior auth concurrent retrospective' }
+  { id:'syn-uv', title:'Utilization Review', desc:'Payer review of medical necessity', url:'denial-codes/', cat:'page', icon:'🔗', keywords:'utilization review medical necessity prior auth concurrent retrospective' },
+  // ── Tools ──
+  { id:'tool-fee-schedule', title:'Fee Schedule Lookup', desc:'Medicare physician fee schedule by CPT code — RVU, GPCI, and commercial estimates', url:'fee-schedule-lookup.html', cat:'tool', icon:'💲', keywords:'medicare fee schedule cpt lookup rvu calculator physician fee schedule gpci locality adjustment commercial payer rates work rvu practice expense malpractice rvu conversion factor reimbursement 2024' },
+  { id:'tool-necessity', title:'Medical Necessity Checklist by CPT', desc:'Verify clinical documentation requirements before claim submission', url:'medical-necessity-checklist-by-cpt.html', cat:'tool', icon:'📋', keywords:'medical necessity checklist cpt code documentation requirements clinical notes prior authorization billing guidance' }
 ];

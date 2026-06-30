@@ -7,14 +7,14 @@ Allow: /
 # Sitemap
 Sitemap: https://rcmdenials.com/sitemap.xml
 
-# Disallow admin/private paths
-Disallow: /api/
-Disallow: /_.wrangler/
-Disallow: /_new_data_entries.js
-Disallow: /_new_cards.html
-Disallow: /_audit*.py
-Disallow: /_fix_audit.py
-Disallow: /_fix_search_index.py
+# Disallow internal/tool directories and staging files
+Disallow: /_claim-risk-review/
+Disallow: /_coding-compliance-checker/
+Disallow: /_modifier-validator/
+Disallow: /_icd10/
+Disallow: /generate_denial_codes.py
+Disallow: /mass_generate_pages.py
+Disallow: /.wrangler/
 
 # Crawl-delay for polite bots
 Crawl-delay: 1
