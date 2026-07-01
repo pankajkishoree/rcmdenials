@@ -280,7 +280,13 @@ document.getElementById('calcSubDate').valueAsDate = new Date();
 // Load Payers
 (function(){
   var sel=document.getElementById('calcPayer');
-  if (typeof TIMELY_FILING_PAYERS === 'undefined') return;
+  if (typeof TIMELY_FILING_PAYERS === 'undefined') {
+      var o=document.createElement('option');
+      o.value="";
+      o.text="Database updating... Please wait a moment and refresh.";
+      sel.appendChild(o);
+      return;
+  }
   
   // Sort alphabetically
   var sorted = [...TIMELY_FILING_PAYERS].sort((a,b) => a.name.localeCompare(b.name));
