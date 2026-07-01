@@ -4516,6 +4516,7 @@ button:focus-visible,
 .static-nav a.active { color:var(--brand-400); background:var(--bg-tertiary); font-weight:700; }
 .static-header-actions { margin-left:auto; display:flex; gap:8px; align-items:center; }
 .static-main { flex:1; max-width:860px; margin:0 auto; padding:32px 24px 48px; width:100%; }
+.static-main.wide { max-width:1440px; padding:32px 32px 48px; }
 
 /* ── DENIAL CODE ARTICLE ─────────────────────────────────── */
 .denial-code-article { width:100%; }
