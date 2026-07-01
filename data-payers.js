@@ -5,7 +5,7 @@
    ============================================================ */
 'use strict';
 
-const TIMELY_FILING_PAYERS = [
+var TIMELY_FILING_PAYERS = [
   // 🏥 US Government Programs
   {
     id: "MEDICARE_PART_AB",
