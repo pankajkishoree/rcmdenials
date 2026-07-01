@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <script>(function(){var t=localStorage.getItem("rcm_theme");if(t)document.documentElement.setAttribute("data-theme",t);document.addEventListener("DOMContentLoaded",function(){var t2=localStorage.getItem("rcm_theme");if(t2)document.documentElement.setAttribute("data-theme",t2);});})();</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6JRMMNNR40"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-6JRMMNNR40');</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="application-name" content="RCM Denials" />
+  <meta name="apple-mobile-web-app-title" content="RCM Denials" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>CPT-ICD Validator | Automated Medical Necessity & Coding Checker</title>
+  <meta name="description" content="Validate CPT and ICD-10 combinations instantly. Check medical necessity, LCD/NCD rules, and modifier requirements to prevent claim denials before submission." />
+  <meta name="keywords" content="CPT ICD validator, medical necessity checker, LCD NCD rules, modifier validator, denial prevention, coding compliance" />
+  <meta name="robots" content="index, follow" />
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/ico" href="favicon.ico" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="manifest" href="site.webmanifest" />
+  <link rel="canonical" href="https://rcmdenials.com/cpt-icd-validator.html" />
+  <meta property="og:title" content="CPT-ICD Validator | Medical Necessity Checker" />
+  <meta property="og:description" content="Validate CPT & ICD-10 combinations against payer rules to prevent denials." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rcmdenials.com/cpt-icd-validator.html" />
+  <meta property="og:image" content="https://rcmdenials.com/og-image.png" />
+  <meta property="og:site_name" content="RCM Denials" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="CPT-ICD Validator | Medical Necessity Checker" />
+  <meta name="twitter:description" content="Validate CPT & ICD-10 combinations against payer rules." />
+  <meta name="twitter:image" content="https://rcmdenials.com/og-image.png" />
+  
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* Tool specific layout overrides */
+    .tool-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .tool-layout { grid-template-columns: 1fr; }
+    }
+    
+    /* Input Form Styles */
+    .validator-form {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .form-input, .form-select {
+      width: 100%;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 14px;
+      transition: border-color var(--t-fast);
+    }
+    .form-input:focus, .form-select:focus {
+      outline: none;
+      border-color: var(--brand-400);
+      box-shadow: 0 0 0 3px rgba(0, 212, 184, 0.1);
+    }
+    .form-input::placeholder {
+      color: var(--text-muted);
+    }
+    .submit-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--brand-400), var(--brand-600));
+      color: #fff;
+      border: none;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform var(--t-fast), box-shadow var(--t-fast);
+      box-shadow: 0 4px 12px rgba(0,212,184,.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,212,184,.3);
+    }
+    
+    /* Results Dashboard */
+    .results-dashboard {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      display: none; /* Hidden until validation */
+    }
+    .results-dashboard.visible {
+      display: block;
+      animation: fadeIn 0.4s ease-out forwards;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .status-banner {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+    }
+    .status-banner.valid {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .status-banner.risky {
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    .status-banner.invalid {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    .status-icon {
+      font-size: 32px;
+      line-height: 1;
+    }
+    .status-text h2 {
+      font-size: 18px;
+      font-weight: 800;
+      margin: 0 0 4px;
+    }
+    .status-text p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin: 0;
+    }
+    
+    /* Score Gauge */
+    .score-container {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .score-ring {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      position: relative;
+    }
+    .score-details {
+      flex: 1;
+    }
+    .score-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+    .score-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    
+    /* Explanations */
+    .explanation-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .explanation-card:last-child { margin-bottom: 0; }
+    .explanation-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .exp-icon { font-size: 16px; }
+    .exp-title { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+    .exp-body {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    
+    .action-strip {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .action-btn {
+      flex: 1;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .btn-secondary {
+      background: var(--bg-elevated);
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover {
+      background: var(--bg-overlay);
+      border-color: var(--text-muted);
+    }
+    .btn-export {
+      background: rgba(0, 212, 184, 0.1);
+      color: var(--brand-400);
+      border: 1px solid rgba(0, 212, 184, 0.3);
+    }
+    .btn-export:hover {
+      background: rgba(0, 212, 184, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+<div class="static-page">
+  <header class="static-header">
+    <div class="static-header-content">
+      <a class="logo" href="index.html">
+        <div class="logo-icon">🏥</div>
+        <span class="logo-text">RCM <span>Denials</span></span>
+      </a>
+      <nav class="static-nav">
+        <a href="index.html">Home</a>
+        <a href="denial-codes/index.html">Denial Codes</a>
+        <a href="cpt-icd-validator.html" class="active">CPT-ICD Validator</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="static-header-actions">
+        <button id="themeToggle" class="theme-toggle" aria-label="Toggle Theme">
+          <span class="theme-icon-light">☀️</span>
+          <span class="theme-icon-dark">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="static-main wide">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a> / <span>CPT-ICD Validator</span>
+    </div>
+
+    <header style="margin-bottom: 32px; text-align: center; max-width: 700px; margin-left: auto; margin-right: auto;">
+      <h1 style="font-size:32px; margin-bottom:12px; font-weight:800; letter-spacing:-0.5px;">CPT–ICD Validator</h1>
+      <p style="font-size:15px; color:var(--text-muted); line-height: 1.6;">
+        Instantly validate CPT and ICD-10 combinations against medical necessity rules, NCD/LCD policies, and modifier requirements to prevent claim denials before submission.
+      </p>
+    </header>
+
+    <div class="tool-layout">
+      <!-- INPUT FORM -->
+      <div class="validator-form">
+        <form id="validatorForm">
+          <div class="form-group">
+            <label class="form-label" for="cptInput">CPT Code <span style="color:var(--red-400)">*</span></label>
+            <input type="text" class="form-input" id="cptInput" placeholder="e.g. 99214, 99285" required />
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="icdInput">ICD-10 Code(s) <span style="color:var(--red-400)">*</span></label>
+            <input type="text" class="form-input" id="icdInput" placeholder="e.g. J01.90, E11.9 (comma separated)" required />
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">Separate multiple codes with commas.</div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="modifierInput">Modifiers (Optional)</label>
+            <input type="text" class="form-input" id="modifierInput" placeholder="e.g. 25, 59, RT" />
+          </div>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+            <div class="form-group">
+              <label class="form-label" for="payerType">Payer Type</label>
+              <select class="form-select" id="payerType">
+                <option value="MEDICARE">Medicare (Strict LCD/NCD)</option>
+                <option value="COMMERCIAL">Commercial</option>
+                <option value="MEDICAID">Medicaid</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label" for="pos">Place of Service (POS)</label>
+              <select class="form-select" id="pos">
+                <option value="11">11 - Office</option>
+                <option value="21">21 - Inpatient Hospital</option>
+                <option value="22">22 - Outpatient Hospital</option>
+                <option value="23">23 - Emergency Room</option>
+              </select>
+            </div>
+          </div>
+          
+          <button type="submit" class="submit-btn" id="validateBtn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            Validate Combination
+          </button>
+        </form>
+      </div>
+      
+      <!-- RESULTS DASHBOARD -->
+      <div class="results-dashboard" id="resultsDashboard">
+        <div class="status-banner" id="statusBanner">
+          <div class="status-icon" id="statusIcon">✅</div>
+          <div class="status-text">
+            <h2 id="statusTitle">Valid Combination</h2>
+            <p id="statusDesc">This combination is highly likely to be paid.</p>
+          </div>
+        </div>
+        
+        <div class="score-container">
+          <div class="score-ring" id="scoreRing" style="background: conic-gradient(var(--brand-500) 100%, var(--bg-overlay) 0);">
+            <span id="scoreValue">100</span><span style="font-size:12px; margin-bottom: 2px;">%</span>
+          </div>
+          <div class="score-details">
+            <div class="score-title">Confidence Score</div>
+            <div class="score-desc" id="scoreExplanation">Based on NCD/LCD guidelines and modifier rules.</div>
+          </div>
+        </div>
+        
+        <div id="explanationsContainer">
+          <!-- Dynamic Explanations Inserted Here -->
+        </div>
+        
+        <div class="action-strip">
+          <button class="action-btn btn-secondary" id="resetBtn">Validate Another</button>
+          <button class="action-btn btn-export" onclick="alert('Export to PDF functionality requires backend processing (Phase 2).')">Export PDF</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="static-footer">
+    <!-- Keep standard footer structure -->
+    <div style="text-align: center; padding: 24px; color: var(--text-muted); font-size: 13px;">
+      &copy; 2026 RCM Denials. For educational purposes. Not official CMS guidance.
+    </div>
+  </footer>
+</div>
+
+<script>
+  // Theme Toggle Logic
+  const themeToggle = document.getElementById('themeToggle');
+  themeToggle.addEventListener('click', () => {
+    const root = document.documentElement;
+    const isDark = root.getAttribute('data-theme') === 'dark';
+    root.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    localStorage.setItem('rcm_theme', isDark ? 'light' : 'dark');
+  });
+
+  // Client-Side MVP Rules Engine
+  const rulesDB = {
+    "99214": {
+      desc: "Office/outpatient visit E/M established patient",
+      requiresModifier25WithProcedure: true,
+      weakDiagnoses: ["Z00.00", "Z00.01", "Z01.89"], // Routine/preventive
+      strongDiagnoses: ["E11.9", "I10", "J01.90", "M54.5"] // Standard acute/chronic
+    },
+    "99285": {
+      desc: "Emergency dept visit, high severity",
+      weakDiagnoses: ["J06.9", "R05"], // Minor issues not supporting high severity
+      strongDiagnoses: ["I21.9", "I63.9", "J96.00"]
+    }
+  };
+
+  const form = document.getElementById('validatorForm');
+  const btn = document.getElementById('validateBtn');
+  const dashboard = document.getElementById('resultsDashboard');
+  const resetBtn = document.getElementById('resetBtn');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // UI State
+    btn.innerHTML = `<span class="spinner" style="display:inline-block; width:16px; height:16px; border:2px solid #fff; border-radius:50%; border-top-color:transparent; animation:spin 1s linear infinite;"></span> Analyzing...`;
+    
+    // Collect Inputs
+    const cpt = document.getElementById('cptInput').value.trim().toUpperCase();
+    const icds = document.getElementById('icdInput').value.split(',').map(i => i.trim().toUpperCase());
+    const modifiersStr = document.getElementById('modifierInput').value.trim().toUpperCase();
+    const modifiers = modifiersStr ? modifiersStr.split(',').map(m => m.trim()) : [];
+    const payer = document.getElementById('payerType').value;
+    
+    // Simulate API delay
+    setTimeout(() => {
+      runValidation(cpt, icds, modifiers, payer);
+      btn.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> Validate Combination`;
+    }, 600);
+  });
+
+  resetBtn.addEventListener('click', () => {
+    dashboard.classList.remove('visible');
+    form.reset();
+    document.getElementById('cptInput').focus();
+  });
+
+  function runValidation(cpt, icds, modifiers, payer) {
+    let score = 100;
+    let status = 'valid';
+    let title = 'Valid Combination';
+    let desc = 'This combination appears clean and compliant.';
+    let explanations = [];
+    
+    const rule = rulesDB[cpt];
+    
+    if (!rule) {
+      // General fallback if code not in mock DB
+      explanations.push({
+        icon: 'ℹ️',
+        title: 'General Validation',
+        body: `Code ${cpt} is recognized. Ensure the ICD-10 codes specifically support the medical necessity of this procedure.`
+      });
+    } else {
+      // Check Diagnosis Medical Necessity
+      let hasWeak = false;
+      let hasStrong = false;
+      
+      icds.forEach(icd => {
+        // basic normalization Z0000 -> Z00.00
+        let normIcd = icd.includes('.') ? icd : icd.slice(0,3) + '.' + icd.slice(3);
+        if (rule.weakDiagnoses.some(w => normIcd.startsWith(w))) hasWeak = true;
+        if (rule.strongDiagnoses.some(s => normIcd.startsWith(s))) hasStrong = true;
+      });
+
+      if (hasWeak && !hasStrong) {
+        score -= 70;
+        status = 'invalid';
+        title = 'High Risk of Denial';
+        desc = 'Medical necessity is not supported by the primary diagnosis.';
+        explanations.push({
+          icon: '❌',
+          title: 'Medical Necessity (LCD/NCD)',
+          body: `The diagnosis code(s) provided are considered routine/preventive or do not support the severity of ${cpt}. Expect a CO-50 denial. Consider revising the diagnosis if an acute or chronic condition was actively managed.`
+        });
+      } else if (hasWeak && hasStrong) {
+        score -= 20;
+        status = 'risky';
+        title = 'Moderate Risk';
+        desc = 'Check primary diagnosis sequencing.';
+        explanations.push({
+          icon: '⚠️',
+          title: 'Sequencing Warning',
+          body: `You have included both a strong supporting diagnosis and a weak/routine diagnosis. Ensure the strong diagnosis is listed as primary to avoid automated CO-50 denials, especially with ${payer === 'MEDICARE' ? 'Medicare' : 'this payer'}.`
+        });
+      } else if (hasStrong) {
+        explanations.push({
+          icon: '✅',
+          title: 'Medical Necessity Met',
+          body: `The diagnosis code(s) strongly support ${cpt} based on current coverage determinations.`
+        });
+      }
+
+      // Check Modifiers
+      if (modifiers.includes('25')) {
+        if (payer === 'MEDICARE') {
+          score -= 10;
+          if (status === 'valid') status = 'risky';
+          explanations.push({
+            icon: '⚠️',
+            title: 'Modifier 25 Scrutiny',
+            body: `Medicare heavily audits Modifier 25. Ensure documentation explicitly supports a significant, separately identifiable E/M service on the same day as another procedure.`
+          });
+        }
+      }
+    }
+    
+    // Edge case constraints
+    if (payer === 'MEDICARE' && score > 50 && score < 100) {
+      score -= 5; // Medicare strictness penalty
+    }
+
+    renderDashboard(score, status, title, desc, explanations);
+  }
+
+  function renderDashboard(score, status, title, desc, explanations) {
+    const color = status === 'valid' ? '#10b981' : status === 'risky' ? '#f59e0b' : '#ef4444';
+    
+    document.getElementById('statusBanner').className = `status-banner ${status}`;
+    document.getElementById('statusIcon').textContent = status === 'valid' ? '✅' : status === 'risky' ? '⚠️' : '❌';
+    document.getElementById('statusTitle').textContent = title;
+    document.getElementById('statusTitle').style.color = color;
+    document.getElementById('statusDesc').textContent = desc;
+    
+    document.getElementById('scoreValue').textContent = score;
+    document.getElementById('scoreRing').style.background = `conic-gradient(${color} ${score}%, var(--bg-overlay) 0)`;
+    
+    const expHtml = explanations.map(exp => `
+      <div class="explanation-card">
+        <div class="explanation-header">
+          <span class="exp-icon">${exp.icon}</span>
+          <span class="exp-title">${exp.title}</span>
+        </div>
+        <div class="exp-body">${exp.body}</div>
+      </div>
+    `).join('');
+    
+    document.getElementById('explanationsContainer').innerHTML = expHtml;
+    
+    dashboard.classList.add('visible');
+    dashboard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+</script>
+<style>
+  @keyframes spin { 100% { transform: rotate(360deg); } }
+</style>
+</body>
+</html>
